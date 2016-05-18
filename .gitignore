@@ -1,0 +1,13 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+/src/main/resources/log4j.properties
+.classpath
+.project
+.settings
+.directory
+
+horus-core/src/resources/log

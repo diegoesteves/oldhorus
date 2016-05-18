@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>horus-parent</artifactId>
+        <groupId>org.aksw.horus</groupId>
+        <version>1.0</version>
+    </parent>
+    <name>core</name>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>core</artifactId>
+    <repositories>
+        <repository>
+            <id>OpenIMAJ maven releases repository</id>
+            <url>http://maven.openimaj.org</url>
+        </repository>
+        <repository>
+            <id>OpenIMAJ maven snapshots repository</id>
+            <url>http://snapshots.openimaj.org</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <!-- http://imagej.net/Maven -->
+        <repository>
+            <id>imagej.public</id>
+            <url>http://maven.imagej.net/content/groups/public</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.axtimwalde</groupId>
+            <artifactId>mpicbg</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!-- google search engine -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-customsearch</artifactId>
+            <version>v1-rev48-1.21.0</version>
+        </dependency>
+        <!-- face detection -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <!-- face detection / OpenIMAJ-->
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>core</artifactId>
+            <version>1.3.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>core-image</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>faces</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+        <!-- bing search engine -->
+        <dependency>
+            <groupId>net.billylieurance.azuresearch</groupId>
+            <artifactId>azure-bing-search-java</artifactId>
+            <version>0.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.3.3</version>
+        </dependency>
+        <!-- ini file -->
+        <dependency>
+            <groupId>org.ini4j</groupId>
+            <artifactId>ini4j</artifactId>
+            <version>0.5.1</version>
+        </dependency>
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <!-- solr -->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-core</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <!-- imageJ processing-->
+        <!-- http://mvnrepository.com/artifact/gov.nih.imagej/imagej -->
+        <dependency>
+            <groupId>gov.nih.imagej</groupId>
+            <artifactId>imagej</artifactId>
+            <version>1.47</version>
+        </dependency>
+    </dependencies>
+</project>

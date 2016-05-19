@@ -2509,3 +2509,9 @@
 14:15:57,353 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
 14:15:57,376 DEBUG AzureBingSearchEngine:114 - Document has been saved: 12ea4e6d-3764-4c45-a670-675362581dea
 14:15:57,376 DEBUG AzureBingSearchEngine:127 - process finished
+17:42:59,730 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/1-Eggon-Silva-Luto-O-Correio-do-Povo-400x250.jpg
+17:43:23,623 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/2-50px-Joao_Gabriel_Da_Silva.JPG
+17:43:36,843 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/3-AG_obra_Otnge79m92Ux_3_6_2013.jpg
+17:43:45,077 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/4-dasilva.jpg
+17:43:45,502 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/5-dasilva2.jpg
+17:43:45,556 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/6-heike-blank.jpg

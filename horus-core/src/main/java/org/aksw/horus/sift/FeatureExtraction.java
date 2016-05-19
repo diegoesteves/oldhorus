@@ -7,9 +7,12 @@ import mpicbg.ij.SIFT;
 import mpicbg.imagefeatures.Feature;
 import mpicbg.imagefeatures.FloatArray2DSIFT;
 import org.aksw.horus.core.util.Global;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.activation.MimetypesFileTypeMap;
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -34,13 +37,35 @@ public class FeatureExtraction {
 
 
             FloatArray2DSIFT.Param p = new FloatArray2DSIFT.Param();
+            String ext = FilenameUtils.getExtension("/path/to/file/foo.txt");
 
-            FeatureExtraction fe = new FeatureExtraction(p, "/Users/dnes/Github/Horus/horus-core/src/main/resources/person/1-Eggon-Silva-Luto-O-Correio-do-Povo-400x250.jpg");
-            ArrayList<Feature> features = fe.extractFeatures();
+            //extracting all features for PERSON
+            File dir = new File("/Users/dnes/Github/Horus/horus-core/src/main/resources/person/");
+            File[] directoryListing = dir.listFiles();
+            if (directoryListing != null) {
+                for (File d : directoryListing) {
+                    String mimetype = new MimetypesFileTypeMap().getContentType(d.getName());
+                    String type = mimetype.split("/")[0];
+                    if(type.equals("image")){
 
-            for (Feature f: features){
-                fe.serializeFeatures("horus","test.jpg",f);
+                        FeatureExtraction fe = new FeatureExtraction(p, d.getAbsolutePath());
+                        ArrayList<Feature> features = fe.extractFeatures();
+
+                        Global.getInstance().serializeObject(features, "/Users/dnes/Github/Horus/features/person/", d.getName());
+
+                        //for (Feature f: features){
+
+                        //}
+                    }
+
+
+                }
             }
+
+
+
+
+
 
 
         }catch (Exception e){
@@ -70,26 +95,6 @@ public class FeatureExtraction {
     }
 
 
-    public void serializeFeatures(String prefix, String imageName, Feature f) throws Exception {
-
-        final String name = prefix == null ? "features" : prefix + ".features";
-
-
-        Global.getInstance().serializeObject(f, "\\Users\\dnes\\Github", "test");
-
-
-
-
-
-        String ret = new StringBuilder()
-                .append( "features.ser/" )
-                .append(imageName)
-                .append(name).toString();
-
-
-
-
-    }
 
 
 

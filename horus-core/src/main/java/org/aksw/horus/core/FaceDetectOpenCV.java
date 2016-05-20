@@ -8,7 +8,6 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.objdetect.CascadeClassifier;
 import org.slf4j.LoggerFactory;
 
-import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 
 /**
@@ -23,7 +22,18 @@ public class FaceDetectOpenCV {
 
     public FaceDetectOpenCV(){
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml");
+        //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml");
+        //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_eye.xml");
+        //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_alt2.xml"); //better
+
+
+        //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_alt_tree.xml");
+        this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"); //better
+
+
+
+
+
 
     }
 
@@ -33,9 +43,12 @@ public class FaceDetectOpenCV {
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File d : directoryListing) {
-                String mimetype = new MimetypesFileTypeMap().getContentType(d.getName());
-                String type = mimetype.split("/")[0];
-                if (type.equals("image")) {
+
+
+                //String mimetype = new MimetypesFileTypeMap().getContentType(d.getName());
+                //String type = mimetype.split("/")[0];
+                //if (type.equals("image")) {
+                if (d.getName().endsWith(".jpg") || d.getName().endsWith(".pgm") || d.getName().endsWith(".png")){
 
                     Mat image = Imgcodecs.imread(d.getAbsolutePath());
                     MatOfRect faceDetections = new MatOfRect();

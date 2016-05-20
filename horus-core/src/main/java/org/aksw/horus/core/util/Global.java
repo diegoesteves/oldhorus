@@ -64,12 +64,12 @@ public class Global {
         }
     }
 
-    public static ArrayList<Feature> deserializeFeatures(String filePath, String fileName) throws Exception {
+    public static ArrayList<Feature> deserializeFeatures(File file) throws Exception {
 
         try {
 
             ArrayList<Feature> features = null;
-            FileInputStream inputFileStream = new FileInputStream(filePath + fileName);
+            FileInputStream inputFileStream = new FileInputStream(file.getAbsoluteFile());
             ObjectInputStream objectInputStream = new ObjectInputStream(inputFileStream);
             features = (ArrayList<Feature>) objectInputStream.readObject();
             objectInputStream.close();

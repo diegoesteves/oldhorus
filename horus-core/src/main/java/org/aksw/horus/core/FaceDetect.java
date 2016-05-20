@@ -1,8 +1,11 @@
 package org.aksw.horus.core;
 
 import org.bytedeco.javacpp.opencv_core;
+import org.bytedeco.javacpp.opencv_core.*;
 import org.bytedeco.javacpp.opencv_face;
 import org.bytedeco.javacpp.opencv_objdetect;
+import org.bytedeco.javacpp.opencv_imgcodecs;
+import org.bytedeco.javacpp.opencv_imgproc;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -12,6 +15,9 @@ import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import static org.bytedeco.javacpp.opencv_face.createFisherFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgcodecs.CV_LOAD_IMAGE_GRAYSCALE;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.bytedeco.javacpp.opencv_imgcodecs.*;
+import org.bytedeco.javacpp.opencv_imgcodecs;
+
 
 
 /**
@@ -65,6 +71,24 @@ public class FaceDetect {
         return false;
     }
     */
+
+    private void classify(){
+
+
+        opencv_objdetect.CascadeClassifier faceDetector = new opencv_objdetect.CascadeClassifier(this.getClass()
+                .getResource("/lbpcascade_frontalface.xml").getPath());
+
+        opencv_core.Mat image = opencv_imgcodecs.imread(getClass().getResource(
+                "/AverageMaleFace.jpg").getPath());
+
+        opencv_core.MatOfRect faceDetections = new MatOfRect();
+        faceDetector.detectMultiScale(image, faceDetections);
+
+        System.out.println(String.format("Detected %s faces",
+                faceDetections.toArray().length));
+
+
+    }
 
 
     public static void main(String[] args) {

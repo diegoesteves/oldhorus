@@ -2515,3 +2515,4 @@
 17:43:45,077 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/4-dasilva.jpg
 17:43:45,502 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/5-dasilva2.jpg
 17:43:45,556 DEBUG Global:59 - Serialized data is saved in /Users/dnes/Github/Horus/features/person/6-heike-blank.jpg
+16:30:51,358 ERROR Global:80 - java.io.FileNotFoundException: /Users/dnes/Github/Horus/features/person/1-Eggon-Silva-Luto-O-Correio-do-Povo-400x250.jpg.ser1-Eggon-Silva-Luto-O-Correio-do-Povo-400x250.jpg.ser (No such file or directory)

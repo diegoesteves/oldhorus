@@ -46,12 +46,6 @@
             <artifactId>google-api-services-customsearch</artifactId>
             <version>v1-rev48-1.21.0</version>
         </dependency>
-        <!-- face detection -->
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv</artifactId>
-            <version>1.1</version>
-        </dependency>
         <!-- face detection / OpenIMAJ-->
         <dependency>
             <groupId>org.openimaj</groupId>
@@ -114,6 +108,18 @@
             <groupId>gov.nih.imagej</groupId>
             <artifactId>imagej</artifactId>
             <version>1.47</version>
+        </dependency>
+        <dependency>
+            <groupId>nz.ac.waikato.cms.weka</groupId>
+            <artifactId>weka-stable</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+        <!-- a java wrapper for OpenCV-->
+        <!-- https://github.com/bytedeco/javacv -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 </project>

@@ -11,3 +11,5 @@ gen
 .directory
 
 horus-core/src/resources/log
+
+horus-core/target/

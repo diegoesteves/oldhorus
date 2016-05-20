@@ -1,11 +1,9 @@
 package org.aksw.horus.core;
 
 import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_core.*;
 import org.bytedeco.javacpp.opencv_face;
-import org.bytedeco.javacpp.opencv_objdetect;
 import org.bytedeco.javacpp.opencv_imgcodecs;
-import org.bytedeco.javacpp.opencv_imgproc;
+import org.bytedeco.javacpp.opencv_objdetect;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -15,15 +13,13 @@ import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 import static org.bytedeco.javacpp.opencv_face.createFisherFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgcodecs.CV_LOAD_IMAGE_GRAYSCALE;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
-import static org.bytedeco.javacpp.opencv_imgcodecs.*;
-import org.bytedeco.javacpp.opencv_imgcodecs;
 
 
 
 /**
  * Created by dnes on 09/04/16.
  */
-public class FaceDetect {
+public class FaceDetectJavaCV {
 
     // Create memory for calculations
     opencv_core.CvMemStorage storage = null;
@@ -38,7 +34,7 @@ public class FaceDetect {
             "./classifiers/haarcascade_profileface.xml" };
 
     /*
-    public FaceDetect() {
+    public FaceDetectJavaCV() {
         // Allocate the memory storage
         storage = opencv_core.CvMemStorage.create();
 
@@ -79,14 +75,14 @@ public class FaceDetect {
                 .getResource("/lbpcascade_frontalface.xml").getPath());
 
         opencv_core.Mat image = opencv_imgcodecs.imread(getClass().getResource(
-                "/AverageMaleFace.jpg").getPath());
+                "/pic.jpg").getPath());
 
-        opencv_core.MatOfRect faceDetections = new MatOfRect();
+      /*  opencv_core.MatOfRect faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(image, faceDetections);
 
         System.out.println(String.format("Detected %s faces",
                 faceDetections.toArray().length));
-
+*/
 
     }
 

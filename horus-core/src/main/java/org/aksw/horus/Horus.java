@@ -21,14 +21,11 @@ import java.util.Properties;
  */
 public abstract class Horus {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Horus.class);
-    public static HorusConfig HORUS_CONFIG;
-
-    private List<HorusContainer> _container;
-
-    public Horus(){
-        this._container = new ArrayList<>();
-    }
+    private static       List<HorusContainer> _lstContainer    = new ArrayList<>();
+    public  static       HorusConfig          HORUS_CONFIG;
+    private static final Logger               LOGGER           = LoggerFactory.getLogger(Horus.class);
+    private static final double               PERSON_THRESHOLD = 0.8;
+    private static final int                  PERSON_MAX_ITENS = 50;
 
     public static void init(){
 
@@ -84,24 +81,30 @@ public abstract class Horus {
 
     public static void annotateWithStanford(String text) throws Exception{
 
+        LOGGER.debug("starting annotation with Stanford POS");
+
         try{
 
-            LOGGER.debug("starting annotation with Stanford POS");
+            int iSentence = 0;
+            int iTerm = 0;
 
             Properties props = new Properties();
             props.setProperty("annotators","tokenize, ssplit, pos");
 
             StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
             Annotation annotation = new Annotation(text);
             pipeline.annotate(annotation);
             List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
             for (CoreMap sentence : sentences) {
+                HorusContainer c = new HorusContainer(iSentence);
                 for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     String word = token.get(CoreAnnotations.TextAnnotation.class);
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                    System.out.println(word + "/" + pos);
+                    c.addTerm(new HorusTerm(iTerm, word, pos));
+                    iTerm++;
                 }
+                _lstContainer.add(c);
+                iSentence++; iTerm = 0;
             }
 
             LOGGER.debug("done!");
@@ -111,11 +114,30 @@ public abstract class Horus {
         }
     }
 
+    private static void printResults(){
+
+        for (HorusContainer h : _lstContainer) {
+            LOGGER.info("Sentence: " + h.getIndex());
+            for (HorusTerm t : h.getTerms()) {
+                LOGGER.info("-- index: " + t.getIndex());
+                LOGGER.info("-- term: " + t.getTerm());
+                LOGGER.info("-- tagger: " + t.getPOS());
+            }
+            LOGGER.info("");
+        }
+
+
+    }
+
     public static void main(String[] args) {
 
         try{
 
-            annotateWithStanford("diego esteves");
+            String text = "diego esteves. what's going on orlando?";
+
+            annotateWithStanford(text);
+
+            printResults();
 
         }catch (Exception e){
             LOGGER.error(e.toString());

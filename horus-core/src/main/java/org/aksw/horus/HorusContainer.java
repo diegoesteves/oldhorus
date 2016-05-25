@@ -1,22 +1,20 @@
 package org.aksw.horus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by dnes on 25/05/16.
  */
 public class HorusContainer {
 
-    private int       _index;
-    private String    _term;
-    private String    _postagger;
-    private boolean   _person;
-    private double    _personProb;
-    private boolean   _location;
-    private double    _locationProb;
-    private boolean   _organisation;
-    private double    _organisationProb;
+    private int             _sentenceId;
+    private int             _index;
+    private List<HorusTerm> _terms;
 
-    public HorusContainer(){
-
+    public HorusContainer(int index){
+        this._terms = new ArrayList<>();
+        this._index = index;
     }
 
     public int getIndex() {
@@ -27,68 +25,12 @@ public class HorusContainer {
         this._index = _index;
     }
 
-    public String getPOS() {
-        return _postagger;
+    public List<HorusTerm> getTerms(){
+        return this._terms;
     }
 
-    public void setPOS(String _postagger) {
-        this._postagger = _postagger;
-    }
-
-    public String getTerm() {
-        return _term;
-    }
-
-    public void setTerm(String _term) {
-        this._term = _term;
-    }
-
-    public boolean isPerson() {
-        return _person;
-    }
-
-    public void setPerson(boolean _person) {
-        this._person = _person;
-    }
-
-    public double getPersonProb() {
-        return _personProb;
-    }
-
-    public void setPersonProb(double _personProb) {
-        this._personProb = _personProb;
-    }
-
-    public boolean isLocation() {
-        return _location;
-    }
-
-    public void setLocation(boolean _location) {
-        this._location = _location;
-    }
-
-    public double getLocationProb() {
-        return _locationProb;
-    }
-
-    public void setLocationProb(double _locationProb) {
-        this._locationProb = _locationProb;
-    }
-
-    public boolean isOrganisation() {
-        return _organisation;
-    }
-
-    public void setOrganisation(boolean _organisation) {
-        this._organisation = _organisation;
-    }
-
-    public double getOrganisationProb() {
-        return _organisationProb;
-    }
-
-    public void setOrganisationProb(double _organisationProb) {
-        this._organisationProb = _organisationProb;
+    public void addTerm(HorusTerm t){
+        this._terms.add(t);
     }
 
 

@@ -32,4 +32,25 @@ public class Horus {
         }
     }
 
+    /**
+     * detect whether a word is likely to be a PERSON's name
+     * @param sentence a term that might represent a name or full name of a PERSON
+     * @return
+     */
+    public boolean isPerson(String sentence){
+
+        boolean ret = false;
+
+        try{
+            String[] terms = sentence.split("\\s+");
+
+        }catch(Exception e){
+
+        }
+
+
+        return ret;
+
+    }
+
 }

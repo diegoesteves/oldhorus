@@ -121,5 +121,17 @@
             <artifactId>javacv</artifactId>
             <version>1.2</version>
         </dependency>
+        <!-- stanford core -->
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.6.0</version>
+            <classifier>models</classifier>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.6.0</version>
+        </dependency>
     </dependencies>
 </project>

@@ -5,8 +5,9 @@ package org.aksw.horus;
  */
 public class HorusContainer {
 
-    private int       _pos;
+    private int       _index;
     private String    _term;
+    private String    _postagger;
     private boolean   _person;
     private double    _personProb;
     private boolean   _location;
@@ -18,12 +19,20 @@ public class HorusContainer {
 
     }
 
-    public int getPos() {
-        return _pos;
+    public int getIndex() {
+        return _index;
     }
 
-    public void setPos(int _pos) {
-        this._pos = _pos;
+    public void setIndex(int _index) {
+        this._index = _index;
+    }
+
+    public String getPOS() {
+        return _postagger;
+    }
+
+    public void setPOS(String _postagger) {
+        this._postagger = _postagger;
     }
 
     public String getTerm() {
@@ -81,6 +90,6 @@ public class HorusContainer {
     public void setOrganisationProb(double _organisationProb) {
         this._organisationProb = _organisationProb;
     }
-    
+
 
 }

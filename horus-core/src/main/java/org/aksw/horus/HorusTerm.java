@@ -74,6 +74,31 @@ public class HorusTerm {
         return _locationProb;
     }
 
+    public String getNER(){
+
+        Double maxval = findMax(this._locationProb, this._organisationProb, this._personProb);
+
+        if (maxval.equals(this._locationProb))
+                return "LOC";
+        if (maxval.equals(this._personProb))
+            return "PER";
+        if (maxval.equals(this._organisationProb))
+            return "ORG";
+
+        return "ERR";
+
+    }
+
+    private Double findMax(double... vals) {
+        double max = Double.NEGATIVE_INFINITY;
+
+        for (double d : vals) {
+            if (d > max) max = d;
+        }
+
+        return max;
+    }
+
     public void setLocationProb(double _locationProb) {
         this._locationProb = _locationProb;
     }

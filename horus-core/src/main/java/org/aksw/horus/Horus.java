@@ -114,14 +114,18 @@ public abstract class Horus {
         }
     }
 
-    private static void printResults(){
+    public static void printResults(){
 
         for (HorusContainer h : _lstContainer) {
-            LOGGER.info("Sentence: " + h.getIndex());
+            LOGGER.info(":: Sentence: " + h.getIndex());
             for (HorusTerm t : h.getTerms()) {
-                LOGGER.info("-- index: " + t.getIndex());
-                LOGGER.info("-- term: " + t.getTerm());
-                LOGGER.info("-- tagger: " + t.getPOS());
+                LOGGER.info("  -- index     : " + t.getIndex());
+                LOGGER.info("  -- term      : " + t.getTerm());
+                LOGGER.info("  -- tagger    : " + t.getPOS());
+                LOGGER.info("  -- P(LOC)    : " + String.valueOf(t.getLocationProb()));
+                LOGGER.info("  -- P(PER)    : " + String.valueOf(t.getPersonProb()));
+                LOGGER.info("  -- P(ORG)    : " + String.valueOf(t.getOrganisationProb()));
+                LOGGER.info("  -- NER Class : " + t.getNER());
             }
             LOGGER.info("");
         }
@@ -135,6 +139,7 @@ public abstract class Horus {
 
             String text = "diego esteves. what's going on orlando?";
 
+
             annotateWithStanford(text);
 
             printResults();
@@ -143,6 +148,20 @@ public abstract class Horus {
             LOGGER.error(e.toString());
         }
 
+
+    }
+
+    public static HorusContainer annotate(String sentence){
+
+        init();
+        LOGGER.info("Annotating the Sentence...");
+
+        return new HorusContainer(0);
+
+    }
+
+    //TODO: integrate LOG4MEX and convert container to mex
+    public static void exportMEX(String s1, String s2, String s3, String s4){
 
     }
 

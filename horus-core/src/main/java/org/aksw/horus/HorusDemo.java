@@ -3,6 +3,7 @@ package org.aksw.horus;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,7 +13,7 @@ public class HorusDemo {
 
     public static Logger LOG       = LogManager.getLogger(HorusDemo.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         LOG.info("************************************************************************");
         LOG.info("*                          Starting HORUS                              *");
@@ -21,8 +22,9 @@ public class HorusDemo {
         long startTime = System.currentTimeMillis();
         LOG.info(startTime);
 
-        String sentence = "this is a test!";
-        HorusContainer container = Horus.annotate(sentence);
+        String sentence = "There you go diego! how's going leipzig?";
+
+        List<HorusContainer> container = Horus.annotate(sentence);
 
 
         long endTime   = System.currentTimeMillis();

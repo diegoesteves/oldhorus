@@ -76,6 +76,9 @@ public class HorusTerm {
 
     public String getNER(){
 
+        if (this._locationProb ==0d && this._organisationProb ==0 && this._personProb ==0)
+            return "-";
+
         Double maxval = findMax(this._locationProb, this._organisationProb, this._personProb);
 
         if (maxval.equals(this._locationProb))

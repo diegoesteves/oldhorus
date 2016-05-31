@@ -79,7 +79,7 @@ public abstract class Horus {
 
     }
 
-    public static void annotateWithStanford(String text) throws Exception{
+    private static void annotateWithStanford(String text) throws Exception{
 
         LOGGER.debug("starting annotation with Stanford POS");
 
@@ -96,7 +96,7 @@ public abstract class Horus {
             pipeline.annotate(annotation);
             List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
             for (CoreMap sentence : sentences) {
-                HorusContainer c = new HorusContainer(iSentence);
+                HorusContainer c = new HorusContainer(iSentence, sentence.toString());
                 for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     String word = token.get(CoreAnnotations.TextAnnotation.class);
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
@@ -117,7 +117,7 @@ public abstract class Horus {
     public static void printResults(){
 
         for (HorusContainer h : _lstContainer) {
-            LOGGER.info(":: Sentence: " + h.getIndex());
+            LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
             for (HorusTerm t : h.getTerms()) {
                 LOGGER.info("  -- index     : " + t.getIndex());
                 LOGGER.info("  -- term      : " + t.getTerm());
@@ -134,29 +134,28 @@ public abstract class Horus {
     }
 
     public static void main(String[] args) {
+    }
+
+
+    public static List<HorusContainer> annotate(String sentence) throws Exception{
+
+        LOGGER.info("Annotating the Sentence...");
 
         try{
 
-            String text = "diego esteves. what's going on orlando?";
+            init();
 
+            LOGGER.debug(":: stanford annotations");
+            annotateWithStanford(sentence);
 
-            annotateWithStanford(text);
+            LOGGER.debug(":: checking PER");
 
-            printResults();
 
         }catch (Exception e){
             LOGGER.error(e.toString());
         }
 
-
-    }
-
-    public static HorusContainer annotate(String sentence){
-
-        init();
-        LOGGER.info("Annotating the Sentence...");
-
-        return new HorusContainer(0);
+        return _lstContainer;
 
     }
 

@@ -3,7 +3,6 @@ package org.aksw.horus;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,10 +21,9 @@ public class HorusDemo {
         long startTime = System.currentTimeMillis();
         LOG.info(startTime);
 
-        String sentence = "There you go diego! how's going leipzig?";
+        String sentence = "There you go diego! how's going leipzig? I'll go to Rio this weekend! Are you up for? Ahhh I've got a new dell laptop! Uhull! Cya!";
 
-        List<HorusContainer> container = Horus.annotate(sentence);
-
+        Horus.annotate(sentence);
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
@@ -43,7 +41,7 @@ public class HorusDemo {
 
         Horus.printResults();
 
-        Horus.exportMEX("path/to/save/the/file", "yournamespace", "filename", "file-format");
+        Horus.exportToMEX("path/to/save/the/file", "yournamespace", "filename", "file-format");
 
     }
 

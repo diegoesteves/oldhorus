@@ -27,42 +27,9 @@ public abstract class Horus {
     private static final double               PERSON_THRESHOLD = 0.8;
     private static final int                  PERSON_MAX_ITENS = 50;
 
-    public static void init(){
 
-        try {
+    // *************************************** private methods ***************************************
 
-            if ( Horus.HORUS_CONFIG  == null )
-                Horus.HORUS_CONFIG = new HorusConfig(new Ini(new File(Horus.class.getResource("/horus.ini").getFile())));
-
-        } catch (InvalidFileFormatException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * detect whether a word is likely to be a PERSON's name
-     * @param sentence a term that might represent a name or full name of a PERSON
-     * @return
-     */
-    public boolean isPerson(String sentence) throws Exception{
-
-        boolean ret = false;
-
-        try{
-            String[] terms = sentence.split("\\s+");
-
-        }catch(Exception e){
-
-        }
-
-
-        return ret;
-
-    }
 
     /**
      * compute the probabilities for each term in a text
@@ -79,6 +46,11 @@ public abstract class Horus {
 
     }
 
+    /***
+     * annotate a given input text with Stanford POS tagger
+     * @param text
+     * @throws Exception
+     */
     private static void annotateWithStanford(String text) throws Exception{
 
         LOGGER.debug("starting annotation with Stanford POS");
@@ -114,6 +86,50 @@ public abstract class Horus {
         }
     }
 
+
+    private static void processPerson() throws Exception{
+
+        for (HorusContainer h : _lstContainer) {
+            for (HorusTerm t : h.getTerms()) {
+                if (t.getPOS().equals("NN") || t.getPOS().equals("NNP")) {
+                    //TODO: check here the POS TAG list
+                    LOGGER.debug(":: checking if [" + t.getTerm() + "] is a [PERSON]");
+                    //TODO: parei aqui pra dormir :-)
+
+                }
+
+
+            }
+            LOGGER.info("");
+        }
+
+    }
+
+    // *************************************** public methods ***************************************
+
+
+    /***
+     * init method
+     */
+    public static void init(){
+
+        try {
+
+            if ( Horus.HORUS_CONFIG  == null )
+                Horus.HORUS_CONFIG = new HorusConfig(new Ini(new File(Horus.class.getResource("/horus.ini").getFile())));
+
+        } catch (InvalidFileFormatException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /***
+     * print the results (stdout)
+     */
     public static void printResults(){
 
         for (HorusContainer h : _lstContainer) {
@@ -133,36 +149,46 @@ public abstract class Horus {
 
     }
 
-    public static void main(String[] args) {
-    }
+    /***
+     * run HORUS
+     * @param inputText
+     * @return
+     * @throws Exception
+     */
+    public static List<HorusContainer> annotate(String inputText) throws Exception{
 
-
-    public static List<HorusContainer> annotate(String sentence) throws Exception{
-
-        LOGGER.info("Annotating the Sentence...");
+        LOGGER.info(":: annotating the input text...");
 
         try{
 
             init();
 
             LOGGER.debug(":: stanford annotations");
-            annotateWithStanford(sentence);
+            annotateWithStanford(inputText);
 
             LOGGER.debug(":: checking PER");
-
+            processPerson();
 
         }catch (Exception e){
             LOGGER.error(e.toString());
         }
 
+        LOGGER.info(":: done");
+
         return _lstContainer;
 
     }
 
-    //TODO: integrate LOG4MEX and convert container to mex
-    public static void exportMEX(String s1, String s2, String s3, String s4){
 
+    /***
+     * exports the metadata of execution set to the MEX interchange file format
+     * @param s1
+     * @param s2
+     * @param s3
+     * @param s4
+     */
+    public static void exportToMEX(String s1, String s2, String s3, String s4){
+        //TODO: integrate LOG4MEX and convert container to mex
     }
-
 
 }

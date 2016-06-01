@@ -94,7 +94,6 @@ public abstract class Horus {
                 if (t.getPOS().equals("NN") || t.getPOS().equals("NNP")) {
                     //TODO: check here the POS TAG list
                     LOGGER.debug(":: checking if [" + t.getTerm() + "] is a [PERSON]");
-                    //TODO: parei aqui pra dormir :-)
 
                 }
 

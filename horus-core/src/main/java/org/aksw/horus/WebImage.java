@@ -6,11 +6,11 @@ package org.aksw.horus;
 public class WebImage {
 
     private String url                      = "";
-    private String query                    = "";
+    private String queryString                    = "";
 
 
-    public WebImage(String query, String url) {
-        this.query = query;
+    public WebImage(String queryString, String url) {
+        this.queryString = queryString;
         this.url = url;
     }
 }

@@ -5,6 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
 import org.slf4j.Logger;
@@ -87,13 +88,46 @@ public abstract class Horus {
     }
 
 
+
+    private static boolean isTermCached(String term){
+        return false;
+    }
+
+    private static void cacheTerm(String term) throws Exception {
+
+        LOGGER.debug(":: caching [" + term);
+        AzureBingSearchEngine engine = new AzureBingSearchEngine(term);
+        engine.downloadAndCacheImages();
+
+    }
+
     private static void processPerson() throws Exception{
 
         for (HorusContainer h : _lstContainer) {
             for (HorusTerm t : h.getTerms()) {
                 if (t.getPOS().equals("NN") || t.getPOS().equals("NNP")) {
                     //TODO: check here the POS TAG list
+
+                    LOGGER.debug(":: checking if [" + t.getTerm() + "] is cached");
+                    if (!isTermCached(t.getTerm())){
+                        cacheTerm(t.getTerm());
+                    }
+
+                    LOGGER.debug(":: returning the cache for [" + t.getTerm());
+
+
+
+
+
+
+
+
+
                     LOGGER.debug(":: checking if [" + t.getTerm() + "] is a [PERSON]");
+
+
+
+
 
                 }
 

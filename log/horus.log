@@ -2588,3 +2588,564 @@
 22:48:09,909  INFO HorusDemo:31 - *                         Process Finished                             *
 22:48:09,909  INFO HorusDemo:32 - ************************************************************************
 22:48:09,913  INFO HorusDemo:40 - Processing Time: 00 hour, 00 min, 03 sec
+10:27:10,559  INFO HorusDemo:17 - ************************************************************************
+10:27:10,566  INFO HorusDemo:18 - *                          Starting HORUS                              *
+10:27:10,567  INFO HorusDemo:19 - ************************************************************************
+10:27:10,567  INFO HorusDemo:22 - 1464769630567
+10:27:17,665  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:27:17,668 DEBUG AzureBingSearchEngine:102 - image_url: http://www.simpleventures.it/wp-content/uploads/2013/02/diego.jpg
+10:27:17,668 DEBUG AzureBingSearchEngine:103 - page title: Diego Mortillaro
+10:27:18,445 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:20,227 DEBUG AzureBingSearchEngine:115 - Document has been saved: d44f0d12-a0e4-48de-93e8-f4c6d778d967
+10:27:20,228 DEBUG AzureBingSearchEngine:102 - image_url: https://upload.wikimedia.org/wikipedia/commons/1/16/Diego_Cocca.jpg
+10:27:20,228 DEBUG AzureBingSearchEngine:103 - page title: Diego Cocca - Wikipedia, la enciclopedia libre
+10:27:20,649 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:20,774 DEBUG AzureBingSearchEngine:115 - Document has been saved: f50af4db-d24f-42e5-b62a-560fcd08f503
+10:27:20,775 DEBUG AzureBingSearchEngine:102 - image_url: http://img04.imgsinemalar.com/images/sanatci/d/Diego-Serrano.jpg
+10:27:20,775 DEBUG AzureBingSearchEngine:103 - page title: Diego Serrano - Sinemalar.com
+10:27:21,201 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:21,321 DEBUG AzureBingSearchEngine:115 - Document has been saved: b99b4cc1-34e3-4c6c-a68e-4ef353014a59
+10:27:21,321 DEBUG AzureBingSearchEngine:102 - image_url: http://www.watchtime.com/cms/wp-content/uploads/cfb_diego_165.jpg
+10:27:21,322 DEBUG AzureBingSearchEngine:103 - page title: Carl F. Bucherer Names Diego Benaglio Brand Ambassador | WatchTime ...
+10:27:21,503 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:21,537 DEBUG AzureBingSearchEngine:115 - Document has been saved: 04f4c9fb-41b5-4875-8cc7-02aea8bc1283
+10:27:21,537 DEBUG AzureBingSearchEngine:102 - image_url: http://www.eui.eu/Images/SPS/Professors/DiegoGambetta-Cropped-111x136.jpg
+10:27:21,537 DEBUG AzureBingSearchEngine:103 - page title: Diego Gambetta • European University Institute
+10:27:22,018 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:22,066 DEBUG AzureBingSearchEngine:115 - Document has been saved: 151f39cb-e7dc-4ee1-b25f-bda4fecaa30e
+10:27:22,066 DEBUG AzureBingSearchEngine:102 - image_url: http://www.coachworldranking.com/modules/images/coaches/171248.png
+10:27:22,066 DEBUG AzureBingSearchEngine:103 - page title: Diego Pablo Simeone | Football Coach World Ranking
+10:27:22,208 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:22,237 DEBUG AzureBingSearchEngine:115 - Document has been saved: b5a508ff-b66c-4b89-9690-785d0c19e1ac
+10:27:22,237 DEBUG AzureBingSearchEngine:102 - image_url: http://www.tennislive.net/player_photos/atp/Machuca_Diego.gif
+10:27:22,238 DEBUG AzureBingSearchEngine:103 - page title: Diego Machuca - TennisLive.net
+10:27:22,721 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:22,738 DEBUG AzureBingSearchEngine:115 - Document has been saved: f5f66538-bee7-4837-bb0a-206e88dfbec7
+10:27:22,739 DEBUG AzureBingSearchEngine:102 - image_url: http://soccernet-assets.espn.go.com/i/players/130x180/139645.jpg
+10:27:22,739 DEBUG AzureBingSearchEngine:103 - page title: Diego Contento Biografía, Numeritos, Noticias - Futbol - - ESPN ...
+10:27:24,427 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:24,446 DEBUG AzureBingSearchEngine:115 - Document has been saved: 0ab294d4-3e37-4a51-aede-64af4413cb50
+10:27:24,446 DEBUG AzureBingSearchEngine:102 - image_url: http://www.aupaerreala.com/images/jugadores/diego-rivas-gutierrez.jpg
+10:27:24,446 DEBUG AzureBingSearchEngine:103 - page title: Nombre Completo: Diego Rivas Gutiérrez
+10:27:25,033 ERROR AzureBingSearchEngine:119 - java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.aupaerreala.com/images/jugadores/diego-rivas-gutierrez.jpg
+10:27:25,033 DEBUG AzureBingSearchEngine:102 - image_url: http://cache.images.core.optasports.com/soccer/players/150x150/2996.png
+10:27:25,033 DEBUG AzureBingSearchEngine:103 - page title: Diego López - Soccer - Opera mobile - Results, fixtures, tables and ...
+10:27:25,174 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:25,192 DEBUG AzureBingSearchEngine:115 - Document has been saved: 6e16dcb3-34a5-43fd-816a-fa98e7e7907b
+10:27:25,192 DEBUG AzureBingSearchEngine:102 - image_url: http://static.tvgcdn.net/mediabin/showcards/celebs/d-f/thumbs/diego-klattenhoff_sc_140x187.png
+10:27:25,192 DEBUG AzureBingSearchEngine:103 - page title: Diego Klattenhoff Celebrity
+10:27:25,793 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:25,821 DEBUG AzureBingSearchEngine:115 - Document has been saved: 34d9ca80-d63f-4344-b049-25ca8b69e30c
+10:27:25,822 DEBUG AzureBingSearchEngine:102 - image_url: http://soccernet-assets.espn.go.com/i/players/130x180/114898.jpg
+10:27:25,822 DEBUG AzureBingSearchEngine:103 - page title: Diego Benaglio Biografía, Numeritos, Noticias - Futbol - - ESPN ...
+10:27:26,018 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:26,050 DEBUG AzureBingSearchEngine:115 - Document has been saved: d311c96c-0491-4521-b789-b853726ee453
+10:27:26,050 DEBUG AzureBingSearchEngine:102 - image_url: http://agentimages.movoto.com/diego-marconi-dominguez-real-estate-agent-249329240-190x190.jpg
+10:27:26,050 DEBUG AzureBingSearchEngine:103 - page title: Diego Marconi Dominguez. Fontana, CA Real Estate Agent - Movoto
+10:27:26,678 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:26,694 DEBUG AzureBingSearchEngine:115 - Document has been saved: cc0d510f-e536-4c5a-b192-c4ad2b2f4c89
+10:27:26,694 DEBUG AzureBingSearchEngine:102 - image_url: http://m.c.lnkd.licdn.com/media/p/4/000/132/21e/125b816.jpg
+10:27:26,695 DEBUG AzureBingSearchEngine:103 - page title: Diego Armando Martinez Garcia | LinkedIn
+10:27:45,790 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:45,813 DEBUG AzureBingSearchEngine:115 - Document has been saved: a756c5fa-f458-417b-bd1b-446d54a7102c
+10:27:45,814 DEBUG AzureBingSearchEngine:102 - image_url: http://www.eleccionesenecuador.com/fotos/candidatos-prefectos/imbabura/imagen-candidato-DIEGO-GARCIA.jpg
+10:27:45,814 DEBUG AzureBingSearchEngine:103 - page title: DIEGO GARCIA: Candidato para prefecto 2014 en Imbabura - MOVIMIENTO ...
+10:27:47,499 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:47,519 DEBUG AzureBingSearchEngine:115 - Document has been saved: ff8c8d47-a6fb-4823-935a-5b7883df8f9b
+10:27:47,519 DEBUG AzureBingSearchEngine:129 - process finished
+10:27:49,026  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:27:49,026 DEBUG AzureBingSearchEngine:102 - image_url: http://xinos.files.wordpress.com/2011/07/helmut-von-leipzig-130x180.jpg
+10:27:49,026 DEBUG AzureBingSearchEngine:103 - page title: Hellmut von Leipzig wird 90 Jahre alt | Deutsches Afrika Korps
+10:27:49,580 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:49,612 DEBUG AzureBingSearchEngine:115 - Document has been saved: 66858f83-fe81-493f-bb03-2fb2a3afd7bd
+10:27:49,612 DEBUG AzureBingSearchEngine:102 - image_url: http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Leipzig_Buchmesse_2014_036.JPG/90px-Leipzig_Buchmesse_2014_036.JPG
+10:27:49,612 DEBUG AzureBingSearchEngine:103 - page title: Category:Leipziger Buchmesse 2014 - Wikimedia Commons
+10:27:49,670 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:49,698 DEBUG AzureBingSearchEngine:115 - Document has been saved: 1cbbcd57-8067-451a-8984-02fe6fc9c5b8
+10:27:49,698 DEBUG AzureBingSearchEngine:102 - image_url: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Leipzig_-_Philipp-Rosenthal-Stra%C3%9Fe%2BLinn%C3%A9stra%C3%9Fe_-_Friedenspark_-_Studentinnen_09_ies.jpg/80px-Leipzig_-_Philipp-Rosenthal-Stra%C3%9Fe%2BLinn%C3%A9stra%C3%9Fe_-_Friedenspark_-_Studentinnen_09_ies.jpg
+10:27:49,698 DEBUG AzureBingSearchEngine:103 - page title: Leipzig - Philipp-Rosenthal-Straße+Linnéstraße - Friedenspark ...
+10:27:50,006 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:50,025 DEBUG AzureBingSearchEngine:115 - Document has been saved: 4da9a98f-ab96-42b8-8948-8870d5980f6d
+10:27:50,026 DEBUG AzureBingSearchEngine:102 - image_url: http://static.klassik.com/konzerte/veranstalter/3222_logo.jpg
+10:27:50,026 DEBUG AzureBingSearchEngine:103 - page title: bachfest leipzig im portrait bachfest leipzig 12 juni 21 juni 2015
+10:27:50,172 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:50,200 DEBUG AzureBingSearchEngine:115 - Document has been saved: 86ba07f1-0f6e-4a98-900e-e9016e34cd87
+10:27:50,200 DEBUG AzureBingSearchEngine:102 - image_url: http://laermboard.forumprofi.de/download/file.php?avatar=112_1424958944.jpg
+10:27:50,201 DEBUG AzureBingSearchEngine:103 - page title: WGT 2015 - zum Nazitreff in Leipzig - Lärmboard
+10:27:50,324 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:27:50,357 DEBUG AzureBingSearchEngine:115 - Document has been saved: 7012e95d-0e1f-4641-8ea0-823c019439d9
+10:27:50,357 DEBUG AzureBingSearchEngine:102 - image_url: http://www.uniklinikum-leipzig.de/files/images/bild_120x500/phpRy2g2B20110226193512.jpg
+10:27:50,357 DEBUG AzureBingSearchEngine:103 - page title: Studiendekane - Referat Lehre - Universitätsmedizin Leipzig
+10:30:21,932 ERROR AzureBingSearchEngine:119 - java.net.SocketException: Unexpected end of file from server
+10:30:21,947 DEBUG AzureBingSearchEngine:102 - image_url: http://www.philippus-leipzig.de/uploads/RTEmagicC_kontakt-phil-menz.jpg.jpg
+10:30:21,949 DEBUG AzureBingSearchEngine:103 - page title: Projektleiter Philippus Leipzig
+10:30:22,081 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:22,235 DEBUG AzureBingSearchEngine:115 - Document has been saved: a53d39a2-d425-47e8-b652-b1008480d91c
+10:30:22,235 DEBUG AzureBingSearchEngine:102 - image_url: http://www.uni-leipzig.de/unigeschichte/professorenkatalog/pictures/UAL_FS_N01730-1.jpg
+10:30:22,236 DEBUG AzureBingSearchEngine:103 - page title: ... der Universität Leipzig - Die Professoren-Datenbank für Leipzig
+10:30:22,305 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:22,364 DEBUG AzureBingSearchEngine:115 - Document has been saved: 69397d03-7cdc-40c3-9913-efbed38ca954
+10:30:22,364 DEBUG AzureBingSearchEngine:102 - image_url: http://www.uni-leipzig.de/unigeschichte/professorenkatalog/pictures/g1/peiper-101x150.jpg
+10:30:22,364 DEBUG AzureBingSearchEngine:103 - page title: ... der Universität Leipzig - Die Professoren-Datenbank für Leipzig
+10:30:22,397 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:22,432 DEBUG AzureBingSearchEngine:115 - Document has been saved: 237540ac-c0d9-4547-9a37-c4019cbc1119
+10:30:22,433 DEBUG AzureBingSearchEngine:102 - image_url: http://www.anwaltsprofile.com/arbeitsrecht/fachanwalt-arbeitsrecht-gottfried-niemietz-leipzig.jpg
+10:30:22,433 DEBUG AzureBingSearchEngine:103 - page title: Gottfried Niemietz Rechtsanwalt für Arbeitsrecht Leipzig
+10:30:22,616 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:22,658 DEBUG AzureBingSearchEngine:115 - Document has been saved: 8ee93049-016a-4b40-a220-c153d101407b
+10:30:22,658 DEBUG AzureBingSearchEngine:102 - image_url: http://bis.informatik.uni-leipzig.de/images/jpegPhoto.php?name=sn&value=Morsey
+10:30:22,659 DEBUG AzureBingSearchEngine:103 - page title: ... zu Lars Zinner in Leipzig auf http://bis.informatik.uni-leipzig.de
+10:30:22,700 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:22,731 DEBUG AzureBingSearchEngine:115 - Document has been saved: 839966c8-19e6-4e35-99e1-9e821204a0c7
+10:30:22,731 DEBUG AzureBingSearchEngine:102 - image_url: http://www.uni-leipzig.de/ganaa/content/images/bild_artikel/php0wotYE20081008142319.jpg
+10:30:22,731 DEBUG AzureBingSearchEngine:103 - page title: German - African Network of Alumni & Alumnae - Kontakt
+10:30:22,762 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:22,810 DEBUG AzureBingSearchEngine:115 - Document has been saved: 76d8f149-773d-4b2f-868d-b39c4a277216
+10:30:22,810 DEBUG AzureBingSearchEngine:102 - image_url: https://neuesforumleipzig.files.wordpress.com/2009/04/rainer-muller-web.jpg?w=149&h=150
+10:30:22,811 DEBUG AzureBingSearchEngine:103 - page title: Foto: Steffen Giersch © NEUES FORUM Leipzig
+10:30:23,735 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:23,769 DEBUG AzureBingSearchEngine:115 - Document has been saved: f9fb39e1-2dec-48ff-86ee-ddaf0c30a2d9
+10:30:23,769 DEBUG AzureBingSearchEngine:102 - image_url: http://www.auto-in-leipzig.de/wp-content/themes/clean%20press/images/portrait.jpg
+10:30:23,769 DEBUG AzureBingSearchEngine:103 - page title: Auto Leipzig » Blog Archive » Skoda Yeti Active 2.0l TDI CR DPF 4×2
+10:30:23,912 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:23,935 DEBUG AzureBingSearchEngine:115 - Document has been saved: 786dc554-6a26-4c6a-9292-e3df78654cfb
+10:30:23,936 DEBUG AzureBingSearchEngine:102 - image_url: http://www.foris.de/images/raverzeichnis/erik-hammer-leipzig_35914.jpg
+10:30:23,936 DEBUG AzureBingSearchEngine:103 - page title: FORIS AnwaltsVerzeichnis | Hammer | Rechtsanwalt Leipzig
+10:30:24,028 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:24,067 DEBUG AzureBingSearchEngine:115 - Document has been saved: 10b6653d-9d27-4877-bf44-9fda63d222cb
+10:30:24,068 DEBUG AzureBingSearchEngine:129 - process finished
+10:30:25,779  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:30:25,779 DEBUG AzureBingSearchEngine:102 - image_url: http://img3.bdbphotos.com/images/80x80/l/a/lasqpdl26scpsppl.jpg
+10:30:25,780 DEBUG AzureBingSearchEngine:103 - page title: Vanessa del Rio Picture Gallery
+10:30:26,014 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:26,040 DEBUG AzureBingSearchEngine:115 - Document has been saved: 4cf5312a-c5f2-4809-8501-0218217ba948
+10:30:26,040 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ec0.pinimg.com/avatars/vaw227_1341579471_140.jpg
+10:30:26,040 DEBUG AzureBingSearchEngine:103 - page title: Vanessa Del Rio on Pinterest
+10:30:26,603 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:26,645 DEBUG AzureBingSearchEngine:115 - Document has been saved: d0aff51f-0eb3-4365-b4d8-445be905fa37
+10:30:26,645 DEBUG AzureBingSearchEngine:102 - image_url: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/s160x160/1462941_271308396350289_1975177415_a.jpg
+10:30:26,645 DEBUG AzureBingSearchEngine:103 - page title: Vanessa Del Rio | Facebook
+10:30:27,416 ERROR AzureBingSearchEngine:119 - java.io.IOException: Server returned HTTP response code: 403 for URL: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/s160x160/1462941_271308396350289_1975177415_a.jpg
+10:30:27,416 DEBUG AzureBingSearchEngine:102 - image_url: http://famousdude.com/images/rio-diaz-01.jpg
+10:30:27,417 DEBUG AzureBingSearchEngine:103 - page title: rio diaz rio díaz cojuangco born rosario aspillera díaz 14 august ...
+10:30:27,809 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:27,823 DEBUG AzureBingSearchEngine:115 - Document has been saved: d3263892-807c-45d9-aa7b-30be8223f40b
+10:30:27,823 DEBUG AzureBingSearchEngine:102 - image_url: http://face.famouswiki.com/o/olivia-del-rio-5054/olivia-del-rio-5054.jpg
+10:30:27,823 DEBUG AzureBingSearchEngine:103 - page title: Olivia Del Rio Birthday | Olivia Del Rio's Age
+10:30:28,281 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:28,304 DEBUG AzureBingSearchEngine:115 - Document has been saved: afcc17d1-d60e-4858-9ecc-6023652d3819
+10:30:28,304 DEBUG AzureBingSearchEngine:102 - image_url: http://face.famouswiki.com/v/vanessa-del-rio-34686/vanessa-del-rio-34686.jpg
+10:30:28,304 DEBUG AzureBingSearchEngine:103 - page title: Like Vanessa del Rio Share with Your Friends
+10:30:28,576 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:28,594 DEBUG AzureBingSearchEngine:115 - Document has been saved: 76ab54e5-3c08-48df-9f70-111b5cd1f460
+10:30:28,594 DEBUG AzureBingSearchEngine:102 - image_url: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/c0.0.160.160/p160x160/1623689_723904900976388_1468969668_n.jpg?oh=345e24a27760dff0e733540aa420ffcf&oe=54885E93&__gda__=1418550854_3bd57c20692509069ff6b31a8addc667
+10:30:28,595 DEBUG AzureBingSearchEngine:103 - page title: Jaylene Rio | Facebook
+10:30:28,715 ERROR AzureBingSearchEngine:119 - java.io.IOException: Server returned HTTP response code: 403 for URL: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/c0.0.160.160/p160x160/1623689_723904900976388_1468969668_n.jpg?oh=345e24a27760dff0e733540aa420ffcf&oe=54885E93&__gda__=1418550854_3bd57c20692509069ff6b31a8addc667
+10:30:28,715 DEBUG AzureBingSearchEngine:102 - image_url: http://www.pequenosgigantes.tv/wp-content/uploads/2012/04/lourdes-del-rio-club-de-la-comedia-150x150.jpg
+10:30:28,716 DEBUG AzureBingSearchEngine:103 - page title: Lourdes Del Rio Lourdes del Río | Pequeños Gigantes 2a tempo
+10:30:29,490 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:29,515 DEBUG AzureBingSearchEngine:115 - Document has been saved: 47f58ac0-4b02-42b6-b0e2-b9cbd175f6fb
+10:30:29,515 DEBUG AzureBingSearchEngine:102 - image_url: http://www.infojobs.net/ficha.foto?quina=CEA9DDA00A872F54E0340003BA21E0DB
+10:30:29,515 DEBUG AzureBingSearchEngine:103 - page title: Perfil público de vanessa del rio moreno | InfoJobs
+10:30:29,665 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:29,684 DEBUG AzureBingSearchEngine:115 - Document has been saved: cc5940c3-dc8d-43c7-8a7f-4c38c5337048
+10:30:29,684 DEBUG AzureBingSearchEngine:102 - image_url: http://4.bp.blogspot.com/_QM2-6hVKZbQ/SwY-_0kk_lI/AAAAAAAAIbg/ZnYQSnCpteI/s1600/rio_hamasaki.jpg
+10:30:29,684 DEBUG AzureBingSearchEngine:103 - page title: rio hamasaki
+10:30:29,984 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:30,005 DEBUG AzureBingSearchEngine:115 - Document has been saved: b67a4bf9-6d88-4bd7-84fa-e7bb59e0db94
+10:30:30,005 DEBUG AzureBingSearchEngine:102 - image_url: http://hispanopolis.com/bios/405.jpg
+10:30:30,005 DEBUG AzureBingSearchEngine:103 - page title: ... Canciones Interpretadas por Yolanda Del Rio en Hispanopolis.com
+10:30:30,370 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:30,387 DEBUG AzureBingSearchEngine:115 - Document has been saved: b69db40b-1446-4428-8b21-2a30b03f56e9
+10:30:30,388 DEBUG AzureBingSearchEngine:102 - image_url: http://m.c.lnkd.licdn.com/mpr/pub/image-_pqf9CCimbLuRwFVRv7e4nNPqRY5p9ZH4pWiRpdiqEn94KUx_pqiuULiqvvy4MEL4AVG/christina-del-rio.jpg
+10:30:30,388 DEBUG AzureBingSearchEngine:103 - page title: Christina Del Rio | LinkedIn
+10:30:31,026 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:31,040 DEBUG AzureBingSearchEngine:115 - Document has been saved: 5cf16c91-a3c7-43f3-8b23-449fa44cc137
+10:30:31,041 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ec0.pinimg.com/avatars/oliviaphae_1341332587_140.jpg
+10:30:31,041 DEBUG AzureBingSearchEngine:103 - page title: Olivia del Rio
+10:30:31,318 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:31,351 DEBUG AzureBingSearchEngine:115 - Document has been saved: 374bc721-648e-4e6d-8728-540b7c5b1384
+10:30:31,351 DEBUG AzureBingSearchEngine:102 - image_url: http://m.c.lnkd.licdn.com/mpr/pub/image-xM-_LuBH8Tr-NLwKejW5_OXpgpQqgjKyjYWjf4VKgkQdWY2HxM-jrWaHgrjhWi9nWqEr/vanessa-galue-del-rio.jpg
+10:30:31,351 DEBUG AzureBingSearchEngine:103 - page title: Vanessa Galue del Rio | LinkedIn
+10:30:31,583 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:31,656 DEBUG AzureBingSearchEngine:115 - Document has been saved: b767603b-9c98-40c7-88e6-cb2ff7640582
+10:30:31,657 DEBUG AzureBingSearchEngine:102 - image_url: http://www.chapman.edu/students/services/housing-and-residence/_files/images/halls/student-staff-2014-2015/olivia-del-rio-web2014.jpg
+10:30:31,657 DEBUG AzureBingSearchEngine:103 - page title: Lead RA Olivia Del Rio
+10:30:32,341 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:32,384 DEBUG AzureBingSearchEngine:115 - Document has been saved: dd4cf9f8-e869-49b3-b126-a55a60b40755
+10:30:32,385 DEBUG AzureBingSearchEngine:129 - process finished
+10:30:34,325  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:30:34,326 DEBUG AzureBingSearchEngine:102 - image_url: http://www.lazybearweekend.com/images/photos_shared_everyone/2008/NoelBear.jpg
+10:30:34,326 DEBUG AzureBingSearchEngine:103 - page title: Lazy Bear Weekend 2008
+10:30:34,863 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:34,900 DEBUG AzureBingSearchEngine:115 - Document has been saved: 14c360f1-3569-43f6-9472-202e6bd67cb9
+10:30:34,900 DEBUG AzureBingSearchEngine:102 - image_url: http://www.thelibertybeacon.com/wp-content/uploads/2014/01/Sheila.jpg
+10:30:34,900 DEBUG AzureBingSearchEngine:103 - page title: ... weekend Vigilante Show. Follow Sheila at www.TheWeekendVigilanteShow
+10:30:35,807 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:35,848 DEBUG AzureBingSearchEngine:115 - Document has been saved: 60d297bc-4dc9-4096-9105-b01f9302d2bf
+10:30:35,848 DEBUG AzureBingSearchEngine:102 - image_url: http://es.web.img2.acsta.net/r_120_160/b_1_d6d6d6/pictures/210/108/21010870_20130607004813253.jpg
+10:30:35,848 DEBUG AzureBingSearchEngine:103 - page title: Eating Out: The Open Weekend - Película 2011 - SensaCine.com
+10:30:36,452 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:36,483 DEBUG AzureBingSearchEngine:115 - Document has been saved: 734ae3a0-59b7-4788-86aa-d473e49f3f74
+10:30:36,483 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ak0.pinimg.com/736x/49/53/6e/49536eb7e215018f43fcc20ed3e20ef5.jpg
+10:30:36,483 DEBUG AzureBingSearchEngine:103 - page title: HAPPY FRIDAY! HAVE A GREAT WEEKEND ALL! | Matt Bomer/White Collar | P ...
+10:30:37,125 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:37,164 DEBUG AzureBingSearchEngine:115 - Document has been saved: dc410cd2-8abb-4547-af22-bdfcd7756bc4
+10:30:37,164 DEBUG AzureBingSearchEngine:102 - image_url: https://yt3.ggpht.com/-O3bhYygmnGI/AAAAAAAAAAI/AAAAAAAAAAA/svxRtgBdRrM/s88-c-k-no/photo.jpg
+10:30:37,164 DEBUG AzureBingSearchEngine:103 - page title: The Weekend ft. Ty Dolla $ign, Wiz Khalifa - Or Nah (Remix) [Best ...
+10:30:37,951 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:37,991 DEBUG AzureBingSearchEngine:115 - Document has been saved: fa099c81-eafc-405f-93be-6ab30145ff6c
+10:30:37,992 DEBUG AzureBingSearchEngine:102 - image_url: http://media.giphy.com/media/wodc1WvYWVlLO/giphy.gif
+10:30:37,992 DEBUG AzureBingSearchEngine:103 - page title: weekend roses pete rose animated GIF
+10:30:38,490 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:38,526 DEBUG AzureBingSearchEngine:115 - Document has been saved: de7e1cb6-f802-4652-977d-9d26dec634cf
+10:30:38,526 DEBUG AzureBingSearchEngine:102 - image_url: http://1.bp.blogspot.com/-0EkIufBFKeI/VMHlrXVcn-I/AAAAAAAAANo/K9s7vhjPbQA/s1600/WtmdWeasel.jpg
+10:30:38,526 DEBUG AzureBingSearchEngine:103 - page title: Einstein's Legacy: WHFS of the 1990s: Weasel's Wild Weekend
+10:30:38,913 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:38,944 DEBUG AzureBingSearchEngine:115 - Document has been saved: 6492b269-f913-4e97-8e2a-8832b20f9a82
+10:30:38,944 DEBUG AzureBingSearchEngine:102 - image_url: http://bstylish.info/wp-content/uploads/2013/10/mac-lipstick-pink-nouveauweekend-makeup-idea--bright-pink-lips-the-fashion-bomb-blog-po9cji1e-150x150.jpg
+10:30:38,944 DEBUG AzureBingSearchEngine:103 - page title: Weekend Makeup Idea Bright Pink Lips The Fashion Bomb Blog Weekend ...
+10:30:39,337 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:39,377 DEBUG AzureBingSearchEngine:115 - Document has been saved: f26a9437-2ae5-48ae-8006-4e65f2ad087e
+10:30:39,377 DEBUG AzureBingSearchEngine:102 - image_url: http://img4.bdbphotos.com/images/120x156/c/1/c1ldkd2b7e393b92.jpg?skj2io4l
+10:30:39,378 DEBUG AzureBingSearchEngine:103 - page title: GOOD MORNING AMERICA WEEKEND EDITION (1993) - Cast and Crew
+10:30:39,605 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:39,621 DEBUG AzureBingSearchEngine:115 - Document has been saved: 6aa43e71-b5c9-4fc3-9567-3a96f74bf13f
+10:30:39,621 DEBUG AzureBingSearchEngine:102 - image_url: http://truthfrequencyradio.com/wp-content/uploads/2014/06/weekend150x150.png
+10:30:39,621 DEBUG AzureBingSearchEngine:103 - page title: Zilinsky, joined us to talk about her show here on TFR, “Weekend ...
+10:30:40,630 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:40,660 DEBUG AzureBingSearchEngine:115 - Document has been saved: 95dfa1d0-98a8-4f06-bdb7-1fc61e9a28c3
+10:30:40,660 DEBUG AzureBingSearchEngine:102 - image_url: http://onedirectiongallery.org/albums/userpics/10001/thumb_bigweekend_286729.jpg
+10:30:40,661 DEBUG AzureBingSearchEngine:103 - page title: May 24th - Performing at BBC Radio 1's Big Weekend concert at Glasgow ...
+10:30:40,854 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:40,878 DEBUG AzureBingSearchEngine:115 - Document has been saved: 3c89d1a2-2ce4-429b-9751-534d0bdd54dd
+10:30:40,878 DEBUG AzureBingSearchEngine:102 - image_url: http://sagecliffe.com/images/Experiences/ChefHowie.jpg
+10:30:40,879 DEBUG AzureBingSearchEngine:103 - page title: Sagecliffe Chefs' Weekends
+10:30:41,575 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:41,603 DEBUG AzureBingSearchEngine:115 - Document has been saved: b9826766-27b4-4f5b-a13c-b68ff6609822
+10:30:41,606 DEBUG AzureBingSearchEngine:102 - image_url: http://www.saturday-night-live.com/images/weekendupdate/miller.gif
+10:30:41,606 DEBUG AzureBingSearchEngine:103 - page title: Saturday-Night-Live.com - History - Weekend Update
+10:30:42,463 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:42,482 DEBUG AzureBingSearchEngine:115 - Document has been saved: e920a230-78c7-41ea-9444-2dbb979ee958
+10:30:42,482 DEBUG AzureBingSearchEngine:102 - image_url: http://www.saturday-night-live.com/images/weekendupdate/murray.gif
+10:30:42,483 DEBUG AzureBingSearchEngine:103 - page title: Saturday-Night-Live.com - History - Weekend Update
+10:30:42,995 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:43,019 DEBUG AzureBingSearchEngine:115 - Document has been saved: bd098046-a7e6-4413-8f41-3b357048cf0c
+10:30:43,020 DEBUG AzureBingSearchEngine:102 - image_url: http://www.allaccess.com/assets/img/editorial/raw/jo/joepags.jpg
+10:30:43,020 DEBUG AzureBingSearchEngine:103 - page title: Joe Pags Adds Weekend Show At KOA | AllAccess.com
+10:30:43,719 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:43,738 DEBUG AzureBingSearchEngine:115 - Document has been saved: b91e9cb0-39c9-4892-9c0c-e0c7587d4602
+10:30:43,738 DEBUG AzureBingSearchEngine:129 - process finished
+10:30:46,232  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:30:46,232 DEBUG AzureBingSearchEngine:102 - image_url: http://www.iammoon.com/smileys/ahhh.gif
+10:30:46,232 DEBUG AzureBingSearchEngine:103 - page title: ahhh gif
+10:30:46,882 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:46,919 DEBUG AzureBingSearchEngine:115 - Document has been saved: 25f13e28-93c4-4882-addd-092baf514965
+10:30:46,920 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ak0.pinimg.com/736x/1e/ac/83/1eac8372d71b3a1c2f196aa689f81432.jpg
+10:30:46,921 DEBUG AzureBingSearchEngine:103 - page title: ahhh... | My Eye Candy..... Yum! | Pinterest
+10:30:47,248 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:47,273 DEBUG AzureBingSearchEngine:115 - Document has been saved: b59bd1bd-35f8-4254-9e25-393eebfc3966
+10:30:47,273 DEBUG AzureBingSearchEngine:102 - image_url: http://38.media.tumblr.com/tumblr_m77c4m2NkP1qi854uo3_r1_250.gif
+10:30:47,273 DEBUG AzureBingSearchEngine:103 - page title: ahhh this cutie (~￣ ￣)~
+10:30:48,016 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:48,047 DEBUG AzureBingSearchEngine:115 - Document has been saved: 90f9e542-b5b8-49ec-b7bc-99297c195db9
+10:30:48,048 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ec0.pinimg.com/736x/2a/aa/33/2aaa3309a1b8eb1978ac9977fed627a4.jpg
+10:30:48,048 DEBUG AzureBingSearchEngine:103 - page title: ahhh look at that face | BOYSS! | Pinterest
+10:30:48,202 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:48,230 DEBUG AzureBingSearchEngine:115 - Document has been saved: 685837fa-9fc2-4e7b-b870-900a0f9070b3
+10:30:48,231 DEBUG AzureBingSearchEngine:102 - image_url: http://img.zszywka.pl/1/0180/ths_6050/ahhh-cara-lt3.jpg
+10:30:48,231 DEBUG AzureBingSearchEngine:103 - page title: ahhh, cara
+10:30:48,412 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:48,443 DEBUG AzureBingSearchEngine:115 - Document has been saved: 9cd3c06e-d778-48f7-b94e-2f087d9bb986
+10:30:48,443 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ec0.pinimg.com/736x/eb/28/57/eb2857eaf470d8558af9a8a1bf175f81.jpg
+10:30:48,443 DEBUG AzureBingSearchEngine:103 - page title: ahhh so good | My Flat Screen | Pinterest
+10:30:48,893 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:48,907 DEBUG AzureBingSearchEngine:115 - Document has been saved: aa4b28b1-d42e-48c2-a4d4-4d407bfecc27
+10:30:48,907 DEBUG AzureBingSearchEngine:102 - image_url: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/t1.0-1/c46.0.183.183/1528576_582292058513996_852923788_n.jpg
+10:30:48,907 DEBUG AzureBingSearchEngine:103 - page title: Perfeccion? Ahhh Hablas de Miley Cyrus | Facebook
+10:30:49,294 ERROR AzureBingSearchEngine:119 - java.io.IOException: Server returned HTTP response code: 403 for URL: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/t1.0-1/c46.0.183.183/1528576_582292058513996_852923788_n.jpg
+10:30:49,294 DEBUG AzureBingSearchEngine:102 - image_url: http://sherylsever.com/wp-content/uploads/2008/10/ahhh-150x150.jpg
+10:30:49,294 DEBUG AzureBingSearchEngine:103 - page title: ahhh
+10:30:49,866 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:49,899 DEBUG AzureBingSearchEngine:115 - Document has been saved: 4ebaa6bc-07e9-4765-a146-7c1339a263f4
+10:30:49,900 DEBUG AzureBingSearchEngine:102 - image_url: http://31.media.tumblr.com/tumblr_m77c4m2NkP1qi854uo2_r1_250.gif
+10:30:49,900 DEBUG AzureBingSearchEngine:103 - page title: ahhh this cutie (~￣ ￣)~
+10:30:50,839 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:50,876 DEBUG AzureBingSearchEngine:115 - Document has been saved: 7a43d9da-7d48-433b-be39-b459102069ef
+10:30:50,876 DEBUG AzureBingSearchEngine:102 - image_url: http://33.media.tumblr.com/tumblr_m77c4m2NkP1qi854uo9_r2_250.gif
+10:30:50,876 DEBUG AzureBingSearchEngine:103 - page title: ahhh this cutie (~￣ ￣)~
+10:30:52,763 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:52,814 DEBUG AzureBingSearchEngine:115 - Document has been saved: e04f56dc-b4f4-416d-894b-e10a7dbe16bc
+10:30:52,815 DEBUG AzureBingSearchEngine:102 - image_url: http://cocktailsandmovies.com/wp-content/uploads/2014/02/al-pacino-han-solo-150x150.jpg
+10:30:52,815 DEBUG AzureBingSearchEngine:103 - page title: Hoo-ahhh!
+10:30:53,213 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:53,232 DEBUG AzureBingSearchEngine:115 - Document has been saved: 893f5d32-e0af-421f-8521-e43776f9555f
+10:30:53,232 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ak0.pinimg.com/736x/6b/59/57/6b59573986c9b8312a17f1e5c37c243b.jpg
+10:30:53,233 DEBUG AzureBingSearchEngine:103 - page title: Ahhh... | Giggidy! | Pinterest
+10:30:53,442 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:53,470 DEBUG AzureBingSearchEngine:115 - Document has been saved: 37bcc26c-8dfb-4d47-aaba-56ca47bafdd6
+10:30:53,471 DEBUG AzureBingSearchEngine:102 - image_url: https://s-media-cache-ak0.pinimg.com/avatars/ldniemi_1341950234_140.jpg
+10:30:53,471 DEBUG AzureBingSearchEngine:103 - page title: Laura Niemi
+10:30:54,223 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:54,264 DEBUG AzureBingSearchEngine:115 - Document has been saved: b5e9b1b4-eb5f-4245-a227-d674a356d05b
+10:30:54,264 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ak0.pinimg.com/736x/70/ad/b1/70adb1381f8e84d675d004b8a8cb7e11.jpg
+10:30:54,265 DEBUG AzureBingSearchEngine:103 - page title: ahhh Torres
+10:30:54,486 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:54,537 DEBUG AzureBingSearchEngine:115 - Document has been saved: a7d60a5e-7e34-4277-aa99-c94339793bbf
+10:30:54,537 DEBUG AzureBingSearchEngine:102 - image_url: https://c1.staticflickr.com/1/249/458825324_cb95f82125_s.jpg
+10:30:54,538 DEBUG AzureBingSearchEngine:103 - page title: ahhh
+10:30:55,396 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:55,413 DEBUG AzureBingSearchEngine:115 - Document has been saved: d5cadcf2-bf59-45a5-b67d-969b9b222a0b
+10:30:55,413 DEBUG AzureBingSearchEngine:129 - process finished
+10:30:57,081  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:30:57,082 DEBUG AzureBingSearchEngine:102 - image_url: http://www.inmemoriam.ca/images/photo_original/448264-dell-maclean.jpg
+10:30:57,082 DEBUG AzureBingSearchEngine:103 - page title: Dell MacLean: obituary and death notice on InMemoriam
+10:30:57,462 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:57,499 DEBUG AzureBingSearchEngine:115 - Document has been saved: 95dec83c-a269-419d-b164-f83f5b3a94ae
+10:30:57,500 DEBUG AzureBingSearchEngine:102 - image_url: http://www.biografias.es/files/star/thumb/m/michael-dell_mvoeh.jpg
+10:30:57,500 DEBUG AzureBingSearchEngine:103 - page title: michael dell 1965 michael dell saúl ver fotos 0 los usuarios votaron
+10:30:57,771 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:57,887 DEBUG AzureBingSearchEngine:115 - Document has been saved: 9f8bc2a6-6e86-460c-8df2-31196176f069
+10:30:57,887 DEBUG AzureBingSearchEngine:102 - image_url: http://www.policyinnovations.org/innovators/people/data/David_Dell/_res/id=Picture/daviddell.jpg
+10:30:57,887 DEBUG AzureBingSearchEngine:103 - page title: Dell, David (I) Biography
+10:30:58,447 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:30:58,536 DEBUG AzureBingSearchEngine:115 - Document has been saved: 90402b75-0dda-4853-8abc-25498489a300
+10:30:58,537 DEBUG AzureBingSearchEngine:102 - image_url: http://www.morganstanleyfa.com/theo'dellgroup/facilityimages/aba79bd6-993b-48c1-b9d9-a1890e4e5585.png
+10:30:58,537 DEBUG AzureBingSearchEngine:103 - page title: The O'Dell Group - Morgan Stanley Team - Naples, FL
+10:31:00,412 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:00,461 DEBUG AzureBingSearchEngine:115 - Document has been saved: 38c3e753-d793-45ef-b568-fd01a3e18449
+10:31:00,462 DEBUG AzureBingSearchEngine:102 - image_url: http://www.jewishvirtuallibrary.org/jsource/images/People/michaeldell.gif
+10:31:00,462 DEBUG AzureBingSearchEngine:103 - page title: ... dell net worth dell computers dell computer corporation started
+10:31:01,611 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:01,651 DEBUG AzureBingSearchEngine:115 - Document has been saved: e90ebf7c-3db6-4da3-9cad-b9cbeeff930f
+10:31:01,651 DEBUG AzureBingSearchEngine:102 - image_url: http://educationblog.dallasnews.com/files/import/295-susandell.jpg
+10:31:01,651 DEBUG AzureBingSearchEngine:103 - page title: Susan Dell | | Dallas Morning News
+10:31:02,914 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:03,025 DEBUG AzureBingSearchEngine:115 - Document has been saved: 75e79833-e3b1-40df-98a5-1fcb6e3c6345
+10:31:03,025 DEBUG AzureBingSearchEngine:102 - image_url: http://headshots.iavvo.com/avvo/ugc/images/head_shot/standard/972720_1259172242.jpg
+10:31:03,025 DEBUG AzureBingSearchEngine:103 - page title: Lawyer Gregory Dell - New York, NY Attorney - Avvo.com
+10:31:03,577 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:03,608 DEBUG AzureBingSearchEngine:115 - Document has been saved: 3d2081bd-db7e-4f93-955b-fd70c159e9ed
+10:31:03,609 DEBUG AzureBingSearchEngine:102 - image_url: http://www.owensarchive.com/images/uploads/Classic%20Hollywood/Myrna_Dell_th1a.jpg
+10:31:03,610 DEBUG AzureBingSearchEngine:103 - page title: Myrna Dell Picture
+10:31:04,575 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:04,595 DEBUG AzureBingSearchEngine:115 - Document has been saved: d86f1d08-ea62-456e-b45e-33a4484c762f
+10:31:04,595 DEBUG AzureBingSearchEngine:102 - image_url: http://www.morganstanleyfa.com/theo'dellgroup/facilityimages/21a90095-965b-44f6-9d6b-e68fa6f851b1.png
+10:31:04,595 DEBUG AzureBingSearchEngine:103 - page title: Scott Edward O'Dell holds the following registrations:
+10:31:05,142 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:05,175 DEBUG AzureBingSearchEngine:115 - Document has been saved: d5188e8a-5c7f-4db1-b959-99662264b70a
+10:31:05,176 DEBUG AzureBingSearchEngine:102 - image_url: http://alt.coxnewsweb.com/shared-blogs/austin/theticker/upload/2008/04/dell_wraps_up_its_acquisition/AdamDell.jpg
+10:31:05,176 DEBUG AzureBingSearchEngine:103 - page title: ... Dell and Adam Dell (Michael's brother and a VC) just had lunch
+10:31:05,638 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:05,760 DEBUG AzureBingSearchEngine:115 - Document has been saved: efc43315-eb40-4b0a-968d-771788d74e92
+10:31:05,760 DEBUG AzureBingSearchEngine:102 - image_url: http://d7txhf74xpsji.cloudfront.net/assets/team/_resize/adamdell_180x270.jpg
+10:31:05,760 DEBUG AzureBingSearchEngine:103 - page title: Adam Dell | Austin Ventures
+10:31:07,350 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:07,385 DEBUG AzureBingSearchEngine:115 - Document has been saved: 52dda486-0017-4954-9d11-075482eb05a8
+10:31:07,385 DEBUG AzureBingSearchEngine:102 - image_url: http://www.abccolumbia.com/wp-content/uploads/2016/01/William-Odell.jpg
+10:31:07,385 DEBUG AzureBingSearchEngine:103 - page title: ... Long-serving South Carolina State Senator William O’Dell has died
+10:31:08,048 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:08,071 DEBUG AzureBingSearchEngine:115 - Document has been saved: bbc9a66c-620d-4d7f-a0f4-18a38e75019f
+10:31:08,071 DEBUG AzureBingSearchEngine:102 - image_url: http://allthingsd.com/files/2008/05/michael_dell1.png
+10:31:08,071 DEBUG AzureBingSearchEngine:103 - page title: Dude, You’re … Michael Dell, Chairman and CEO, Dell - John ...
+10:31:08,527 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:08,541 DEBUG AzureBingSearchEngine:115 - Document has been saved: ad5faad3-c67f-4dd2-8518-42e5cbef91ab
+10:31:08,541 DEBUG AzureBingSearchEngine:102 - image_url: http://my.mccombs.utexas.edu/~/media/Images/MSB/MyBBA-Images/UBC/VIP/Dell.jpg?w=150&h=192&as=1
+10:31:08,541 DEBUG AzureBingSearchEngine:103 - page title: Michael Dell, CEO of Dell Corporation
+10:31:09,782 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:09,794 DEBUG AzureBingSearchEngine:115 - Document has been saved: 7e694aaf-4461-406b-9e68-09dbacc1542b
+10:31:09,795 DEBUG AzureBingSearchEngine:102 - image_url: http://www.thewallpapersonline.com/thumbnail/nancy-o'dell/nancy-o'dell-105054.jpg
+10:31:09,795 DEBUG AzureBingSearchEngine:103 - page title: dell nancy o dell nancy o dell nancy o dell
+10:31:10,717 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:10,735 DEBUG AzureBingSearchEngine:115 - Document has been saved: 9bb16e3a-ab39-4c12-b00e-3bf33f3cad55
+10:31:10,735 DEBUG AzureBingSearchEngine:129 - process finished
+10:31:14,112  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:31:14,115 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/young-boy-using-laptop-20788683.jpg
+10:31:14,115 DEBUG AzureBingSearchEngine:103 - page title: Young Boy Playing Laptop Stock Photos & Images
+10:31:14,728 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:14,751 DEBUG AzureBingSearchEngine:115 - Document has been saved: 3f3b6419-dc04-4826-8468-5c91a897ce8c
+10:31:14,751 DEBUG AzureBingSearchEngine:102 - image_url: https://01.img.society6.com/society6/img/06YdMlUhVUUfuT6EEfhQMaJ9KGM/w_125,h_125/skins/macbook/~artwork/s6-0004/asset_14/388790_181ozjDe8b.jpg
+10:31:14,751 DEBUG AzureBingSearchEngine:103 - page title: Cassius "Ali" Laptop & iPad Skin by Ganech Joe | Society6
+10:31:15,700 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:15,716 DEBUG AzureBingSearchEngine:115 - Document has been saved: 0f705f27-27e0-4c40-9a85-ffcbca09926a
+10:31:15,716 DEBUG AzureBingSearchEngine:102 - image_url: https://t2.ftcdn.net/jpg/01/04/32/53/110_F_104325357_pCMYunLyTTgUfLoHWuOWNruykPpvpwGU4.jpg
+10:31:15,716 DEBUG AzureBingSearchEngine:103 - page title: Businesswoman Using Laptop With Touchscreen" Stock footage and ...
+10:31:16,181 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:16,202 DEBUG AzureBingSearchEngine:115 - Document has been saved: b30e6529-f0a9-4b87-acf1-ad7c87be52e3
+10:31:16,202 DEBUG AzureBingSearchEngine:102 - image_url: https://t2.ftcdn.net/jpg/00/66/81/17/160_F_66811793_N8XkfEREH2sROuL6AvBczNUurfv1JrEX.jpg
+10:31:16,203 DEBUG AzureBingSearchEngine:103 - page title: Cheerful using laptop, at home" 스톡 사진, 로열티프리 ...
+10:31:16,441 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:16,468 DEBUG AzureBingSearchEngine:115 - Document has been saved: 4eed7a29-93e1-4095-8314-9c4aaea2575f
+10:31:16,469 DEBUG AzureBingSearchEngine:102 - image_url: https://t2.ftcdn.net/jpg/01/04/32/53/110_F_104325357_pCMYunLyTTgUfLoHWuOWNruykPpvpwGU1.jpg
+10:31:16,469 DEBUG AzureBingSearchEngine:103 - page title: Businesswoman Using Laptop With Touchscreen" Stock footage and ...
+10:31:16,703 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:16,718 DEBUG AzureBingSearchEngine:115 - Document has been saved: 73a69a03-8f17-465e-8534-9acef67527ba
+10:31:16,718 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/pretty-redhead-smiling-her-laptop-park-47374754.jpg
+10:31:16,718 DEBUG AzureBingSearchEngine:103 - page title: Pretty Redhead Smiling Her Laptop Stock Photos & Images
+10:31:16,913 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:16,926 DEBUG AzureBingSearchEngine:115 - Document has been saved: 98797b06-c044-48b2-bfa0-3cdf4f30831a
+10:31:16,927 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/little-boy-playing-laptop-cute-32664501.jpg
+10:31:16,927 DEBUG AzureBingSearchEngine:103 - page title: Young Boy Playing Laptop Stock Photos & Images
+10:31:17,128 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:17,151 DEBUG AzureBingSearchEngine:115 - Document has been saved: b413cce5-c282-4dde-bddc-d09bb345f588
+10:31:17,152 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/black-woman-laptop-7205693.jpg
+10:31:17,152 DEBUG AzureBingSearchEngine:103 - page title: Woman Black Laptop Stock Photos & Images
+10:31:17,185 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:17,207 DEBUG AzureBingSearchEngine:115 - Document has been saved: c324ee9e-d52e-4733-90ba-2f2ac2d64a79
+10:31:17,208 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/happy-beautiful-woman-holding-credit-card-laptop-young-using-indoors-30748147.jpg
+10:31:17,208 DEBUG AzureBingSearchEngine:103 - page title: ... woman holding credit card and laptop Royalty Free Stock Photography
+10:31:17,401 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:17,429 DEBUG AzureBingSearchEngine:115 - Document has been saved: 3e49d620-c85f-493a-a45a-529b1c643619
+10:31:17,429 DEBUG AzureBingSearchEngine:102 - image_url: https://01.img.society6.com/society6/img/ui5FlIbmYyDguJ2L8KijhIDGqS8/h_125,w_125/travel-mugs/front/~artwork/s6-0016/a/5854603_4188235.jpg
+10:31:17,429 DEBUG AzureBingSearchEngine:103 - page title: Sandor Clegane - Game of Thrones
+10:31:17,791 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:17,808 DEBUG AzureBingSearchEngine:115 - Document has been saved: f9482460-ceab-4eb5-bb52-44c17b251138
+10:31:17,809 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/smiling-woman-lying-floor-using-her-laptop-living-room-51085353.jpg
+10:31:17,810 DEBUG AzureBingSearchEngine:103 - page title: Smiling woman lying on the floor and using her laptop Stock Photos
+10:31:18,011 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:18,030 DEBUG AzureBingSearchEngine:115 - Document has been saved: adb2a124-341a-4ec7-867a-81f64393fd8a
+10:31:18,031 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/pretty-blonde-woman-lying-couch-using-her-laptop-living-room-53077408.jpg
+10:31:18,031 DEBUG AzureBingSearchEngine:103 - page title: Blonde Woman Using Laptop Stock Photos, Images, & Pictures – (2,576 ...
+10:31:18,226 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:18,236 DEBUG AzureBingSearchEngine:115 - Document has been saved: 372e6382-4c02-4d68-8ea2-f91fe3aafcd2
+10:31:18,236 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/young-blond-girl-working-laptop-14737665.jpg
+10:31:18,236 DEBUG AzureBingSearchEngine:103 - page title: Young blond girl is working on laptop. Royalty Free Stock Photo
+10:31:18,431 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:18,465 DEBUG AzureBingSearchEngine:115 - Document has been saved: 77559829-7acc-42b6-971b-181a1daf221f
+10:31:18,465 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/teenage-boy-using-laptop-home-18033028.jpg
+10:31:18,465 DEBUG AzureBingSearchEngine:103 - page title: Teenage Boy Using Laptop At Home Royalty Free Stock Photos
+10:31:18,665 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:18,699 DEBUG AzureBingSearchEngine:115 - Document has been saved: e88e6ec4-c054-4bcc-86ac-d4b5cd8b5fde
+10:31:18,699 DEBUG AzureBingSearchEngine:102 - image_url: http://thumbs.dreamstime.com/t/smiling-teen-girl-laptop-15411595.jpg
+10:31:18,700 DEBUG AzureBingSearchEngine:103 - page title: Smiling Student Girl Laptop School Stock Photos & Images
+10:31:18,888 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:18,915 DEBUG AzureBingSearchEngine:115 - Document has been saved: 1e4dfa5c-ba6f-4dea-8dda-ea72a5caf9eb
+10:31:18,915 DEBUG AzureBingSearchEngine:129 - process finished
+10:31:20,414  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:31:20,416 DEBUG AzureBingSearchEngine:102 - image_url: http://uhull.virgula.uol.com.br/wp-content/uploads/2014/12/Captura-de-Tela-2014-12-14-às-23.29.32-150x150.jpg
+10:31:20,416 DEBUG AzureBingSearchEngine:103 - page title: Página 198 de 279 – Uhull S.A.Uhull S.A. | Page 198
+10:31:22,073 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:22,121 DEBUG AzureBingSearchEngine:115 - Document has been saved: 05e9c81e-53f3-4462-bf4b-617d9157cad0
+10:31:22,121 DEBUG AzureBingSearchEngine:102 - image_url: http://uhull.virgula.uol.com.br/wp-content/uploads/2014/08/Captura-de-Tela-2014-08-15-às-09.59.26-150x150.jpg
+10:31:22,121 DEBUG AzureBingSearchEngine:103 - page title: agosto, 2014 | Uhull S.A. - Parte 13
+10:31:22,747 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:22,790 DEBUG AzureBingSearchEngine:115 - Document has been saved: 2557be7c-8b8e-4b84-a8d6-1eca8533da20
+10:31:22,790 DEBUG AzureBingSearchEngine:102 - image_url: http://i0.wp.com/www.uhull.com.br/2007/wp-content/uploads/thumb-321566931_afda68ed81.jpg?resize=180%2C133
+10:31:22,790 DEBUG AzureBingSearchEngine:103 - page title: Pequenos Grandes Posts Compactos - Uhull S.A.
+10:31:23,407 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:23,436 DEBUG AzureBingSearchEngine:115 - Document has been saved: 020db913-13cd-4f45-984c-c1b10f99adea
+10:31:23,436 DEBUG AzureBingSearchEngine:102 - image_url: http://uhull.virgula.uol.com.br/wp-content/uploads/2014/05/Baraka-150x150.jpg
+10:31:23,436 DEBUG AzureBingSearchEngine:103 - page title: vídeo BRUTAL de anúncio do novo Mortal Kombat X
+10:31:24,056 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:24,079 DEBUG AzureBingSearchEngine:115 - Document has been saved: b90f4287-b6bf-4b7f-b9c6-c3b253bc0160
+10:31:24,079 DEBUG AzureBingSearchEngine:102 - image_url: http://img1.colmeia.blog.br/posts/full/d8999d65feef3598b56e550a9c0a55b2.jpg
+10:31:24,080 DEBUG AzureBingSearchEngine:103 - page title: 50 Frases Sobre Galvão Bueno - Colmeia : O Agregador de Links com ...
+10:31:24,579 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:24,705 DEBUG AzureBingSearchEngine:115 - Document has been saved: 53b6a3fe-fd71-4abc-b680-d13928e5d8af
+10:31:24,705 DEBUG AzureBingSearchEngine:102 - image_url: http://sequelado.com.br/wp-content/uploads/2012/05/tragico.gif
+10:31:24,706 DEBUG AzureBingSearchEngine:103 - page title: vi no Uhull
+10:31:26,565 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:26,596 DEBUG AzureBingSearchEngine:115 - Document has been saved: 4405a52e-276c-4a57-a2b2-93732e38f5bc
+10:31:26,596 DEBUG AzureBingSearchEngine:102 - image_url: http://img1.colmeia.blog.br/posts/big/ad3239489226644fff9e79964d124824.jpg
+10:31:26,596 DEBUG AzureBingSearchEngine:103 - page title: Cenas Bem Produzidas, Trama Sombria e Proposta Ousada Marcam a Estreia ...
+10:31:26,839 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:27,229 DEBUG AzureBingSearchEngine:115 - Document has been saved: 74a253ae-1d8d-45ad-b946-476392e8e9cf
+10:31:27,232 DEBUG AzureBingSearchEngine:102 - image_url: http://img0.colmeia.blog.br/posts/big/8a4e206a28d202139e50a83f7ca08f42.jpg
+10:31:27,233 DEBUG AzureBingSearchEngine:103 - page title: As Piores Fotos das Celebridades - Colmeia : O Agregador de Links com ...
+10:31:27,698 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:27,778 DEBUG AzureBingSearchEngine:115 - Document has been saved: c80d3a85-550a-45eb-95bc-3963b2ad7b50
+10:31:27,779 DEBUG AzureBingSearchEngine:102 - image_url: http://img0.colmeia.blog.br/posts/full/dfb0c8b771b7e88f0d747127f9e4f929.jpg
+10:31:27,780 DEBUG AzureBingSearchEngine:103 - page title: Corpo de Mulher, Gene de Homem - Colmeia : O Agregador de Links com ...
+10:31:28,004 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:28,606 DEBUG AzureBingSearchEngine:115 - Document has been saved: a48b92fa-944e-4512-adfc-a3c87ecd2671
+10:31:28,607 DEBUG AzureBingSearchEngine:102 - image_url: http://img2.colmeia.blog.br/posts/full/d384938090bf8c293247b36f4f27e931.jpg
+10:31:28,607 DEBUG AzureBingSearchEngine:103 - page title: As 10 Ilusões Sonoras Mais Incríveis do Mundo - Colmeia : O ...
+10:31:29,083 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:29,269 DEBUG AzureBingSearchEngine:115 - Document has been saved: e4944ace-8035-42b2-8af3-e4cd7e7fb34a
+10:31:29,270 DEBUG AzureBingSearchEngine:102 - image_url: http://img1.colmeia.blog.br/posts/big/33e1275d8a84cf57eb303145aabf7566.jpg
+10:31:29,270 DEBUG AzureBingSearchEngine:103 - page title: Os 10 Atores Mais Ricos do Mundo - Colmeia : O Agregador de Links com ...
+10:31:29,506 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:29,544 DEBUG AzureBingSearchEngine:115 - Document has been saved: 8676573c-e4f9-4b5a-82df-4949f58e7476
+10:31:29,545 DEBUG AzureBingSearchEngine:102 - image_url: http://img2.colmeia.blog.br/posts/full/a2b400ecddc53d4f5e7563dcf5184aaa.jpg
+10:31:29,545 DEBUG AzureBingSearchEngine:103 - page title: Sabrina Sato Entrevista Hugh Jackman - Colmeia : O Agregador de Links ...
+10:31:29,782 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:29,796 DEBUG AzureBingSearchEngine:115 - Document has been saved: bf59d548-adfe-44f1-ab8b-45cb6fcb95ee
+10:31:29,796 DEBUG AzureBingSearchEngine:102 - image_url: http://img2.colmeia.blog.br/posts/big/fb4b35768b67d673e60b7d0061492d2b.jpg
+10:31:29,797 DEBUG AzureBingSearchEngine:103 - page title: Shannon Elizabeth, a Gata de American Pie - Colmeia : O Agregador de ...
+10:31:30,034 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:30,060 DEBUG AzureBingSearchEngine:115 - Document has been saved: e54d1eba-f0cb-4ba5-946c-2d122b0bb8c4
+10:31:30,060 DEBUG AzureBingSearchEngine:102 - image_url: http://img1.colmeia.blog.br/posts/full/0eabadaa626a855268ba2baecad39041.jpg
+10:31:30,060 DEBUG AzureBingSearchEngine:103 - page title: Doenças Estranhas - Colmeia : O Agregador de Links com Melhor dos ...
+10:31:30,291 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:30,302 DEBUG AzureBingSearchEngine:115 - Document has been saved: f6abf296-eb75-4661-8b40-9866a55a2122
+10:31:30,302 DEBUG AzureBingSearchEngine:102 - image_url: http://img1.colmeia.blog.br/posts/big/828c37b5c69472bfb87863500bc16185.jpg
+10:31:30,302 DEBUG AzureBingSearchEngine:103 - page title: Médico Tira Testículo em Vez de Cisto de Paciente - Colmeia : O ...
+10:31:30,539 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:30,557 DEBUG AzureBingSearchEngine:115 - Document has been saved: 984322b7-c63b-407e-b717-3d842438159c
+10:31:30,557 DEBUG AzureBingSearchEngine:129 - process finished
+10:31:32,459  INFO AzureBingSearchEngine:78 - Total de websites: 15
+10:31:32,459 DEBUG AzureBingSearchEngine:102 - image_url: http://media-cache-ec0.pinimg.com/avatars/cya0709_1341077104_140.jpg
+10:31:32,459 DEBUG AzureBingSearchEngine:103 - page title: Cya Neal on Pinterest
+10:31:32,673 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:32,685 DEBUG AzureBingSearchEngine:115 - Document has been saved: 2b6ce282-40c6-4aed-bf3a-3c3d54e06aea
+10:31:32,685 DEBUG AzureBingSearchEngine:102 - image_url: http://www.dentiss.com/fileSource/yaziFoto/big/cya3ZjdfpuipYXvobgcm.jpg
+10:31:32,685 DEBUG AzureBingSearchEngine:103 - page title: 1st name: all on people named Cya: songs, books, gift ideas, pics ...
+10:31:33,011 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:33,025 DEBUG AzureBingSearchEngine:115 - Document has been saved: 9f8b5ff8-cdaf-478e-8848-0c7b6e367d1c
+10:31:33,025 DEBUG AzureBingSearchEngine:102 - image_url: http://m.c.lnkd.licdn.com/mpr/pub/image-yf964O2b_8mWyRKdMPpP9unYvf9YHmSbHfpkKTZUvBMsKZ0Wyf9kKhibvXwAMpmA_cyA/marc-fouliard.jpg
+10:31:33,026 DEBUG AzureBingSearchEngine:103 - page title: 1st name: all on people named Cya: songs, books, gift ideas, pics ...
+10:31:33,268 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:33,287 DEBUG AzureBingSearchEngine:115 - Document has been saved: 3f173a60-b657-4f45-8e3b-87d77c50ac93
+10:31:33,287 DEBUG AzureBingSearchEngine:102 - image_url: http://projectagency.co.uk/documents/Cya-Rosen.jpg
+10:31:33,287 DEBUG AzureBingSearchEngine:103 - page title: Cya Rosen
+10:31:33,410 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:33,422 DEBUG AzureBingSearchEngine:115 - Document has been saved: 510cec1e-76d8-48ef-9c49-7655ad6c2e44
+10:31:33,422 DEBUG AzureBingSearchEngine:102 - image_url: http://cdn2.sportngin.com/attachments/text_block/0226/4375/andywozniewski_small.jpg
+10:31:33,422 DEBUG AzureBingSearchEngine:103 - page title: CYA Coach : Maciuk
+10:31:34,015 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:34,025 DEBUG AzureBingSearchEngine:115 - Document has been saved: 8540bc53-1d0c-4876-95d9-fc65d02a0535
+10:31:34,025 DEBUG AzureBingSearchEngine:102 - image_url: http://www.cronicayanalisis.com.ar/CYA%20Guillermo%20Cherashny.jpg
+10:31:34,025 DEBUG AzureBingSearchEngine:103 - page title: 1st name: all on people named Cya: songs, books, gift ideas, pics ...
+10:31:35,082 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:35,096 DEBUG AzureBingSearchEngine:115 - Document has been saved: 2261e273-d05a-4dea-a6ba-4cd3f0c4d0a0
+10:31:35,096 DEBUG AzureBingSearchEngine:102 - image_url: https://pbs.twimg.com/profile_images/558643432680210432/cya54hml.jpeg
+10:31:35,096 DEBUG AzureBingSearchEngine:103 - page title: Rosie Aguilera (@aguileraR5) | Twitter
+10:31:35,984 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:35,994 DEBUG AzureBingSearchEngine:115 - Document has been saved: 8211f411-e9ae-4d12-ab89-de37043c16f4
+10:31:35,994 DEBUG AzureBingSearchEngine:102 - image_url: http://cdn3.sportngin.com/attachments/text_block/0226/3540/billsweatt_small.jpg
+10:31:35,994 DEBUG AzureBingSearchEngine:103 - page title: CYA Coach : Naumenko
+10:31:36,522 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:36,532 DEBUG AzureBingSearchEngine:115 - Document has been saved: a56452b0-f20f-43e1-a6aa-c07740b06a77
+10:31:36,533 DEBUG AzureBingSearchEngine:102 - image_url: https://www.fuk.co.uk/media/thumbs/uploads/avatars/122576-PCE.jpg.120x120_q85_crop.jpg
+10:31:36,533 DEBUG AzureBingSearchEngine:103 - page title: Cya avatar
+10:31:37,075 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:37,090 DEBUG AzureBingSearchEngine:115 - Document has been saved: 53c410cb-00b0-44fe-abc3-844c6c9d3de7
+10:31:37,091 DEBUG AzureBingSearchEngine:102 - image_url: http://cdn4.sportngin.com/attachments/text_block/0226/4402/vincentloverde_small.jpg
+10:31:37,091 DEBUG AzureBingSearchEngine:103 - page title: CYA Coach : Jones
+10:31:37,647 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:37,657 DEBUG AzureBingSearchEngine:115 - Document has been saved: 912b545f-b1b4-4918-a1f7-6a38ab994536
+10:31:37,657 DEBUG AzureBingSearchEngine:102 - image_url: http://www.metrocorpcounsel.com/sites/default/files/imagecache/author_image/Sullivan_Kevin.jpg
+10:31:37,657 DEBUG AzureBingSearchEngine:103 - page title: CYA On That LOI: Avoiding Liability Under Preliminary Agreements | The ...
+10:31:38,046 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:38,065 DEBUG AzureBingSearchEngine:115 - Document has been saved: 80da883f-93e9-4dd5-b101-70c48354fc4d
+10:31:38,065 DEBUG AzureBingSearchEngine:102 - image_url: https://evbdn.eventbrite.com/s3-s3/eventlogos/10283239/ericwall.jpg
+10:31:38,065 DEBUG AzureBingSearchEngine:103 - page title: CYA Your Startup Tickets, Tue, Feb 25, 2014 at 6:30 PM | Eventbrite
+10:31:38,832 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:38,840 DEBUG AzureBingSearchEngine:115 - Document has been saved: 2fcc5e06-37b6-4fc7-85af-db52437650e2
+10:31:38,841 DEBUG AzureBingSearchEngine:102 - image_url: http://s3.vidimg.popscreen.com/large/26/eG91a3YwMTI=_l.jpg
+10:31:38,841 DEBUG AzureBingSearchEngine:103 - page title: Latest Igituba Cya Victoire Ingabire videos at PopScreen
+10:31:39,364 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:39,382 DEBUG AzureBingSearchEngine:115 - Document has been saved: 6f670e61-ecdc-47c0-b060-a48a44b9cedf
+10:31:39,382 DEBUG AzureBingSearchEngine:102 - image_url: http://id.static.z-dn.net/files/d29/65b2f849e2b8f91d45763413d749b25c.jpg
+10:31:39,382 DEBUG AzureBingSearchEngine:103 - page title: Avatar pengguna cya
+10:31:39,457 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:39,465 DEBUG AzureBingSearchEngine:115 - Document has been saved: fdfc2c27-44e9-4c20-985a-1080a1d672fa
+10:31:39,465 DEBUG AzureBingSearchEngine:102 - image_url: http://media.giphy.com/media/JFg7xKjX7rnzO/giphy.gif
+10:31:39,466 DEBUG AzureBingSearchEngine:103 - page title: ... finn harries jack and finn harries cya leaning back animated GIF
+10:31:39,965 DEBUG SolrHelper:26 - Solr server: http://localhost:8983/solr/horus_person/
+10:31:39,973 DEBUG AzureBingSearchEngine:115 - Document has been saved: 39cb18a5-7abe-419b-aac7-b78e80f7c2e3
+10:31:39,973 DEBUG AzureBingSearchEngine:129 - process finished
+10:31:39,973  INFO HorusDemo:30 - ************************************************************************
+10:31:39,973  INFO HorusDemo:31 - *                         Process Finished                             *
+10:31:39,973  INFO HorusDemo:32 - ************************************************************************
+10:31:39,976  INFO HorusDemo:40 - Processing Time: 00 hour, 04 min, 29 sec

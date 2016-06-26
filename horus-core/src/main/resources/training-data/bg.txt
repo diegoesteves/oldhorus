@@ -1,0 +1,3 @@
+/Users/dnes/Github/Horus/horus-core/src/main/resources/training-data/landscapes/1.jpeg
+/Users/dnes/Github/Horus/horus-core/src/main/resources/training-data/landscapes/2.jpeg
+/Users/dnes/Github/Horus/horus-core/src/main/resources/training-data/landscapes/3.jpeg

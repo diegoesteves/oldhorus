@@ -7,7 +7,7 @@
         <groupId>org.aksw.horus</groupId>
         <version>1.0</version>
     </parent>
-    <name>core</name>
+    <name>horus-core</name>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>core</artifactId>
     <repositories>

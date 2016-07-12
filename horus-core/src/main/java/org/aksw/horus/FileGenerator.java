@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 /**
  * Created by Diego on 6/25/2016.
  */
-public class Temp2 {
+public class FileGenerator {
 
 
     private static void createNEGFile() throws Exception{

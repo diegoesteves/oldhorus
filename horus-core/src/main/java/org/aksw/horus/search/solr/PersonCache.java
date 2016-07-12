@@ -2,6 +2,7 @@ package org.aksw.horus.search.solr;
 
 import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Constants;
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.cache.ICache;
 import org.aksw.horus.search.result.DefaultSearchResult;
 import org.aksw.horus.search.result.ISearchResult;
@@ -197,7 +198,7 @@ public class PersonCache implements ICache<ISearchResult> {
 
                     img.setImageFileName((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD));
                     img.setImageFilePath((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD));
-                    img.setWebSiteByURL((String)doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
+                    img.setWebSite((String)doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
 
                     resources.add(img);
                 }
@@ -208,7 +209,7 @@ public class PersonCache implements ICache<ISearchResult> {
         }
 
         //we do not define language now, because we rely only on resultset from search engines
-        return new DefaultSearchResult(resources, hitCount, _query, true, "");
+        return new DefaultSearchResult(resources, hitCount, _query, true, "", Global.NERType.PER);
 
     }
 

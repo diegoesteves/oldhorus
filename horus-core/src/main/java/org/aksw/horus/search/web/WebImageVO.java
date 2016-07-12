@@ -16,6 +16,10 @@ public class WebImageVO extends WebResourceVO {
         this.site = new WebSiteVO(websiteURL);
     }
 
+    public WebImageVO(){
+
+    }
+
     public void setImageFilePath(String value){
         this.filePath = value;
     }
@@ -28,9 +32,17 @@ public class WebImageVO extends WebResourceVO {
     public String getImageFileName(){
         return this.fileName;
     }
+
     public WebSiteVO getWebSite(){
         return this.site;
     }
 
+    public void setWebSite(String websiteURL){
+        this.site = new WebSiteVO(websiteURL);
+    }
+
+    public void setWebSite(WebSiteVO website){
+        this.site = website;
+    }
 
 }

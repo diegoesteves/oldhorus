@@ -17,6 +17,10 @@ public class Global {
         // Exists only to defeat instantiation.
     }
 
+    public enum NERType {
+        PER, LOC, ORG
+    }
+
     private static Logger LOGGER = Logger.getLogger(Global.class);
 
     public static Global getInstance() {

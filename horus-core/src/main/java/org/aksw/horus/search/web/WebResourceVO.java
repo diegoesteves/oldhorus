@@ -3,7 +3,7 @@ package org.aksw.horus.search.web;
 /**
  * Created by dnes on 01/06/16.
  */
-public abstract class WebResourceVO {
+public abstract class WebResourceVO implements IWebResource {
 
     private String          title;
     private String          url;
@@ -16,15 +16,17 @@ public abstract class WebResourceVO {
     public WebResourceVO(){
 
     }
+    public WebResourceVO(String query, String url){
+        this.query = query;
+        this.url = url;
+    }
 
     public void setTotalHitCount(int value){
         this.hit = value;
     }
-
     public int getTotalHitCount(){
         return this.hit;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }

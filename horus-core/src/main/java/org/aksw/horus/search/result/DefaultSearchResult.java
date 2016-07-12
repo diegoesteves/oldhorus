@@ -1,5 +1,6 @@
 package org.aksw.horus.search.result;
 
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.web.WebResourceVO;
 
 import java.util.List;
@@ -14,13 +15,15 @@ public class DefaultSearchResult implements ISearchResult {
     private String               language;
     private boolean              cached = false;
     private List<WebResourceVO>  webresources;
+    private Global.NERType       type;
 
-    public DefaultSearchResult(List<WebResourceVO> resources, Long totalHitCount, String query, boolean cached, String ln) {
+    public DefaultSearchResult(List<WebResourceVO> resources, Long totalHitCount, String query, boolean cached, String ln, Global.NERType type) {
         this.webresources      = resources;
         this.totalHitCount     = totalHitCount;
         this.query             = query;
         this.cached            = cached;
         this.language          = ln;
+        this.type              = type;
     }
 
     @Override
@@ -35,6 +38,10 @@ public class DefaultSearchResult implements ISearchResult {
 
     public String getLanguage() {
         return this.language;
+    }
+
+    public Global.NERType getSearchType() {
+        return this.type;
     }
 
     public String getQuery() {

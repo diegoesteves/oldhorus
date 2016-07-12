@@ -97,7 +97,7 @@ public abstract class Horus {
 
         LOGGER.debug(":: caching [" + term);
         AzureBingSearchEngine engine = new AzureBingSearchEngine(term);
-        engine.downloadAndCacheImages();
+        //engine.downloadAndCacheImages();
 
     }
 

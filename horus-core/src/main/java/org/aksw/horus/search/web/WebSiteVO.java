@@ -13,6 +13,9 @@ public class WebSiteVO extends WebResourceVO {
         this.setUrl(url);
     }
 
+    public WebSiteVO(){
+    }
+
     public WebSiteVO(String url) {
         this.setUrl(url);
     }

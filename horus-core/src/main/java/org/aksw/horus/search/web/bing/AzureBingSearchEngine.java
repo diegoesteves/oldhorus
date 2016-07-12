@@ -1,14 +1,19 @@
 package org.aksw.horus.search.web.bing;
 
+import net.billylieurance.azuresearch.*;
 import net.billylieurance.azuresearch.AbstractAzureSearchQuery.AZURESEARCH_QUERYTYPE;
-import net.billylieurance.azuresearch.AbstractAzureSearchResult;
-import net.billylieurance.azuresearch.AzureSearchCompositeQuery;
-import net.billylieurance.azuresearch.AzureSearchImageResult;
-import net.billylieurance.azuresearch.AzureSearchResultSet;
 import org.aksw.horus.Horus;
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.ImageManipulation;
+import org.aksw.horus.search.result.DefaultSearchResult;
+import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.solr.SolrHelper;
+import org.aksw.horus.search.web.*;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dnes on 12/04/16.
@@ -34,27 +39,13 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
         this.query = query;
     }
 
+    @Override
+    public ISearchResult query(String query, Global.NERType type) {
 
-    public void downloadAndCacheImages(){
-
-        try{
-
-
-            ImageManipulation imgHelp = new ImageManipulation();
-
-            //images already cached
-            if (imgHelp.directoryExists(IMG_ROOT_DIR + this.query.hashCode()) &&
-                    !imgHelp.directoryIsEmpty(IMG_ROOT_DIR + this.query.hashCode())){
-                LOGGER.info("This query is cached, there is no need to search it again now...");
-                return;
-            }
-
-            //query has not been executed yet, starting cache
-            imgHelp.createDirectory(IMG_ROOT_DIR + this.query.hashCode());
-
+        try {
 
             AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
-            aq.setSources(new AZURESEARCH_QUERYTYPE[] {
+            aq.setSources(new AZURESEARCH_QUERYTYPE[]{
                     AZURESEARCH_QUERYTYPE.IMAGE
             });
 
@@ -72,7 +63,9 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
             AzureSearchResultSet<AbstractAzureSearchResult> ars = aq.getQueryResult();   //https://msdn.microsoft.com/en-us/library/dd560913.aspx
 
-            int i = 1;
+            List<WebResourceVO> results = new ArrayList<>();
+
+            int i = 0;
             int totalSites = ars.getASRs().size();
 
             LOGGER.info("Total de websites: " + totalSites);
@@ -84,11 +77,32 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                 //if ( ((AzureSearchWebResult) result).getUrl().startsWith("http://images.webgiftr.com/")
                 //        || ((AzureSearchWebResult) result).getUrl().startsWith("http://www.calza.com/")) continue;
 
-                String image_url = ((AzureSearchImageResult) result).getMediaUrl();
-                String page_title = result.getTitle();
-                String image_id = ((AzureSearchImageResult) result).getId();
-                String image_type = ((AzureSearchImageResult) result).getContentType();
-                String image_name = image_id+"."+image_type.substring(image_type.lastIndexOf("/")+1);
+                WebSiteVO root = new WebSiteVO();
+                //shared
+                root.setTitle(result.getTitle());
+                root.setUrl(((AzureSearchWebResult) result).getUrl());
+                root.setSearchRank(i++);
+                root.setCached(false);
+                root.setQuery(query);
+                root.setLanguage("");
+
+                WebImageVO resource;
+                if (type.equals(Global.NERType.PER) || type.equals(Global.NERType.LOC) || type.equals(Global.NERType.ORG)){
+                    resource = new WebImageVO();
+
+                    String image_id = ((AzureSearchImageResult) result).getId();
+                    String image_type = ((AzureSearchImageResult) result).getContentType();
+                    String image_url = ((AzureSearchImageResult) result).getMediaUrl();
+
+
+                    resource.setImageFileName(image_id + "." + image_type.substring(image_type.lastIndexOf("/") + 1));
+                    resource.setImageFilePath(IMG_ROOT_DIR + (this.query + "_" + type.toString()).hashCode() + "/");
+                    resource.setWebSite(root);
+                }else {
+                   throw new NotImplementedException();
+                }
+                results.add(resource);
+
 
                 /*if (!image_name.contains(".jpg") &&
                         !image_name.contains(".jpeg") &&
@@ -99,34 +113,20 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                     image_name+="."+image_type.substring(image_type.lastIndexOf("/")+1);
                 }*/
 
-                LOGGER.debug("image_url: " + image_url);
-                LOGGER.debug("page title: " + page_title);
-
-                try {
-
-                    imgHelp.saveImage(image_url, IMG_ROOT_DIR + this.query.hashCode() + "/" + image_name);
-
-
-                    SolrHelper solrh = new SolrHelper();
-                    solrh.saveDocumentPersonImage(image_id,
-                            image_name, page_title, IMG_ROOT_DIR + this.query.hashCode() + "/" ,
-                            strQuery, String.valueOf(strQuery.hashCode()), totalSites, i);
-
-                    LOGGER.debug("Document has been saved: " + image_id);
-                    i++;
-
-                }catch (Exception e){
-                    LOGGER.error(e.toString());
-                }
+                LOGGER.debug("image_url: " + resource.getUrl());
+                LOGGER.debug("page title: " + resource.getWebSite().getTitle());
 
             }
 
+            LOGGER.debug("process finished");
 
-        }catch (Exception e){
+            return new DefaultSearchResult(results, ars.getWebTotal(), query, false, "", type);
+
+        } catch (Exception e) {
             LOGGER.error(e.toString());
-        }
+            return new DefaultSearchResult(new ArrayList<>(), 0L, query, false, "", type);
 
-        LOGGER.debug("process finished");
+        }
 
     }
 
@@ -137,7 +137,26 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             Horus.init();
 
             AzureBingSearchEngine engine = new AzureBingSearchEngine("Jens");
-            engine.downloadAndCacheImages();
+            engine.query("Jens", Global.NERType.PER);
+
+
+            /*try {
+
+                ImageManipulation imgHelp = new ImageManipulation();
+                imgHelp.saveImage(resource.getUrl(), resource.getImageFilePath() + resource.getImageFileName());
+
+                SolrHelper solrh = new SolrHelper();
+                solrh.saveDocumentPersonImage(image_id,
+                        image_name, page_title, IMG_ROOT_DIR + this.query.hashCode() + "/",
+                        strQuery, String.valueOf(strQuery.hashCode()), totalSites, i);
+
+                LOGGER.debug("Document has been saved: " + image_id);
+                i++;
+
+            } catch (Exception e) {
+                LOGGER.error(e.toString());
+            }
+            */
 
 
         }catch (Exception e){
@@ -147,5 +166,18 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
 
     }
+
+    @Override
+    public String generateQuery(String query) {
+        //return new BingQuery().generateQuery(query);
+        return query;
+    }
+    @Override
+    public Long getNumberOfResults(String query) {
+        return 0L;
+    }
+
+
+
 
 }

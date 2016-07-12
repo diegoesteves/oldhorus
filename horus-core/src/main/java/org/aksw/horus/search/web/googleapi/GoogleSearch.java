@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ public class GoogleSearch implements ISearchEngine {
    */
   public static void main(final String[] args) {
     final GoogleSearch googleSearch = new GoogleSearch();
-    googleSearch.query("Peter");
+    googleSearch.query("Peter", Global.NERType.PER);
   }
 
   /**
@@ -46,7 +47,7 @@ public class GoogleSearch implements ISearchEngine {
   }
 
   @Override
-  public ISearchResult query(final String query) {
+  public ISearchResult query(final String query, final Global.NERType type) {
     final JSONObject results = httpGet(url.concat(query));
     System.out.println(results.toString(2));
 
@@ -54,7 +55,7 @@ public class GoogleSearch implements ISearchEngine {
   }
 
   @Override
-  public ISearchResult getSearchResults(final String query) {
+  public ISearchResult getSearchResults(final String query, final Global.NERType type) {
     throw new UnsupportedOperationException();
   }
 

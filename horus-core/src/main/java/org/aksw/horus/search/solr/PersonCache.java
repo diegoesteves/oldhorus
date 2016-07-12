@@ -157,15 +157,14 @@ public class PersonCache implements ICache<ISearchResult> {
     }
 
     @Override
-    public ISearchResult getEntry(String identifier) {
+    public ISearchResult getEntry(String _query) {
 
-        List<WebResourceVO> websites = new ArrayList<WebResourceVO>();
+        List<WebResourceVO> resources = new ArrayList<WebResourceVO>();
         Long hitCount = 0L;
 
         try {
 
-
-            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(50);
+            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + _query + "\"").setRows(50);
             query.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
             query.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
             query.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD);
@@ -186,16 +185,21 @@ public class PersonCache implements ICache<ISearchResult> {
 
                 if (!((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD)).isEmpty()) { // empty cache hits should not become a website
 
-                    WebResourceVO site = new WebResourceVO(metaQuery, (String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD)) {
-                    };
-                    site.setRank((Integer) doc.get(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD));
-                    site.setPageRank((Integer) doc.get(Constants.LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD));
-                    site.setText((String) doc.get(Constants.LUCENE_SEARCH_RESULT_CONTENT_FIELD));
-                    site.setTitle((String) doc.get(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD));
-                    site.setTaggedText((String) doc.get(Constants.LUCENE_SEARCH_RESULT_TAGGED_FIELD));
-                    site.setLanguage((String) doc.get(Constants.LUCENE_SEARCH_RESULT_LANGUAGE));
-                    site.setCached(true);
-                    websites.add(site);
+                    WebImageVO img = new WebImageVO();
+
+                    img.setTitle((String) doc.get(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD));
+                    img.setUrl((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
+                    img.setSearchRank(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD)).intValue());
+                    img.setCached(true);
+                    img.setQuery(_query);
+                    img.setLanguage((String) doc.get(Constants.LUCENE_SEARCH_RESULT_LANGUAGE));
+                    img.setTotalHitCount(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD)).intValue());
+
+                    img.setImageFileName((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD));
+                    img.setImageFilePath((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD));
+                    img.setWebSiteByURL((String)doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
+
+                    resources.add(img);
                 }
             }
 
@@ -203,8 +207,18 @@ public class PersonCache implements ICache<ISearchResult> {
             LOGGER.error(e.toString());
         }
 
-        return new DefaultSearchResult(websites, hitCount, metaQuery, true);
+        //we do not define language now, because we rely only on resultset from search engines
+        return new DefaultSearchResult(resources, hitCount, _query, true, "");
+
     }
 
+    @Override
+    public ISearchResult removeEntryByPrimaryKey(String primaryKey) {
+        throw new RuntimeException("not yet implemented");
+    }
 
+    @Override
+    public boolean updateEntry(ISearchResult object) {
+        throw new RuntimeException("not yet implemented");
+    }
 }

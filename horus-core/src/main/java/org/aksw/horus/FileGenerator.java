@@ -1,17 +1,12 @@
 package org.aksw.horus;
 
 
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import sun.awt.image.ImageDecoder;
-
-import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.net.URL;
-import javax.imageio.ImageIO;
+
 
 
 /**

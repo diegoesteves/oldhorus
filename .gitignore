@@ -11,9 +11,6 @@ gen
 .directory
 
 horus-core/src/resources/log
-
 horus-core/target/
 horus-core/src/test/
-
-
 horus-core/src/main/resources/cache/images

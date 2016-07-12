@@ -113,11 +113,7 @@ public abstract class Horus {
                         cacheTerm(t.getTerm());
                     }
 
-                    LOGGER.debug(":: returning the cache for [" + t.getTerm());
-
-
-
-
+                    LOGGER.debug(":: returning the cache for [" + t.getTerm() + "]");
 
 
 

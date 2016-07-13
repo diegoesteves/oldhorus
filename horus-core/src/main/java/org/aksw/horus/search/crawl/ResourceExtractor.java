@@ -1,29 +1,28 @@
 package org.aksw.horus.search.crawl;
 
 import org.aksw.horus.core.util.Global;
+import org.aksw.horus.search.HorusEvidence;
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.aksw.horus.search.web.WebResourceVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Diego on 7/12/2016.
  */
-public class ResourceCrawler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ResourceCrawler.class);
-    private Map<Global.NERType,String> queries;
+public class ResourceExtractor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResourceExtractor.class);
+    private Map<Global.NERType, String> queries;
 
-    public ResourceCrawler(Map<Global.NERType, Integer> queries){
+    public ResourceExtractor(List<MetaQuery> queries) {
 
     }
 
-    private Set<ISearchResult> crawl(ISearchEngine engine) {
+    public List<HorusEvidence> extract(ISearchEngine engine) {
 
         //query and resources returned
         Map<String, List<WebResourceVO>> cache;
@@ -39,6 +38,7 @@ public class ResourceCrawler {
     }
 
     private Set<ISearchResult> generateSearchResultsInParallel(ISearchEngine engine) {
-
+        return null;
     }
+}
 

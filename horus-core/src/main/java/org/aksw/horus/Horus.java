@@ -7,7 +7,8 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.TimeUtil;
-import org.aksw.horus.search.crawl.ResourceCrawler;
+import org.aksw.horus.search.HorusEvidence;
+import org.aksw.horus.search.crawl.ResourceExtractor;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
@@ -144,7 +145,7 @@ public abstract class Horus {
         /* 1. Annotate text */
         List<HorusContainer> horusContainers = annotate(text);
 
-        /* 2. Starting querying */
+        /* 2. Querying and Caching */
         List<MetaQuery> queries = new ArrayList<>();
 
         //filtering out
@@ -165,24 +166,22 @@ public abstract class Horus {
         LOGGER.debug("-> Preparing queries took " +
                 TimeUtil.formatTime(System.currentTimeMillis() - start));
 
-        //downloading and caching
         ISearchEngine engine = new AzureBingSearchEngine();
         long startCrawl = System.currentTimeMillis();
-        ResourceCrawler crawler = new ResourceCrawler(queries);
-        Evidence evidence = crawler.crawl(engine);
-        LOGDEV.debug(" -> crawling evidence took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
+        ResourceExtractor ext = new ResourceExtractor(queries);
+        List<HorusEvidence> evidences = ext.extract(engine);
+
+        LOGGER.debug(" -> extracting evidences took " +
+                TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
 
 
-        /* 3. Caching the results */
+        /* 3. Running PER model */
 
 
-        /* 4. Running PER model */
+        /* 4. Running LOC model */
 
 
-        /* 5. Running LOC model */
-
-
-        /* 6. Running ORG model */
+        /* 5. Running ORG model */
 
         return horusContainers;
     }

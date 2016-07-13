@@ -38,6 +38,13 @@ public class FaceDetectOpenCV {
 
     }
 
+    public boolean faceDetected(File img){
+        Mat image = Imgcodecs.imread(img.getAbsolutePath());
+        MatOfRect faceDetections = new MatOfRect();
+        this.classifier.detectMultiScale(image, faceDetections);
+        return ((faceDetections.toArray().length >= 1) ? true : false);
+    }
+
     private void detectFace(String imgPath) {
 
         File dir = new File(imgPath);

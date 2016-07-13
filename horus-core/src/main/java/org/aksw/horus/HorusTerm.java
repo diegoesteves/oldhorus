@@ -1,5 +1,6 @@
 package org.aksw.horus;
 
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.HorusEvidence;
 
 /**
@@ -29,6 +30,16 @@ public class HorusTerm {
         this._postagger = POS;
         this._index = index;
         this._position = position;
+    }
+
+    public HorusEvidence getEvidences(Global.NERType type){
+        if (type.equals(Global.NERType.PER)){
+            return this._evidencePER;
+        }else if(type.equals(Global.NERType.LOC)){
+            return this._evidenceLOC;
+        }else{
+            return this._evidenceORG;
+        }
     }
 
     public int getIndex() {

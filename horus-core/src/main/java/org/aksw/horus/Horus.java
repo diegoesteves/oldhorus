@@ -5,12 +5,14 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import org.aksw.horus.core.FaceDetectOpenCV;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.TimeUtil;
 import org.aksw.horus.search.HorusEvidence;
 import org.aksw.horus.search.crawl.ResourceExtractor;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.ISearchEngine;
+import org.aksw.horus.search.web.WebImageVO;
 import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
@@ -123,7 +125,7 @@ public abstract class Horus {
         /* 3. Running models */
         recognizeEntities();
         /* 6. based on indicators, make the decision */
-        makeDecision();
+        makeDecisionAmongAll();
         /* 7. return the containers */
         return horusContainers;
     }
@@ -195,28 +197,49 @@ public abstract class Horus {
             LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
             for (HorusTerm t : h.getTerms()) {
                 LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getTerm());
-                isPerson(t.getPosition());
+                setPersonDetected(t.getPosition());
                 LOGGER.debug(":: is organisation? " + t.getIndex() + ": " + t.getTerm());
-                isOrganisation(t.getPosition());
+                setOrganisationDetected(t.getPosition());
                 LOGGER.debug(":: is location? " + t.getIndex() + ": " + t.getTerm());
-                isLocation(t.getPosition());
+                setLocationDetected(t.getPosition());
             }
         }
         LOGGER.info(":: Recognizing Entities - done");
     }
 
-    private static void makeDecision() throws Exception{
+    //TODO: to train J48 here...
+    private static void makeDecisionAmongAll() throws Exception{
 
     }
 
-    private static boolean isPerson(int position) throws Exception{
-        return false;
+    //TODO: create a singleton later...
+    private static void setPersonDetected(int position) throws Exception{
+        HorusEvidence e = getTermByPosition(position).getEvidences(Global.NERType.PER);
+        FaceDetectOpenCV fd = new FaceDetectOpenCV();
+        for (WebImageVO img: e.getImages()){
+            boolean ret =
+                    fd.faceDetected(new File(img.getImageFilePath() + img.getImageFileName()));
+            img.setPersonDetected(ret);
+        }
     }
-    private static boolean isLocation(int position) throws Exception{
-        return false;
+    private static void setLocationDetected(int position) throws Exception{
     }
-    private static boolean isOrganisation(int position) throws Exception{
-        return false;
+    private static void setOrganisationDetected(int position) throws Exception{
+    }
+
+    private static HorusTerm getTermByPosition(int position) throws Exception{
+        int aux = 0;
+        for (HorusContainer h : horusContainers) {
+            aux += h.getTerms().size();
+            if (aux >= position){
+                for (HorusTerm t :  h.getTerms()) {
+                    if (t.getPosition() == position){
+                        return t;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }

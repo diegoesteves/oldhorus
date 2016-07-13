@@ -24,20 +24,22 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
     private static String NUMBER_OF_SEARCH_RESULTS;
     private static String IMG_ROOT_DIR;
     private static Logger LOGGER =  Logger.getLogger(AzureBingSearchEngine.class);
-    private String query;
+    //private String query;
 
-    public AzureBingSearchEngine(String query){
+    public AzureBingSearchEngine(){
         if ( Horus.HORUS_CONFIG != null ) {
             BING_API_KEY = Horus.HORUS_CONFIG.getStringSetting("crawl", "BING_API_KEY");
             NUMBER_OF_SEARCH_RESULTS = Horus.HORUS_CONFIG.getStringSetting("crawl", "NUMBER_OF_SEARCH_RESULTS");
             IMG_ROOT_DIR = Horus.HORUS_CONFIG.getStringSetting("image", "IMG_PERSON_ROOT_DIR");
         }
-        this.query = query;
+        //this.query = query;
     }
 
+    /*
     public void setQuery(String query){
         this.query = query;
     }
+     */
 
     @Override
     public ISearchResult query(String query, Global.NERType type) {
@@ -53,8 +55,8 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             aq.setLatitude("47.603450");
             aq.setLongitude("-122.329696"); //Seattle
             aq.setMarket("en-US");
-            String strQuery = this.query;
-            aq.setQuery(strQuery);
+            //String strQuery = this.query;
+            aq.setQuery(query);
             aq.setImageFilters("Face:Face+Size:Small");
             //aq.setImageFilters("Size:Height:200+Size:Width:200+Face:Face");
             aq.setWebSearchOptions("DisableQueryAlterations");
@@ -96,7 +98,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
 
                     resource.setImageFileName(image_id + "." + image_type.substring(image_type.lastIndexOf("/") + 1));
-                    resource.setImageFilePath(IMG_ROOT_DIR + (this.query + "_" + type.toString()).hashCode() + "/");
+                    resource.setImageFilePath(IMG_ROOT_DIR + (query + "_" + type.toString()).hashCode() + "/");
                     resource.setWebSite(root);
                 }else {
                    throw new NotImplementedException();
@@ -136,7 +138,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
             Horus.init();
 
-            AzureBingSearchEngine engine = new AzureBingSearchEngine("Jens");
+            AzureBingSearchEngine engine = new AzureBingSearchEngine();
             engine.query("Jens", Global.NERType.PER);
 
 

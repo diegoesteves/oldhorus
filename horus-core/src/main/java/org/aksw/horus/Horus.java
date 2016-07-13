@@ -5,6 +5,11 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import org.aksw.horus.core.util.Global;
+import org.aksw.horus.core.util.TimeUtil;
+import org.aksw.horus.search.crawl.ResourceCrawler;
+import org.aksw.horus.search.query.MetaQuery;
+import org.aksw.horus.search.web.ISearchEngine;
 import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
@@ -13,9 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by dnes on 12/04/16.
@@ -30,7 +33,6 @@ public abstract class Horus {
 
 
     // *************************************** private methods ***************************************
-
 
     /**
      * compute the probabilities for each term in a text
@@ -60,6 +62,7 @@ public abstract class Horus {
 
             int iSentence = 0;
             int iTerm = 0;
+            int iPosition = 0;
 
             Properties props = new Properties();
             props.setProperty("annotators","tokenize, ssplit, pos");
@@ -73,8 +76,8 @@ public abstract class Horus {
                 for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     String word = token.get(CoreAnnotations.TextAnnotation.class);
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                    c.addTerm(new HorusTerm(iTerm, word, pos));
-                    iTerm++;
+                    c.addTerm(new HorusTerm(iTerm, word, pos, iPosition));
+                    iTerm++; iPosition++;
                 }
                 _lstContainer.add(c);
                 iSentence++; iTerm = 0;
@@ -86,8 +89,6 @@ public abstract class Horus {
             LOGGER.error(e.toString());
         }
     }
-
-
 
     private static boolean isTermCached(String term){
         return false;
@@ -136,7 +137,55 @@ public abstract class Horus {
 
     // *************************************** public methods ***************************************
 
+    public static List<HorusContainer> process(String text) throws Exception{
 
+        long start = System.currentTimeMillis();
+
+        /* 1. Annotate text */
+        List<HorusContainer> horusContainers = annotate(text);
+
+        /* 2. Starting querying */
+        List<MetaQuery> queries = new ArrayList<>();
+
+        //filtering out
+        for ( HorusContainer container : horusContainers ) {
+            container.getTerms().forEach(t -> {
+                if (t.getPOS().equals("NN") || t.getPOS().equals("NNS") ||
+                        t.getPOS().equals("NNP") || t.getPOS().equals("NNPS")){
+                    queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), t.getPosition()));
+                    queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), t.getPosition()));
+                    queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), t.getPosition()));
+                }
+            });
+        }
+        if ( queries.size() <= 0 ) {
+            LOGGER.debug("none query has been generated for this text!");
+            return new ArrayList<>();
+        }
+        LOGGER.debug("-> Preparing queries took " +
+                TimeUtil.formatTime(System.currentTimeMillis() - start));
+
+        //downloading and caching
+        ISearchEngine engine = new AzureBingSearchEngine();
+        long startCrawl = System.currentTimeMillis();
+        ResourceCrawler crawler = new ResourceCrawler(queries);
+        Evidence evidence = crawler.crawl(engine);
+        LOGDEV.debug(" -> crawling evidence took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
+
+
+        /* 3. Caching the results */
+
+
+        /* 4. Running PER model */
+
+
+        /* 5. Running LOC model */
+
+
+        /* 6. Running ORG model */
+
+        return horusContainers;
+    }
     /***
      * init method
      */
@@ -184,7 +233,7 @@ public abstract class Horus {
      * @return
      * @throws Exception
      */
-    public static List<HorusContainer> annotate(String inputText) throws Exception{
+    private static List<HorusContainer> annotate(String inputText) throws Exception{
 
         LOGGER.info(":: annotating the input text...");
 
@@ -207,7 +256,6 @@ public abstract class Horus {
         return _lstContainer;
 
     }
-
 
     /***
      * exports the metadata of execution set to the MEX interchange file format

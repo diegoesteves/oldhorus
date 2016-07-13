@@ -109,6 +109,9 @@ public class PersonCache implements ICache<ISearchResult> {
         return documents;
     }
 
+    public Global.NERType getNERType(){
+        return Global.NERType.PER;
+    }
     @Override
     public boolean contains(String identifier) {
         SolrDocumentList docList = null;

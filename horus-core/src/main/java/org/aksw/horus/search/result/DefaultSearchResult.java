@@ -27,6 +27,9 @@ public class DefaultSearchResult implements ISearchResult {
     }
 
     @Override
+    public Global.NERType getNERType(){return this.type;}
+
+    @Override
     public Long getTotalHitCount() {
         return this.totalHitCount != null ? this.totalHitCount : 0L;
     }
@@ -38,10 +41,6 @@ public class DefaultSearchResult implements ISearchResult {
 
     public String getLanguage() {
         return this.language;
-    }
-
-    public Global.NERType getSearchType() {
-        return this.type;
     }
 
     public String getQuery() {

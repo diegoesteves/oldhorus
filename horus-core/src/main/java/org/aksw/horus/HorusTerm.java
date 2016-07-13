@@ -6,6 +6,7 @@ package org.aksw.horus;
 public class HorusTerm {
 
     private int       _index;
+    private int       _position; //global index
     private String    _term;
     private String    _postagger;
 
@@ -16,10 +17,11 @@ public class HorusTerm {
     private boolean   _organisation;
     private double    _organisationProb;
 
-    public HorusTerm(int index, String term, String POS){
+    public HorusTerm(int index, String term, String POS, int position){
         this._term = term;
         this._postagger = POS;
         this._index = index;
+        this._position = position;
     }
 
     public int getIndex() {
@@ -74,6 +76,9 @@ public class HorusTerm {
         return _locationProb;
     }
 
+    public int getPosition(){
+        return this._position;
+    }
     public String getNER(){
 
         if (this._locationProb ==0d && this._organisationProb ==0 && this._personProb ==0)

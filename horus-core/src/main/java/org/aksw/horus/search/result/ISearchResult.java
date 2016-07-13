@@ -1,5 +1,6 @@
 package org.aksw.horus.search.result;
 
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.web.WebResourceVO;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface ISearchResult {
     public String getLanguage();
 
     public boolean isCached();
+
+    public Global.NERType getNERType();
 
 }

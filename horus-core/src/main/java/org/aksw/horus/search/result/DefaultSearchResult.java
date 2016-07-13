@@ -13,18 +13,14 @@ public class DefaultSearchResult implements ISearchResult {
 
     private Long                 totalHitCount = 0L;
     private MetaQuery            query;
-    private String               language;
     private boolean              cached = false;
     private List<WebResourceVO>  webresources;
-    private Global.NERType       type;
 
-    public DefaultSearchResult(List<WebResourceVO> resources, Long totalHitCount, MetaQuery query, boolean cached, String ln, Global.NERType type) {
+    public DefaultSearchResult(List<WebResourceVO> resources, Long totalHitCount, MetaQuery query, boolean cached) {
         this.webresources      = resources;
         this.totalHitCount     = totalHitCount;
         this.query             = query;
         this.cached            = cached;
-        this.language          = ln;
-        this.type              = type;
     }
 
     @Override
@@ -38,7 +34,7 @@ public class DefaultSearchResult implements ISearchResult {
     }
 
     public String getLanguage() {
-        return this.language;
+        return "";
     }
 
     public MetaQuery getQuery() {

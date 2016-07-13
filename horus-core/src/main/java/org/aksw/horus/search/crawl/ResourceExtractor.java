@@ -47,7 +47,7 @@ public class ResourceExtractor {
         Set<SearchResultCallable> searchResultCallables = new HashSet<>();
 
         for ( MetaQuery q : this.queries) {
-            searchResultCallables.add(new SearchResultCallable(q.getTerm(), q.getType(), engine));
+            searchResultCallables.add(new SearchResultCallable(q, engine));
         }
 
         LOGGER.debug(" -> Starting to crawl/get from cache " + searchResultCallables.size() + " search results with " +

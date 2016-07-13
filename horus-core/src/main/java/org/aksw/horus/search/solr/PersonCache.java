@@ -4,6 +4,7 @@ import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Constants;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.cache.ICache;
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.DefaultSearchResult;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.web.WebImageVO;
@@ -16,6 +17,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.common.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -161,14 +163,15 @@ public class PersonCache implements ICache<ISearchResult> {
     }
 
     @Override
-    public ISearchResult getEntry(String _query) {
+    public ISearchResult getEntry(String identifier) {
 
         List<WebResourceVO> resources = new ArrayList<WebResourceVO>();
+        MetaQuery metaQuery = null;
         Long hitCount = 0L;
 
         try {
 
-            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + _query + "\"").setRows(50);
+            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(50);
             query.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
             query.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
             query.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD);
@@ -183,8 +186,11 @@ public class PersonCache implements ICache<ISearchResult> {
             for (SolrDocument doc : response.getResults()) {
 
                 String q = (String) doc.get(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
-                //the pattern should also be saved into the SOLR cache.
+                String[] qsplited = q.split("\\|-\\|");
+                Global.NERType type = Global.NERType.valueOf(qsplited[0]);
+                String queryString = qsplited[1];
 
+                metaQuery = new MetaQuery(type, queryString, "");
                 hitCount = (Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
 
                 if (!((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD)).isEmpty()) { // empty cache hits should not become a website
@@ -195,7 +201,7 @@ public class PersonCache implements ICache<ISearchResult> {
                     img.setUrl((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
                     img.setSearchRank(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD)).intValue());
                     img.setCached(true);
-                    img.setQuery(_query);
+                    img.setQuery(queryString);
                     img.setLanguage((String) doc.get(Constants.LUCENE_SEARCH_RESULT_LANGUAGE));
                     img.setTotalHitCount(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD)).intValue());
 
@@ -212,7 +218,7 @@ public class PersonCache implements ICache<ISearchResult> {
         }
 
         //we do not define language now, because we rely only on resultset from search engines
-        return new DefaultSearchResult(resources, hitCount, _query, true, "", Global.NERType.PER);
+        return new DefaultSearchResult(resources, hitCount, metaQuery, true);
 
     }
 

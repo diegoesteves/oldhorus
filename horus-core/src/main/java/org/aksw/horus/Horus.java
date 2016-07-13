@@ -98,7 +98,7 @@ public abstract class Horus {
     private static void cacheTerm(String term) throws Exception {
 
         LOGGER.debug(":: caching [" + term);
-        AzureBingSearchEngine engine = new AzureBingSearchEngine(term);
+        AzureBingSearchEngine engine = new AzureBingSearchEngine();
         //engine.downloadAndCacheImages();
 
     }

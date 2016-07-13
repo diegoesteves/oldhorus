@@ -5,6 +5,7 @@ import net.billylieurance.azuresearch.AbstractAzureSearchQuery.AZURESEARCH_QUERY
 import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.ImageManipulation;
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.DefaultSearchResult;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.solr.SolrHelper;
@@ -42,7 +43,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
      */
 
     @Override
-    public ISearchResult query(String query, Global.NERType type) {
+    public ISearchResult query(MetaQuery query) {
 
         try {
 
@@ -55,8 +56,8 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             aq.setLatitude("47.603450");
             aq.setLongitude("-122.329696"); //Seattle
             aq.setMarket("en-US");
-            //String strQuery = this.query;
-            aq.setQuery(query);
+            String strQuery = this.generateQuery(query);
+            aq.setQuery(strQuery);
             aq.setImageFilters("Face:Face+Size:Small");
             //aq.setImageFilters("Size:Height:200+Size:Width:200+Face:Face");
             aq.setWebSearchOptions("DisableQueryAlterations");
@@ -85,11 +86,11 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                 root.setUrl(((AzureSearchWebResult) result).getUrl());
                 root.setSearchRank(i++);
                 root.setCached(false);
-                root.setQuery(query);
+                root.setQuery(strQuery);
                 root.setLanguage("");
 
                 WebImageVO resource;
-                if (type.equals(Global.NERType.PER) || type.equals(Global.NERType.LOC) || type.equals(Global.NERType.ORG)){
+                if (query.getType().equals(Global.NERType.PER) || query.getType().equals(Global.NERType.LOC) || query.getType().equals(Global.NERType.ORG)){
                     resource = new WebImageVO();
 
                     String image_id = ((AzureSearchImageResult) result).getId();
@@ -98,7 +99,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
 
                     resource.setImageFileName(image_id + "." + image_type.substring(image_type.lastIndexOf("/") + 1));
-                    resource.setImageFilePath(IMG_ROOT_DIR + (query + "_" + type.toString()).hashCode() + "/");
+                    resource.setImageFilePath(IMG_ROOT_DIR + (query + "_" + query.getType().toString()).hashCode() + "/");
                     resource.setWebSite(root);
                 }else {
                    throw new NotImplementedException();
@@ -122,11 +123,11 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
             LOGGER.debug("process finished");
 
-            return new DefaultSearchResult(results, ars.getWebTotal(), query, false, "", type);
+            return new DefaultSearchResult(results, ars.getWebTotal(), query, false, "", query.getType());
 
         } catch (Exception e) {
             LOGGER.error(e.toString());
-            return new DefaultSearchResult(new ArrayList<>(), 0L, query, false, "", type);
+            return new DefaultSearchResult(new ArrayList<>(), 0L, query, false, "", query.getType());
 
         }
 
@@ -139,7 +140,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             Horus.init();
 
             AzureBingSearchEngine engine = new AzureBingSearchEngine();
-            engine.query("Jens", Global.NERType.PER);
+            engine.query(new MetaQuery(Global.NERType.PER, "Jens", 0));
 
 
             /*try {
@@ -170,9 +171,9 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
     }
 
     @Override
-    public String generateQuery(String query) {
+    public String generateQuery(MetaQuery query) {
         //return new BingQuery().generateQuery(query);
-        return query;
+        return query.getTerm().toString();
     }
     @Override
     public Long getNumberOfResults(String query) {

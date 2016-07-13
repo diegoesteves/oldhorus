@@ -1,6 +1,7 @@
 package org.aksw.horus.search.web;
 
 import org.aksw.horus.core.util.Global;
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 
 /**
@@ -13,22 +14,22 @@ public interface ISearchEngine {
      * @param query
      * @return
      */
-    public ISearchResult getSearchResults(String query, Global.NERType type);
+    public ISearchResult getSearchResults(MetaQuery query);
 
-    /**
-     *
-     * @param query the query string
-     * @param type the NER class (eg.: LOC, PER, ORG)
-     * @return
-     */
-    public ISearchResult query(String query, Global.NERType type);
 
     /**
      *
      * @param query
      * @return
      */
-    public String generateQuery(String query);
+    public ISearchResult query(MetaQuery query);
+
+    /**
+     *
+     * @param query
+     * @return
+     */
+    public String generateQuery(MetaQuery query);
 
     /**
      *

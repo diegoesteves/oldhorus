@@ -1,6 +1,7 @@
 package org.aksw.horus.search.result;
 
 import org.aksw.horus.core.util.Global;
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.WebResourceVO;
 
 import java.util.List;
@@ -14,12 +15,10 @@ public interface ISearchResult {
 
     public List<WebResourceVO> getWebResources();
 
-    public String getQuery() ;
+    public MetaQuery getQuery() ;
 
     public String getLanguage();
 
     public boolean isCached();
-
-    public Global.NERType getNERType();
 
 }

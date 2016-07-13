@@ -4,6 +4,7 @@ import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.ImageManipulation;
 import org.aksw.horus.search.cache.ICache;
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.solr.PersonCache;
 import org.slf4j.Logger;
@@ -28,15 +29,15 @@ public abstract class DefaultSearchEngine implements ISearchEngine {
         }
     }
     @Override
-    public ISearchResult getSearchResults(String query, Global.NERType type) {
+    public ISearchResult getSearchResults(MetaQuery query) {
 
         //type = PER, LOC, ORG
-        if (searchResultsCache.contains(query.toString() + "_" + type.toString().toUpperCase())) {
+        if (searchResultsCache.contains(query.toString())) {
             LOGGER.info(String.format("Query: '%s' cached! Starting to get from cache!", query.toString()));
             ISearchResult result = searchResultsCache.getEntry(query.toString());
             return result;
         }
-        return query(query, type);
+        return query(query);
     }
 
     public static void main(String[] args) {

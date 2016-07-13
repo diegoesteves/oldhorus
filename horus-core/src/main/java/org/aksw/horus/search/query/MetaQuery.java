@@ -31,7 +31,14 @@ public class MetaQuery {
         return this.position;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
 
+        return String.format("%s|-|%s", term, type.toString());
+    }
 
 
 

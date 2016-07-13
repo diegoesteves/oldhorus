@@ -26,29 +26,15 @@ import java.util.*;
  */
 public abstract class Horus {
 
-    private static       List<HorusContainer> _lstContainer    = new ArrayList<>();
+    private static       List<HorusContainer> horusContainers    = new ArrayList<>();
     public  static       HorusConfig          HORUS_CONFIG;
-    private static final Logger               LOGGER           = LoggerFactory.getLogger(Horus.class);
-    private static final double               PERSON_THRESHOLD = 0.8;
-    private static final int                  PERSON_MAX_ITENS = 50;
-
-
-    // *************************************** private methods ***************************************
-
-    /**
-     * compute the probabilities for each term in a text
-     * @param text
-     * @throws Exception
-     */
-    private void computeProbabilities(String text) throws Exception {
-
-        try{
-
-        }catch (Exception e){
-
-        }
-
-    }
+    private static final Logger               LOGGER             = LoggerFactory.getLogger(Horus.class);
+    private static double                     PER_THRESHOLD;
+    private static double                     LOC_THRESHOLD;
+    private static double                     ORG_THRESHOLD;
+    private static int                        PER_OFFSET;
+    private static int                        LOC_OFFSET;
+    private static int                        ORG_OFFSET;
 
     /***
      * annotate a given input text with Stanford POS tagger
@@ -80,7 +66,7 @@ public abstract class Horus {
                     c.addTerm(new HorusTerm(iTerm, word, pos, iPosition));
                     iTerm++; iPosition++;
                 }
-                _lstContainer.add(c);
+                horusContainers.add(c);
                 iSentence++; iTerm = 0;
             }
 
@@ -91,48 +77,11 @@ public abstract class Horus {
         }
     }
 
-    private static boolean isTermCached(String term){
-        return false;
-    }
-
     private static void cacheTerm(String term) throws Exception {
 
         LOGGER.debug(":: caching [" + term);
         AzureBingSearchEngine engine = new AzureBingSearchEngine();
         //engine.downloadAndCacheImages();
-
-    }
-
-    private static void processPerson() throws Exception{
-
-        for (HorusContainer h : _lstContainer) {
-            for (HorusTerm t : h.getTerms()) {
-                if (t.getPOS().equals("NN") || t.getPOS().equals("NNP")) {
-                    //TODO: check here the POS TAG list
-
-                    LOGGER.debug(":: checking if [" + t.getTerm() + "] is cached");
-                    if (!isTermCached(t.getTerm())){
-                        cacheTerm(t.getTerm());
-                    }
-
-                    LOGGER.debug(":: returning the cache for [" + t.getTerm() + "]");
-
-
-
-
-
-                    LOGGER.debug(":: checking if [" + t.getTerm() + "] is a [PERSON]");
-
-
-
-
-
-                }
-
-
-            }
-            LOGGER.info("");
-        }
 
     }
 
@@ -143,7 +92,7 @@ public abstract class Horus {
         long start = System.currentTimeMillis();
 
         /* 1. Annotate text */
-        List<HorusContainer> horusContainers = annotate(text);
+        annotateWithStanford(text);
 
         /* 2. Querying and Caching */
         List<MetaQuery> queries = new ArrayList<>();
@@ -153,9 +102,9 @@ public abstract class Horus {
             container.getTerms().forEach(t -> {
                 if (t.getPOS().equals("NN") || t.getPOS().equals("NNS") ||
                         t.getPOS().equals("NNP") || t.getPOS().equals("NNPS")){
-                    queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), t.getPosition()));
-                    queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), t.getPosition()));
-                    queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), t.getPosition()));
+                    queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), "", t.getPosition()));
+                    queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), "", t.getPosition()));
+                    queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), "", t.getPosition()));
                 }
             });
         }
@@ -163,26 +112,19 @@ public abstract class Horus {
             LOGGER.debug("none query has been generated for this text!");
             return new ArrayList<>();
         }
-        LOGGER.debug("-> Preparing queries took " +
-                TimeUtil.formatTime(System.currentTimeMillis() - start));
+        LOGGER.debug("-> Preparing queries took " + TimeUtil.formatTime(System.currentTimeMillis() - start));
 
         ISearchEngine engine = new AzureBingSearchEngine();
         long startCrawl = System.currentTimeMillis();
         ResourceExtractor ext = new ResourceExtractor(queries);
         List<HorusEvidence> evidences = ext.extract(engine);
+        LOGGER.debug(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
 
-        LOGGER.debug(" -> extracting evidences took " +
-                TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
-
-
-        /* 3. Running PER model */
-
-
-        /* 4. Running LOC model */
-
-
-        /* 5. Running ORG model */
-
+        /* 3. Running models */
+        recognizeEntities();
+        /* 6. based on indicators, make the decision */
+        makeDecision();
+        /* 7. return the containers */
         return horusContainers;
     }
     /***
@@ -194,6 +136,15 @@ public abstract class Horus {
 
             if ( Horus.HORUS_CONFIG  == null )
                 Horus.HORUS_CONFIG = new HorusConfig(new Ini(new File(Horus.class.getResource("/horus.ini").getFile())));
+
+            PER_THRESHOLD = Horus.HORUS_CONFIG.getDoubleSetting("crawl", "PER_THRESHOLD");
+            ORG_THRESHOLD = Horus.HORUS_CONFIG.getDoubleSetting("crawl", "ORG_THRESHOLD");
+            LOC_THRESHOLD = Horus.HORUS_CONFIG.getDoubleSetting("crawl", "LOC_THRESHOLD");
+
+            PER_OFFSET = Horus.HORUS_CONFIG.getIntegerSetting("crawl", "PER_OFFSET");
+            ORG_OFFSET = Horus.HORUS_CONFIG.getIntegerSetting("crawl", "ORG_OFFSET");
+            LOC_OFFSET = Horus.HORUS_CONFIG.getIntegerSetting("crawl", "LOC_OFFSET");
+
 
         } catch (InvalidFileFormatException e) {
             // TODO Auto-generated catch block
@@ -209,50 +160,20 @@ public abstract class Horus {
      */
     public static void printResults(){
 
-        for (HorusContainer h : _lstContainer) {
+        for (HorusContainer h : horusContainers) {
             LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
             for (HorusTerm t : h.getTerms()) {
                 LOGGER.info("  -- index     : " + t.getIndex());
                 LOGGER.info("  -- term      : " + t.getTerm());
                 LOGGER.info("  -- tagger    : " + t.getPOS());
-                LOGGER.info("  -- P(LOC)    : " + String.valueOf(t.getLocationProb()));
-                LOGGER.info("  -- P(PER)    : " + String.valueOf(t.getPersonProb()));
-                LOGGER.info("  -- P(ORG)    : " + String.valueOf(t.getOrganisationProb()));
+                LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getLocationProb()));
+                LOGGER.info("  -- Prob(PER)    : " + String.valueOf(t.getPersonProb()));
+                LOGGER.info("  -- Prob(ORG)    : " + String.valueOf(t.getOrganisationProb()));
                 LOGGER.info("  -- NER Class : " + t.getNER());
             }
             LOGGER.info("");
         }
 
-
-    }
-
-    /***
-     * run HORUS
-     * @param inputText
-     * @return
-     * @throws Exception
-     */
-    private static List<HorusContainer> annotate(String inputText) throws Exception{
-
-        LOGGER.info(":: annotating the input text...");
-
-        try{
-
-            init();
-
-            LOGGER.debug(":: stanford annotations");
-            annotateWithStanford(inputText);
-
-            LOGGER.debug(":: checking PER");
-            processPerson();
-
-        }catch (Exception e){
-            LOGGER.error(e.toString());
-        }
-
-        LOGGER.info(":: done");
-
-        return _lstContainer;
 
     }
 
@@ -265,6 +186,37 @@ public abstract class Horus {
      */
     public static void exportToMEX(String s1, String s2, String s3, String s4){
         //TODO: integrate LOG4MEX and convert container to mex
+    }
+
+    private static void recognizeEntities() throws Exception{
+        LOGGER.info(":: Recognizing Entities - start");
+
+        for (HorusContainer h : horusContainers) {
+            LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
+            for (HorusTerm t : h.getTerms()) {
+                LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getTerm());
+                isPerson(t.getPosition());
+                LOGGER.debug(":: is organisation? " + t.getIndex() + ": " + t.getTerm());
+                isOrganisation(t.getPosition());
+                LOGGER.debug(":: is location? " + t.getIndex() + ": " + t.getTerm());
+                isLocation(t.getPosition());
+            }
+        }
+        LOGGER.info(":: Recognizing Entities - done");
+    }
+
+    private static void makeDecision() throws Exception{
+
+    }
+
+    private static boolean isPerson(int position) throws Exception{
+        return false;
+    }
+    private static boolean isLocation(int position) throws Exception{
+        return false;
+    }
+    private static boolean isOrganisation(int position) throws Exception{
+        return false;
     }
 
 }

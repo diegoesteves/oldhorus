@@ -15,7 +15,6 @@ public class SearchResultCallable implements Callable<ISearchResult> {
     private ISearchEngine engine;
 
     public SearchResultCallable(MetaQuery query, ISearchEngine engine) {
-
         this.query      = query;
         this.engine     = engine;
     }

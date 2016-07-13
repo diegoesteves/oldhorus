@@ -1,5 +1,7 @@
 package org.aksw.horus;
 
+import org.aksw.horus.search.HorusEvidence;
+
 /**
  * Created by dnes on 25/05/16.
  */
@@ -16,6 +18,11 @@ public class HorusTerm {
     private double    _locationProb;
     private boolean   _organisation;
     private double    _organisationProb;
+
+    private HorusEvidence _evidencePER;
+    private HorusEvidence _evidenceLOC;
+    private HorusEvidence _evidenceORG;
+
 
     public HorusTerm(int index, String term, String POS, int position){
         this._term = term;

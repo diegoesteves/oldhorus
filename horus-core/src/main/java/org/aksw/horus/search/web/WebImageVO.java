@@ -8,7 +8,9 @@ public class WebImageVO extends WebResourceVO {
     private String    fileName; //photo_name
     private String    filePath;  //photo_dir
     private WebSiteVO site; //photo_site_url
-
+    private boolean detectedPerson = false;
+    private boolean detectedOrganisation = false;
+    private boolean detectedLocation = false;
 
     public WebImageVO(String queryString, String imgURL, String websiteURL) {
         this.setQuery(queryString);
@@ -43,6 +45,28 @@ public class WebImageVO extends WebResourceVO {
 
     public void setWebSite(WebSiteVO website){
         this.site = website;
+    }
+
+    public void setPersonDetected(boolean value){
+        detectedPerson = value;
+    }
+    public void setOrganisationDetected(boolean value){
+        detectedOrganisation = value;
+    }
+    public void setLocationDetected(boolean value){
+        detectedLocation = value;
+    }
+
+    public boolean getPersonDetected(){
+        return detectedPerson;
+    }
+
+    public boolean getOrganisationDetected(){
+        return detectedOrganisation;
+    }
+
+    public boolean getLocationDetected(){
+        return detectedLocation;
     }
 
 }

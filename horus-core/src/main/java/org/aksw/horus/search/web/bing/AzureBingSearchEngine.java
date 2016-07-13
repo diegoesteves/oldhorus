@@ -48,6 +48,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
         try {
 
             AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
+
             aq.setSources(new AZURESEARCH_QUERYTYPE[]{
                     AZURESEARCH_QUERYTYPE.IMAGE
             });
@@ -58,10 +59,17 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             aq.setMarket("en-US");
             String strQuery = this.generateQuery(query);
             aq.setQuery(strQuery);
-            aq.setImageFilters("Face:Face+Size:Small");
-            //aq.setImageFilters("Size:Height:200+Size:Width:200+Face:Face");
+
+            if (query.getType().equals(Global.NERType.PER)){
+                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("crawl", "SEARCH_ENGINE_FEATURES_BING_PER"));}
+            else if (query.getType().equals(Global.NERType.ORG)){
+                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("crawl", "SEARCH_ENGINE_FEATURES_BING_ORG"));}
+            else {
+                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("crawl", "SEARCH_ENGINE_FEATURES_BING_LOC"));}
+
             aq.setWebSearchOptions("DisableQueryAlterations");
 
+            LOGGER.info(":: starting query: " + strQuery);
             aq.doQuery();
 
             AzureSearchResultSet<AbstractAzureSearchResult> ars = aq.getQueryResult();   //https://msdn.microsoft.com/en-us/library/dd560913.aspx
@@ -123,11 +131,11 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
             LOGGER.debug("process finished");
 
-            return new DefaultSearchResult(results, ars.getWebTotal(), query, false, "", query.getType());
+            return new DefaultSearchResult(results, ars.getWebTotal(), query, false);
 
         } catch (Exception e) {
             LOGGER.error(e.toString());
-            return new DefaultSearchResult(new ArrayList<>(), 0L, query, false, "", query.getType());
+            return new DefaultSearchResult(new ArrayList<>(), 0L, query, false);
 
         }
 
@@ -140,7 +148,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             Horus.init();
 
             AzureBingSearchEngine engine = new AzureBingSearchEngine();
-            engine.query(new MetaQuery(Global.NERType.PER, "Jens", 0));
+            engine.query(new MetaQuery(Global.NERType.PER, "Jens", ""));
 
 
             /*try {
@@ -173,7 +181,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
     @Override
     public String generateQuery(MetaQuery query) {
         //return new BingQuery().generateQuery(query);
-        return query.getTerm().toString();
+        return query.getTerm().toString() + " " + query.getAdditionalContent().toString();
     }
     @Override
     public Long getNumberOfResults(String query) {

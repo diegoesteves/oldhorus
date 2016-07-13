@@ -24,7 +24,7 @@ public class ResourceExtractor {
     private List<MetaQuery> queries;
 
     public ResourceExtractor(List<MetaQuery> queries) {
-
+        this.queries = queries;
     }
 
     public List<HorusEvidence> extract(ISearchEngine engine) {
@@ -32,18 +32,23 @@ public class ResourceExtractor {
         //query and resources returned
         Map<String, List<WebResourceVO>> cache;
 
-        LOGGER.debug(" -> starting crawling: [SearchEngineClass: " + engine.getClass().toString() + "]");
 
-        long start = System.currentTimeMillis();
-        LOGGER.debug(" -> start getting search results");
-        Set<ISearchResult> searchResults = this.generateSearchResultsInParallel(engine);
-        LOGGER.debug(" -> finished getting search results in " + (System.currentTimeMillis() - start));
+        if (!cache.containsKey(this.model) ) {
+
+            LOGGER.debug(" -> starting crawling: [SearchEngineClass: " + engine.getClass().toString() + "]");
+
+            long start = System.currentTimeMillis();
+            LOGGER.debug(" -> start getting search results");
+            Set<ISearchResult> searchResults = this.generateSearchResultsInParallel(engine);
+            LOGGER.debug(" -> finished getting search results in " + (System.currentTimeMillis() - start));
+
+        }
 
         return searchResults;
     }
 
     private Set<ISearchResult> generateSearchResultsInParallel(ISearchEngine engine) {
-        Set<ISearchResult> results = new HashSet<ISearchResult>();
+        Set<ISearchResult> results = new HashSet<>();
         Set<SearchResultCallable> searchResultCallables = new HashSet<>();
 
         for ( MetaQuery q : this.queries) {

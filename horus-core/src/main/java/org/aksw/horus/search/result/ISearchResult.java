@@ -15,7 +15,7 @@ public interface ISearchResult {
 
     public List<WebResourceVO> getWebResources();
 
-    public MetaQuery getQuery() ;
+    public MetaQuery getQuery();
 
     public String getLanguage();
 

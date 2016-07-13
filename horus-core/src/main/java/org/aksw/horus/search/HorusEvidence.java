@@ -13,8 +13,9 @@ public class HorusEvidence {
     private int position;
     private List<WebImageVO> images;
 
-    public HorusEvidence(){
+    public HorusEvidence(int pos){
         this.images = new ArrayList<>();
+        this.position = pos;
     }
 
     public int getPosition(){
@@ -28,5 +29,7 @@ public class HorusEvidence {
     public void addImage(WebImageVO img) {
         this.images.add(img);
     }
+
+
 
 }

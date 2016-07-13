@@ -28,7 +28,8 @@ public class FaceDetectOpenCV {
 
 
         //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_alt_tree.xml");
-        this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"); //better
+        //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"); //better
+        this.classifier = new CascadeClassifier("C:\\DNE5\\libraries\\opencv\\3.1.0\\opencv\\sources\\data\\haarcascades_cuda\\haarcascade_frontalface_default.xml"); //better
 
 
 
@@ -89,7 +90,7 @@ public class FaceDetectOpenCV {
     public static void main (String[] args) {
         FaceDetectOpenCV fd = new FaceDetectOpenCV();
         //fd.detectFace("/Users/dnes/Github/Horus/horus-core/src/main/resources/person/"); //0.90
-        fd.detectFace("/Users/dnes/Github/Horus/horus-core/src/main/resources/person/200x200/"); //0.90
+        fd.detectFace("C:\\DNE5\\github\\Horus\\horus-core\\src\\main\\resources\\person"); //0.90
     }
 
     public void test(String[] args) {

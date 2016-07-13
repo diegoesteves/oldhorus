@@ -2,6 +2,7 @@ package org.aksw.horus.search.web.googleapi;
 
 import java.util.List;
 
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.web.WebResourceVO;
 
@@ -18,7 +19,7 @@ public class GoogleSearchResult implements ISearchResult {
   }
 
   @Override
-  public String getQuery() {
+  public MetaQuery getQuery() {
     throw new UnsupportedOperationException();
   }
 

@@ -33,7 +33,7 @@ public class ResourceExtractor {
         Map<String, List<WebResourceVO>> cache;
 
 
-        if (!cache.containsKey(this.model) ) {
+       // if (!cache.containsKey(this.model) ) {
 
             LOGGER.debug(" -> starting crawling: [SearchEngineClass: " + engine.getClass().toString() + "]");
 
@@ -42,9 +42,11 @@ public class ResourceExtractor {
             Set<ISearchResult> searchResults = this.generateSearchResultsInParallel(engine);
             LOGGER.debug(" -> finished getting search results in " + (System.currentTimeMillis() - start));
 
-        }
+       // }
 
-        return searchResults;
+       // return searchResults;
+
+        return null;
     }
 
     private Set<ISearchResult> generateSearchResultsInParallel(ISearchEngine engine) {

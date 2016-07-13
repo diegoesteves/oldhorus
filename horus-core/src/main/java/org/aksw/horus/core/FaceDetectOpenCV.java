@@ -56,12 +56,10 @@ public class FaceDetectOpenCV {
                 //String mimetype = new MimetypesFileTypeMap().getContentType(d.getName());
                 //String type = mimetype.split("/")[0];
                 //if (type.equals("image")) {
-                if (d.getName().endsWith(".jpg") || d.getName().endsWith(".pgm") || d.getName().endsWith(".png")){
+                if (d.getName().endsWith(".jpeg") || d.getName().endsWith(".jpg") || d.getName().endsWith(".pgm") || d.getName().endsWith(".png")){
 
-                    Mat image = Imgcodecs.imread(d.getAbsolutePath());
-                    MatOfRect faceDetections = new MatOfRect();
-                    this.classifier.detectMultiScale(image, faceDetections);
-                    System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
+
+                    System.out.println(String.format("Detected faces ? %s", String.valueOf(faceDetected(d))));
 
                 }
 
@@ -97,7 +95,8 @@ public class FaceDetectOpenCV {
     public static void main (String[] args) {
         FaceDetectOpenCV fd = new FaceDetectOpenCV();
         //fd.detectFace("/Users/dnes/Github/Horus/horus-core/src/main/resources/person/"); //0.90
-        fd.detectFace("C:\\DNE5\\github\\Horus\\horus-core\\src\\main\\resources\\person"); //0.90
+        //fd.detectFace("C:\\DNE5\\github\\Horus\\horus-core\\src\\main\\resources\\person"); //0.90
+        fd.detectFace("C:\\DNE5\\github\\Horus\\horus-core\\src\\main\\resources\\location\\brazil\\rj"); //0.90
     }
 
     public void test(String[] args) {

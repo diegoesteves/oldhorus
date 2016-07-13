@@ -28,12 +28,15 @@ public class HorusDemo {
 
         try{
             Horus.process(text);
+
             Horus.printResults();
+
             Horus.exportToMEX("path/to/save/the/file", "yournamespace", "filename", "file-format");
+
+            Horus.exportToNIF("path/to/save/the/file", "yournamespace", "filename", "file-format");
         }catch (Exception e){
             LOG.error(e.toString());
         }
-
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;

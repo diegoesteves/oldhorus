@@ -90,6 +90,7 @@ public abstract class Horus {
     // *************************************** public methods ***************************************
 
     public static List<HorusContainer> process(String text) throws Exception{
+        LOGGER.info(":: Processing...");
 
         long start = System.currentTimeMillis();
 
@@ -161,6 +162,7 @@ public abstract class Horus {
      * print the results (stdout)
      */
     public static void printResults(){
+        LOGGER.info(":: Printing results...");
 
         for (HorusContainer h : horusContainers) {
             LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
@@ -187,7 +189,22 @@ public abstract class Horus {
      * @param s4
      */
     public static void exportToMEX(String s1, String s2, String s3, String s4){
+        LOGGER.info(":: Exporting horus metadata (MEX)");
+
         //TODO: integrate LOG4MEX and convert container to mex
+    }
+
+    /***
+     * exports the metadata of execution set to the MEX interchange file format
+     * @param s1
+     * @param s2
+     * @param s3
+     * @param s4
+     */
+    public static void exportToNIF(String s1, String s2, String s3, String s4){
+        LOGGER.info(":: Exporting horus metadata (NIF)");
+
+        //TODO: integrate ? and convert container to nif
     }
 
     private static void recognizeEntities() throws Exception{

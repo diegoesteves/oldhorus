@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Diego on 7/13/2016.
  */
-public class HorusEvidence {
+public class  HorusEvidence {
 
     private int position;
     private List<WebImageVO> images;

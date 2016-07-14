@@ -5,7 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
-import org.aksw.horus.core.FaceDetectOpenCV;
+import org.aksw.horus.algorithm.FaceDetectOpenCV;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.TimeUtil;
 import org.aksw.horus.search.HorusEvidence;
@@ -112,7 +112,7 @@ public abstract class Horus {
             });
         }
         if ( queries.size() <= 0 ) {
-            LOGGER.debug("none query has been generated for this text!");
+            LOGGER.debug("none query has been generated for this input!");
             return new ArrayList<>();
         }
         LOGGER.debug("-> Preparing queries took " + TimeUtil.formatTime(System.currentTimeMillis() - start));
@@ -177,8 +177,6 @@ public abstract class Horus {
             }
             LOGGER.info("");
         }
-
-
     }
 
     /***

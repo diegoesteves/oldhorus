@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
@@ -34,7 +35,7 @@ public class GoogleSearch implements ISearchEngine {
    */
   public static void main(final String[] args) {
     final GoogleSearch googleSearch = new GoogleSearch();
-    googleSearch.query(new MetaQuery());
+    googleSearch.query(new MetaQuery(Global.NERType.PER, "diego", ""));
   }
 
   /**

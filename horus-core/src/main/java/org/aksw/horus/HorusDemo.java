@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HorusDemo {
 
-    public static Logger LOG       = LogManager.getLogger(HorusDemo.class);
+    public static Logger LOG = LogManager.getLogger(HorusDemo.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -23,10 +23,8 @@ public class HorusDemo {
         LOG.info(startTime);
 
         String text = "There you go diego! how's going leipzig? I'll go to Rio this weekend! Are you up for? Ahhh I've got a new dell laptop! Uhull! Cya!";
-        String text2 = "Rio de Janeiro"; //stanford recognizes as Person
-        //tag list -> https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 
-        try{
+        try {
             Horus.process(text);
 
             Horus.printResults();
@@ -34,7 +32,7 @@ public class HorusDemo {
             Horus.exportToMEX("path/to/save/the/file", "yournamespace", "filename", "file-format");
 
             Horus.exportToNIF("path/to/save/the/file", "yournamespace", "filename", "file-format");
-        }catch (Exception e){
+        } catch (Exception e){
             LOG.error(e.toString());
         }
 
@@ -50,8 +48,5 @@ public class HorusDemo {
                 TimeUnit.MILLISECONDS.toSeconds(totalTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(totalTime))
         );
         LOG.info(out);
-
     }
-
-
 }

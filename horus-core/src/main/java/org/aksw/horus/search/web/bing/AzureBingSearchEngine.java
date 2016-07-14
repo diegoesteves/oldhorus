@@ -61,11 +61,11 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             aq.setQuery(strQuery);
 
             if (query.getType().equals(Global.NERType.PER)){
-                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("crawl", "SEARCH_ENGINE_FEATURES_BING_PER"));}
+                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_BING_PER"));}
             else if (query.getType().equals(Global.NERType.ORG)){
-                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("crawl", "SEARCH_ENGINE_FEATURES_BING_ORG"));}
+                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_BING_ORG"));}
             else {
-                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("crawl", "SEARCH_ENGINE_FEATURES_BING_LOC"));}
+                aq.setImageFilters(Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_BING_LOC"));}
 
             aq.setWebSearchOptions("DisableQueryAlterations");
 

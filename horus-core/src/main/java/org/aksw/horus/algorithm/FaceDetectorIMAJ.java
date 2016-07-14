@@ -1,4 +1,4 @@
-package org.aksw.horus.core;
+package org.aksw.horus.algorithm;
 
 
 import org.openimaj.image.FImage;

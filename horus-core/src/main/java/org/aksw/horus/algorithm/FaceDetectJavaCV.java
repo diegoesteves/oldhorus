@@ -1,4 +1,4 @@
-package org.aksw.horus.core;
+package org.aksw.horus.algorithm;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_face;

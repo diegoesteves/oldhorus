@@ -1,5 +1,6 @@
 package org.aksw.horus.search.query;
 
+import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
 import org.apache.lucene.util.packed.DirectMonotonicReader;
 
@@ -13,20 +14,30 @@ public class MetaQuery {
     private String term;
     private String additionalContent;
     private int position;
+    private String searchEngineFeature;
 
     public MetaQuery(Global.NERType type, String term, String additionalContent, int position){
         this.type = type;
         this.position = position;
         this.term = term;
         this.additionalContent = additionalContent;
+        setSearchEngineFeature();
     }
-    public MetaQuery(){
 
-    }
     public MetaQuery(Global.NERType type, String term, String additionalContent){
         this.type = type;
         this.term = term;
         this.additionalContent = additionalContent;
+        setSearchEngineFeature();
+    }
+
+    private void setSearchEngineFeature(){
+        if (type.equals(Global.NERType.PER)) {
+            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_PER");}
+        else if (type.equals(Global.NERType.LOC)) {
+            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_LOC");}
+        else {
+            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_ORG");}
     }
 
     public Global.NERType getType(){
@@ -50,7 +61,7 @@ public class MetaQuery {
      */
     @Override
     public String toString() {
-        return String.format("%s|-|%s|-|%s|-|%s", term, additionalContent, type.toString(), String.valueOf(position));
+        return String.format("%s|-|%s|-|%s|-|%s", this.term, this.additionalContent, this.type.toString(), this.searchEngineFeature);
     }
 
 

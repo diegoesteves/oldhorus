@@ -1,4 +1,4 @@
-package org.aksw.horus.core;
+package org.aksw.horus.algorithm;
 
 /**
  * Created by dnes on 10/04/16.

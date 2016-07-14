@@ -1,0 +1,3 @@
+String text2 = "Rio de Janeiro"; //stanford recognizes as Person!
+
+tag list -> https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html

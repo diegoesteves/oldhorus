@@ -1,4 +1,4 @@
-package org.aksw.horus.algorithm;
+package org.aksw.horus.core;
 
 
 import mpicbg.imagefeatures.Feature;

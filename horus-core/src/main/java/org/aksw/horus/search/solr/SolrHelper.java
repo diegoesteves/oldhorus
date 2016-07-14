@@ -1,6 +1,7 @@
 package org.aksw.horus.search.solr;
 
 import org.aksw.horus.Horus;
+import org.aksw.horus.core.util.Global;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -31,22 +32,30 @@ public class SolrHelper {
         }
     }
 
-    public void saveDocumentPersonImage(String photoId, String photoName,
-                                        String photoTitle, String photoDir,
-                                        String query, String queryHash, int queryTotal, int rank) throws Exception{
+    public void saveDocumentPersonImage(String pTerm, String pAdditional,
+                                        Global.NERType pNER, String pSearchEngineFeature,
+                                        int pTotalHit, String pResourceTitle,
+                                        String pResourceURL, String pResourceSearchRank,
+                                        String pResourceLanguage, String pResourcePageRank,
+                                        String pImageFileName, String pImageFilePath,
+                                        String pSiteText) throws Exception {
 
         SolrInputDocument document = new SolrInputDocument();
-        document.addField("photo_id", photoId);
-        document.addField("photo_name", photoName);
-        document.addField("photo_title",photoTitle);
-        document.addField("photo_dir", photoDir);
-        document.addField("query", query);
-        document.addField("query_hash", queryHash);
-        document.addField("query_total", queryTotal);
-        document.addField("photo_rank", rank);
+        document.addField("query_term", pTerm);
+        document.addField("query_additional_content", pAdditional);
+        document.addField("query_ner_type", pNER.toString());
+        document.addField("query_search_engine_feature", pSearchEngineFeature);
+        document.addField("query_total_hit", pTotalHit);
+        document.addField("resource_title", pResourceTitle);
+        document.addField("resource_url", pResourceURL);
+        document.addField("resource_search_rank", pResourceSearchRank);
+        document.addField("resource_language", pResourceLanguage);
+        document.addField("resource_page_rank", pResourcePageRank);
+        document.addField("webimage_filename", pImageFileName);
+        document.addField("webimage_filepath", pImageFilePath);
+        document.addField("website_text", pSiteText);
         UpdateResponse response = solr.add(document);
         solr.commit();
-
 
     }
 }

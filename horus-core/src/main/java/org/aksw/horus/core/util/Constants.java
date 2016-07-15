@@ -15,7 +15,7 @@ public class Constants {
 
     /* web resource */
     public static final String LUCENE_SEARCH_RESULT_FIELD_ID		                   = "id";
-    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY		                   = "query_meta";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_META                   = "query_meta";
     public static final String LUCENE_SEARCH_RESULT_FIELD_CREATED	                   = "created";
 
     public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM		           = "query_term";

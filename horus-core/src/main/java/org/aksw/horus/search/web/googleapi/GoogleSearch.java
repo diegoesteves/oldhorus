@@ -67,7 +67,7 @@ public class GoogleSearch implements ISearchEngine {
   }
 
   @Override
-  public Long getNumberOfResults(final String query) {
+  public Long getNumberOfResults(final MetaQuery query) {
     throw new UnsupportedOperationException();
   }
 

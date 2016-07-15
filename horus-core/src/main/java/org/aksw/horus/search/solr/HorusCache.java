@@ -17,7 +17,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,28 +28,110 @@ import java.util.List;
 /**
  * Created by dnes on 01/06/16.
  */
-public class PersonCache implements ICache<ISearchResult> {
+public class HorusCache implements ICache<ISearchResult> {
 
     private SolrClient server;
     private static String SOLR_SERVER;
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonCache.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HorusCache.class);
 
-    public PersonCache(){
+    public HorusCache(){
         try{
             if ( Horus.HORUS_CONFIG != null ) {
                 SOLR_SERVER = Horus.HORUS_CONFIG.getStringSetting("solr", "SERVER");
             }
             LOGGER.debug("Solr server: " + SOLR_SERVER);
-
             server = new HttpSolrClient(SOLR_SERVER);
         }catch (Exception e){
             LOGGER.error(e.toString());
         }
+    }
 
+    @Override
+    public boolean contains(String identifier) {
+        SolrDocumentList docList = null;
+        try{
+            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(1);
+            QueryResponse response = this.querySolrServer(query);
+            docList = response.getResults();
+        }catch (Exception e){
+            LOGGER.error(e.toString());
+        }
+        return docList == null ? false : docList.size() > 0 ? true : false;
     }
 
     private QueryResponse querySolrServer(SolrQuery query) throws Exception {
         return this.server.query(query);
+    }
+
+
+    @Override
+    public ISearchResult getEntry(String identifier) {
+
+        List<WebResourceVO> resources = new ArrayList<WebResourceVO>();
+        MetaQuery metaQuery = null;
+        Long hitCount = 0L;
+
+        try {
+
+            /*
+            SolrQuery query = new SolrQuery(
+                    Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"" + " AND " +
+                    Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"" + " AND " +
+                    Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"" + " AND " +
+                    Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\""
+            ).setRows(50);
+            */
+            SolrQuery query = new SolrQuery(
+                    Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(50);
+
+            query.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_CONTENT_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_TAGGED_FIELD);
+            query.addField(Constants.LUCENE_SEARCH_RESULT_LANGUAGE);
+            QueryResponse response = this.querySolrServer(query);
+
+            for (SolrDocument doc : response.getResults()) {
+
+                String q = (String) doc.get(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
+                String[] qsplited = q.split("\\|-\\|");
+                Global.NERType type = Global.NERType.valueOf(qsplited[0]);
+                String queryString = qsplited[1];
+
+                metaQuery = new MetaQuery(type, queryString, "");
+                hitCount = (Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
+
+                if (!((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD)).isEmpty()) { // empty cache hits should not become a website
+
+                    WebImageVO img = new WebImageVO();
+
+                    img.setTitle((String) doc.get(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD));
+                    img.setUrl((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
+                    img.setSearchRank(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD)).intValue());
+                    img.setCached(true);
+                    img.setQuery(queryString);
+                    img.setLanguage((String) doc.get(Constants.LUCENE_SEARCH_RESULT_LANGUAGE));
+                    img.setTotalHitCount(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD)).intValue());
+
+                    img.setImageFileName((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD));
+                    img.setImageFilePath((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD));
+                    img.setWebSite((String)doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
+
+                    resources.add(img);
+                }
+            }
+
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
+
+        //we do not define language now, because we rely only on resultset from search engines
+        return new DefaultSearchResult(resources, hitCount, metaQuery, true);
+
     }
 
     private List<SolrInputDocument> searchResultToDocument(ISearchResult entry) {
@@ -111,22 +192,6 @@ public class PersonCache implements ICache<ISearchResult> {
         return documents;
     }
 
-    public Global.NERType getNERType(){
-        return Global.NERType.PER;
-    }
-    @Override
-    public boolean contains(String identifier) {
-        SolrDocumentList docList = null;
-        try{
-            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(1);
-            QueryResponse response = this.querySolrServer(query);
-            docList = response.getResults();
-        }catch (Exception e){
-            LOGGER.error(e.toString());
-        }
-        return docList == null ? false : docList.size() > 0 ? true : false;
-    }
-
     @Override
     public ISearchResult add(ISearchResult entry) {
 
@@ -160,66 +225,6 @@ public class PersonCache implements ICache<ISearchResult> {
             e.printStackTrace();
         }
         return listToAdd;
-    }
-
-    @Override
-    public ISearchResult getEntry(String identifier) {
-
-        List<WebResourceVO> resources = new ArrayList<WebResourceVO>();
-        MetaQuery metaQuery = null;
-        Long hitCount = 0L;
-
-        try {
-
-            SolrQuery query = new SolrQuery(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(50);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_CONTENT_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_TAGGED_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_LANGUAGE);
-            QueryResponse response = this.querySolrServer(query);
-
-            for (SolrDocument doc : response.getResults()) {
-
-                String q = (String) doc.get(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
-                String[] qsplited = q.split("\\|-\\|");
-                Global.NERType type = Global.NERType.valueOf(qsplited[0]);
-                String queryString = qsplited[1];
-
-                metaQuery = new MetaQuery(type, queryString, "");
-                hitCount = (Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
-
-                if (!((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD)).isEmpty()) { // empty cache hits should not become a website
-
-                    WebImageVO img = new WebImageVO();
-
-                    img.setTitle((String) doc.get(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD));
-                    img.setUrl((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
-                    img.setSearchRank(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD)).intValue());
-                    img.setCached(true);
-                    img.setQuery(queryString);
-                    img.setLanguage((String) doc.get(Constants.LUCENE_SEARCH_RESULT_LANGUAGE));
-                    img.setTotalHitCount(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD)).intValue());
-
-                    img.setImageFileName((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD));
-                    img.setImageFilePath((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD));
-                    img.setWebSite((String)doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
-
-                    resources.add(img);
-                }
-            }
-
-        } catch (Exception e) {
-            LOGGER.error(e.toString());
-        }
-
-        //we do not define language now, because we rely only on resultset from search engines
-        return new DefaultSearchResult(resources, hitCount, metaQuery, true);
-
     }
 
     @Override

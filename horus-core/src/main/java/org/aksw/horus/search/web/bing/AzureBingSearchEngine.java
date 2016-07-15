@@ -12,6 +12,7 @@ import org.aksw.horus.search.solr.SolrHelper;
 import org.aksw.horus.search.web.*;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
+import org.apache.lucene.util.packed.DirectMonotonicReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +185,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
         return query.getTerm().toString() + " " + query.getAdditionalContent().toString();
     }
     @Override
-    public Long getNumberOfResults(String query) {
+    public Long getNumberOfResults(MetaQuery query) {
         return 0L;
     }
 

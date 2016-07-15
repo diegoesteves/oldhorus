@@ -13,27 +13,28 @@ import java.util.Set;
  */
 public class Constants {
 
-    //webresource
-    public static final String LUCENE_SEARCH_RESULT_ID_FIELD		     = "id";
-    public static final String LUCENE_SEARCH_RESULT_QUERY_FIELD		     = "query";
-    public static final String LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD      = "hits";
-    public static final String LUCENE_SEARCH_RESULT_URL_FIELD		     = "url";
-    public static final String LUCENE_SEARCH_RESULT_RANK_FIELD		     = "rank";
-    public static final String LUCENE_SEARCH_RESULT_TITLE_FIELD		     = "title";
+    /* web resource */
+    public static final String LUCENE_SEARCH_RESULT_FIELD_ID		                   = "id";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY		                   = "query_meta";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_CREATED	                   = "created";
 
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM		           = "query_term";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT     = "query_additional_content";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE		       = "query_ner_type";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE  = "query_search_engine_feature";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_HIT_COUNT		       = "query_total_hit";
 
-    //webimage
-    public static final String LUCENE_SEARCH_RESULT_IMG_ID_FIELD         = "photo_id";
-    public static final String LUCENE_SEARCH_RESULT_IMG_NAME_FIELD       = "photo_name";
-    public static final String LUCENE_SEARCH_RESULT_IMG_DIR_FIELD        = "photo_dir";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_TITLE               = "resource_title";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL		           = "resource_url";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_SEARCH_RANK		   = "resource_search_rank";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_LANGUAGE		       = "resource_language";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_PAGE_RANK	       = "resource_page_rank";
+    /* web image */
+    public static final String LUCENE_SEARCH_RESULT_FIELD_IMAGE_NAME                   = "webimage_filename";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_IMAGE_PATH                   = "webimage_filepath";
+    /* web page */
+    public static final String LUCENE_SEARCH_RESULT_FIELD_SITE_CONTENT	               = "website_text";
 
-
-    //webpage
-    public static final String LUCENE_SEARCH_RESULT_CONTENT_FIELD	     = "content";
-    public static final String LUCENE_SEARCH_RESULT_CREATED_FIELD	     = "created";
-    public static final String LUCENE_SEARCH_RESULT_TAGGED_FIELD	     = "tagged";
-    public static final String LUCENE_SEARCH_RESULT_LANGUAGE		     = "language";
-    public static final String LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD      = "pagerank";
 
 
     public static final String SEPARATOR = "\t";

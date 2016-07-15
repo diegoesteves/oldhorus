@@ -36,5 +36,5 @@ public interface ISearchEngine {
      * @param query
      * @return
      */
-    public Long getNumberOfResults(String query);
+    public Long getNumberOfResults(MetaQuery query);
 }

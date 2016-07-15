@@ -1,12 +1,11 @@
 package org.aksw.horus.search.web;
 
 import org.aksw.horus.Horus;
-import org.aksw.horus.core.util.Global;
 import org.aksw.horus.core.util.ImageManipulation;
 import org.aksw.horus.search.cache.ICache;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
-import org.aksw.horus.search.solr.PersonCache;
+import org.aksw.horus.search.solr.HorusCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public abstract class DefaultSearchEngine implements ISearchEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSearchEngine.class);
-    protected ICache<ISearchResult> searchResultsCache = new PersonCache();
+    protected ICache<ISearchResult> searchResultsCache = new HorusCache();
     private static String BING_API_KEY;
     private static String NUMBER_OF_SEARCH_RESULTS;
     private static String IMG_ROOT_DIR;
@@ -44,14 +43,14 @@ public abstract class DefaultSearchEngine implements ISearchEngine {
 
         Horus.init();
 
-        ICache<ISearchResult> searchResultsCache = new PersonCache();
+        ICache<ISearchResult> searchResultsCache = new HorusCache();
 
         ISearchResult result = searchResultsCache.getEntry("diego");
 
 
             for (WebResourceVO r : result.getWebResources()) {
 
-                if (searchResultsCache instanceof PersonCache) {
+                if (searchResultsCache instanceof HorusCache) {
                     WebImageVO img = (WebImageVO)r;
                     System.out.println("title: " + img.getTitle());
                     System.out.println("url: " + img.getUrl());

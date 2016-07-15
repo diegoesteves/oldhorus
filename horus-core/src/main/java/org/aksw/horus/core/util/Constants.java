@@ -28,12 +28,13 @@ public class Constants {
     public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL		           = "resource_url";
     public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_SEARCH_RANK		   = "resource_search_rank";
     public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_LANGUAGE		       = "resource_language";
-    public static final String LUCENE_SEARCH_RESULT_FIELD_RESOURCE_PAGE_RANK	       = "resource_page_rank";
     /* web image */
     public static final String LUCENE_SEARCH_RESULT_FIELD_IMAGE_NAME                   = "webimage_filename";
     public static final String LUCENE_SEARCH_RESULT_FIELD_IMAGE_PATH                   = "webimage_filepath";
     /* web page */
     public static final String LUCENE_SEARCH_RESULT_FIELD_SITE_CONTENT	               = "website_text";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_SITE_PAGE_RANK	           = "website_page_rank";
+
 
 
 

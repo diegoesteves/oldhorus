@@ -1,5 +1,7 @@
 package org.aksw.horus.search.web;
 
+import org.aksw.horus.search.query.MetaQuery;
+
 /**
  * Created by dnes on 12/04/16.
  */
@@ -12,8 +14,8 @@ public class WebImageVO extends WebResourceVO {
     private boolean detectedOrganisation = false;
     private boolean detectedLocation = false;
 
-    public WebImageVO(String queryString, String imgURL, String websiteURL) {
-        this.setQuery(queryString);
+    public WebImageVO(MetaQuery query, String imgURL, String websiteURL) {
+        this.setQuery(query);
         this.setUrl(imgURL);
         this.site = new WebSiteVO(websiteURL);
     }

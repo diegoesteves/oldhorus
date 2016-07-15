@@ -84,6 +84,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
 
             for (AbstractAzureSearchResult result : ars) {
 
+
                 if (i > Integer.valueOf(NUMBER_OF_SEARCH_RESULTS)) break;
 
                 //if ( ((AzureSearchWebResult) result).getUrl().startsWith("http://images.webgiftr.com/")
@@ -95,7 +96,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                 root.setUrl(((AzureSearchWebResult) result).getUrl());
                 root.setSearchRank(i++);
                 root.setCached(false);
-                root.setQuery(strQuery);
+                root.setQuery(query);
                 root.setLanguage("");
 
                 WebImageVO resource;

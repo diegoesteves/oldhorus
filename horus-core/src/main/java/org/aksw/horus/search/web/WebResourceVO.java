@@ -1,5 +1,8 @@
 package org.aksw.horus.search.web;
 
+import org.aksw.horus.search.query.MetaQuery;
+import org.apache.lucene.util.packed.DirectMonotonicReader;
+
 /**
  * Created by dnes on 01/06/16.
  */
@@ -9,18 +12,25 @@ public abstract class WebResourceVO implements IWebResource {
     private String          url;
     private int             searchrank = 0;
     private boolean         cached     = false;
-    private String          query;
+    private MetaQuery       query;
     private String          language;
     private int             hit = 0;
+    private String          cachedID;
 
     public WebResourceVO(){
 
     }
-    public WebResourceVO(String query, String url){
+
+    public WebResourceVO(MetaQuery query){
         this.query = query;
-        this.url = url;
     }
 
+    public void setCachedID(String value){
+        this.cachedID = value;
+    }
+    public String getCachedID(){
+        return this.cachedID;
+    }
     public void setTotalHitCount(int value){
         this.hit = value;
     }
@@ -39,10 +49,10 @@ public abstract class WebResourceVO implements IWebResource {
     public void setUrl(String url) {
         this.url = url;
     }
-    public String getQuery() {
+    public MetaQuery getQuery() {
         return this.query;
     }
-    public void setQuery(String query) {
+    public void setQuery(MetaQuery query) {
         this.query = query;
     }
     public void setSearchRank(int rank) {

@@ -16,6 +16,14 @@ public class MetaQuery {
     private int position;
     private String searchEngineFeature;
 
+    public MetaQuery(String metaQueryStr){
+        String[] qsplited = metaQueryStr.split("\\|-\\|");
+        this.term = qsplited[0];
+        this.additionalContent = qsplited[1];
+        this.type = Global.NERType.valueOf(qsplited[2]);
+        this.searchEngineFeature = qsplited[3];
+    }
+
     public MetaQuery(Global.NERType type, String term, String additionalContent, int position){
         this.type = type;
         this.position = position;
@@ -50,6 +58,10 @@ public class MetaQuery {
 
     public String getAdditionalContent(){
         return this.additionalContent;
+    }
+
+    public String getSearchEngineFeature(){
+        return this.searchEngineFeature;
     }
 
     public int getPosition(){

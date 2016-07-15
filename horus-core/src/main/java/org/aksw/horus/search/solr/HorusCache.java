@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.aksw.horus.core.util.Constants.*;
+
 /**
  * Created by dnes on 01/06/16.
  */
@@ -82,44 +84,54 @@ public class HorusCache implements ICache<ISearchResult> {
             ).setRows(50);
             */
             SolrQuery query = new SolrQuery(
-                    Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\"").setRows(50);
+                    LUCENE_SEARCH_RESULT_FIELD_QUERY + ":\"" + identifier + "\"").setRows(50);
 
-            query.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_CONTENT_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_TAGGED_FIELD);
-            query.addField(Constants.LUCENE_SEARCH_RESULT_LANGUAGE);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_ID);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_CREATED);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_HIT_COUNT);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_TITLE);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_SEARCH_RANK);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_LANGUAGE);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_IMAGE_NAME);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_IMAGE_PATH);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_SITE_CONTENT);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_SITE_PAGE_RANK);
+
             QueryResponse response = this.querySolrServer(query);
+
+            if (response.getResults().size() > 0){
+
+            }
 
             for (SolrDocument doc : response.getResults()) {
 
-                String q = (String) doc.get(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD);
-                String[] qsplited = q.split("\\|-\\|");
-                Global.NERType type = Global.NERType.valueOf(qsplited[0]);
-                String queryString = qsplited[1];
+                String query_meta = (String) doc.get(LUCENE_SEARCH_RESULT_FIELD_QUERY);
+                metaQuery = new MetaQuery(query_meta);
+                hitCount = (Long) doc.get(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_HIT_COUNT);
 
-                metaQuery = new MetaQuery(type, queryString, "");
-                hitCount = (Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD);
-
-                if (!((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD)).isEmpty()) { // empty cache hits should not become a website
+                if (!((String) doc.get(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL)).isEmpty()) {
 
                     WebImageVO img = new WebImageVO();
 
-                    img.setTitle((String) doc.get(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD));
-                    img.setUrl((String) doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
-                    img.setSearchRank(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD)).intValue());
-                    img.setCached(true);
-                    img.setQuery(queryString);
-                    img.setLanguage((String) doc.get(Constants.LUCENE_SEARCH_RESULT_LANGUAGE));
-                    img.setTotalHitCount(((Long) doc.get(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD)).intValue());
+                    img.setCachedID((String) doc.get(LUCENE_SEARCH_RESULT_FIELD_ID));
 
-                    img.setImageFileName((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD));
-                    img.setImageFilePath((String)doc.get(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD));
-                    img.setWebSite((String)doc.get(Constants.LUCENE_SEARCH_RESULT_URL_FIELD));
+                    img.setTitle((String) doc.get(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_TITLE));
+                    img.setUrl((String) doc.get(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL));
+                    img.setSearchRank(((Long) doc.get(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_SEARCH_RANK)).intValue());
+                    img.setCached(true);
+                    img.setQuery(metaQuery);
+                    img.setLanguage((String) doc.get(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_LANGUAGE));
+                    img.setTotalHitCount(((Long) doc.get(LUCENE_SEARCH_RESULT_FIELD_QUERY_HIT_COUNT)).intValue());
+
+                    img.setImageFileName((String)doc.get(LUCENE_SEARCH_RESULT_FIELD_IMAGE_NAME));
+                    img.setImageFilePath((String)doc.get(LUCENE_SEARCH_RESULT_FIELD_IMAGE_PATH));
+                    img.setWebSite((String)doc.get(LUCENE_SEARCH_RESULT_URL_FIELD));
 
                     resources.add(img);
                 }
@@ -141,23 +153,27 @@ public class HorusCache implements ICache<ISearchResult> {
         if (entry.getWebResources().isEmpty()) {
 
             SolrInputDocument solrDocument = new SolrInputDocument();
-            //solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_ID_FIELD, String.valueOf(entry.getQuery().toString().hashCode()));
 
-            //common fields
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD, -1);
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD, -1);
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD, entry.getQuery());
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_CREATED_FIELD, new Date().getTime());
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_LANGUAGE, entry.getLanguage());
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD, "");
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD, "");
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD, entry.getQuery().toString());
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD, entry.getTotalHitCount());
+            solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY, entry.getQuery().toString());
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_CREATED, new Date().getTime());
 
-            //img fields
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_IMG_ID_FIELD, "");
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD, "");
-            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD, "");
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM, entry.getQuery().getTerm());
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT, entry.getQuery().getAdditionalContent() );
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE, entry.getQuery().getType().toString());
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE,  entry.getQuery().getSearchEngineFeature());
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_HIT_COUNT, entry.getTotalHitCount());
+
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_RESOURCE_TITLE, "");
+            solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL, "");
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_RESOURCE_SEARCH_RANK, -1);
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_RESOURCE_LANGUAGE, "");
+
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_IMAGE_NAME, "");
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_IMAGE_PATH, "");
+
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_SITE_CONTENT, "");
+            solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_SITE_PAGE_RANK, -1);
+
 
             documents.add(solrDocument);
         }
@@ -168,22 +184,27 @@ public class HorusCache implements ICache<ISearchResult> {
                 WebImageVO image = (WebImageVO) resource;
 
                 SolrInputDocument solrDocument = new SolrInputDocument();
-                //solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_ID_FIELD, (entry.getQuery().toString() + "\t" + site.getUrl()).hashCode());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_HIT_COUNT_FIELD, image.getTotalHitCount());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_RANK_FIELD, image.getSearchRank());
-                //solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_PAGE_RANK_FIELD, image.getSearchRank());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_CREATED_FIELD, new Date().getTime());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_URL_FIELD, image.getWebSite().getUrl());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_TITLE_FIELD, image.getImageFileName());
-                //solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_CONTENT_FIELD, site.getText());
-                //solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_TAGGED_FIELD, site.getTaggedText() == null ? "" : site.getTaggedText());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD, entry.getQuery().toString());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_LANGUAGE, entry.getLanguage());
 
-                //img fields
-                //solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_IMG_ID_FIELD, image.getN );
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_IMG_NAME_FIELD, image.getImageFileName());
-                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_IMG_DIR_FIELD, image.getImageFilePath());
+                solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY, entry.getQuery().toString());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_CREATED, new Date().getTime());
+
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM, entry.getQuery().getTerm());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT, entry.getQuery().getAdditionalContent() );
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE, entry.getQuery().getType().toString());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE,  entry.getQuery().getSearchEngineFeature());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_QUERY_HIT_COUNT, entry.getTotalHitCount());
+
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_RESOURCE_TITLE, image.getTitle());
+                solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_RESOURCE_URL, image.getUrl());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_RESOURCE_SEARCH_RANK, image.getSearchRank());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_RESOURCE_LANGUAGE, image.getLanguage());
+
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_IMAGE_NAME, image.getImageFileName());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_IMAGE_PATH, image.getImageFilePath());
+
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_SITE_CONTENT, image.getWebSite().getText());
+                solrDocument.addField(Constants.LUCENE_SEARCH_RESULT_FIELD_SITE_PAGE_RANK, image.getWebSite().getPageRank());
+
 
                 documents.add(solrDocument);
             }

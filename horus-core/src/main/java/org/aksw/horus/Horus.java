@@ -105,29 +105,31 @@ public abstract class Horus {
             container.getTerms().forEach(t -> {
                 if (t.getPOS().equals("NN") || t.getPOS().equals("NNS") ||
                         t.getPOS().equals("NNP") || t.getPOS().equals("NNPS")){
-                    queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), "", t.getPosition()));
-                    queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), "", t.getPosition()));
-                    queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), "", t.getPosition()));
+                    queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), ""));
+                    queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), ""));
+                    queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), ""));
                 }
             });
         }
         if ( queries.size() <= 0 ) {
-            LOGGER.debug("none query has been generated for this input!");
-            return new ArrayList<>();
+            LOGGER.warn("-> none query has been generated for this input! no HORUS processing will happen ...");
+        } else {
+            LOGGER.info("-> preparing queries took " + TimeUtil.formatTime(System.currentTimeMillis() - start));
+            ISearchEngine engine = new AzureBingSearchEngine();
+            long startCrawl = System.currentTimeMillis();
+            ResourceExtractor ext = new ResourceExtractor(queries);
+            Map<MetaQuery, HorusEvidence> evidences = ext.extractAndCache(engine);
+            LOGGER.info(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
+
+            /* 3. Running models */
+            recognizeEntities(evidences);
+
+            /* 4. based on indicators, make the decision */
+            makeDecisionAmongAll();
+
         }
-        LOGGER.debug("-> Preparing queries took " + TimeUtil.formatTime(System.currentTimeMillis() - start));
 
-        ISearchEngine engine = new AzureBingSearchEngine();
-        long startCrawl = System.currentTimeMillis();
-        ResourceExtractor ext = new ResourceExtractor(queries);
-        List<HorusEvidence> evidences = ext.extract(engine);
-        LOGGER.debug(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
-
-        /* 3. Running models */
-        recognizeEntities();
-        /* 6. based on indicators, make the decision */
-        makeDecisionAmongAll();
-        /* 7. return the containers */
+        /* 5. return the containers */
         return horusContainers;
     }
     /***
@@ -205,8 +207,19 @@ public abstract class Horus {
         //TODO: integrate ? and convert container to nif
     }
 
-    private static void recognizeEntities() throws Exception{
+
+    private static void recognizeEntities(Map<MetaQuery, HorusEvidence> evidences) throws Exception{
         LOGGER.info(":: Recognizing Entities - start");
+
+
+        for ( Map.Entry<Integer, List<HorusEvidence>> evidencesToPosition : evidences.entrySet()) {
+            Integer position = evidencesToPosition.getKey();
+            for ( HorusEvidence evidence : evidencesToPosition.getValue() ) {
+
+                getTermByPosition(position).
+
+            }
+        }
 
         for (HorusContainer h : horusContainers) {
             LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());

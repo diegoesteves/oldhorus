@@ -9,17 +9,15 @@ import java.util.List;
  */
 public class HorusContainer {
 
-    private int _sentenceIndex;
+    private int             _sentenceIndex;
     private List<HorusTerm> _terms;
-    private String _sentence;
-
+    private String          _sentence;
 
     public HorusContainer(int sentenceId, String sentence) {
         this._terms = new ArrayList<>();
         this._sentenceIndex = sentenceId;
         this._sentence = sentence;
     }
-
 
     public List<HorusTerm> getTerms() {
         return this._terms;

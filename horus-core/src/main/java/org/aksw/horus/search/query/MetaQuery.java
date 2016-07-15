@@ -13,7 +13,6 @@ public class MetaQuery {
     //represents
     private String term;
     private String additionalContent;
-    private int position;
     private String searchEngineFeature;
 
     public MetaQuery(String metaQueryStr){
@@ -24,13 +23,6 @@ public class MetaQuery {
         this.searchEngineFeature = qsplited[3];
     }
 
-    public MetaQuery(Global.NERType type, String term, String additionalContent, int position){
-        this.type = type;
-        this.position = position;
-        this.term = term;
-        this.additionalContent = additionalContent;
-        setSearchEngineFeature();
-    }
 
     public MetaQuery(Global.NERType type, String term, String additionalContent){
         this.type = type;
@@ -62,10 +54,6 @@ public class MetaQuery {
 
     public String getSearchEngineFeature(){
         return this.searchEngineFeature;
-    }
-
-    public int getPosition(){
-        return this.position;
     }
 
     /* (non-Javadoc)

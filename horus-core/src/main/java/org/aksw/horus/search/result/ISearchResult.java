@@ -11,14 +11,13 @@ import java.util.List;
  */
 public interface ISearchResult {
 
-    public Long getTotalHitCount();
+    Long getTotalHitCount();
 
-    public List<WebResourceVO> getWebResources();
+    List<WebResourceVO> getWebResources();
 
-    public MetaQuery getQuery();
+    MetaQuery getQuery();
 
-    public String getLanguage();
+    String getLanguage();
 
-    public boolean isCached();
-
+    boolean isCached();
 }

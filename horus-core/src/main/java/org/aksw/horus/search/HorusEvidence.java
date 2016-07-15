@@ -1,6 +1,8 @@
 package org.aksw.horus.search;
 
+import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.WebImageVO;
+import org.aksw.horus.search.web.WebResourceVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +12,24 @@ import java.util.List;
  */
 public class  HorusEvidence {
 
-    private int position;
-    private List<WebImageVO> images;
+    private MetaQuery query;
+    private List<WebResourceVO> resources;
 
-    public HorusEvidence(int pos){
-        this.images = new ArrayList<>();
-        this.position = pos;
+    public HorusEvidence(MetaQuery query, List<WebResourceVO> resources){
+        this.resources = resources;
+        this.query = query;
     }
 
-    public int getPosition(){
-        return this.position;
+    public MetaQuery getQuery(){
+        return this.query;
     }
 
-    public List<WebImageVO> getImages(){
-        return this.images;
+    public List<WebResourceVO> getResources(){
+        return this.resources;
     }
 
     public void addImage(WebImageVO img) {
-        this.images.add(img);
+        this.resources.add(img);
     }
 
 

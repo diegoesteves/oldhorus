@@ -211,6 +211,7 @@ public abstract class Horus {
     private static void recognizeEntities(Map<MetaQuery, HorusEvidence> evidences) throws Exception{
         LOGGER.info(":: Recognizing Entities - start");
 
+        \\7218241
 
         for ( Map.Entry<Integer, List<HorusEvidence>> evidencesToPosition : evidences.entrySet()) {
             Integer position = evidencesToPosition.getKey();

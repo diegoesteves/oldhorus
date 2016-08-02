@@ -3,7 +3,7 @@ package org.aksw.horus.core.util;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Diego on 7/12/2016.
+ * Created by Diego Esteves on 7/12/2016.
  */
 
 public class TimeUtil {

@@ -3,7 +3,7 @@ package org.aksw.horus;
 import java.io.File;
 
 /**
- * Created by Diego on 6/25/2016.
+ * Created by Diego Esteves on 6/25/2016.
  */
 public class Temp {
 

@@ -1,7 +1,7 @@
 package org.aksw.horus.algorithm.language;
 
 /**
- * Created by Diego on 7/13/2016.
+ * Created by Diego Esteves on 7/13/2016.
  */
 import java.util.ArrayList;
 import com.cybozu.labs.langdetect.Detector;

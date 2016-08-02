@@ -4,11 +4,10 @@ import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.WebImageVO;
 import org.aksw.horus.search.web.WebResourceVO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Diego on 7/13/2016.
+ * Created by Diego Esteves on 7/13/2016.
  */
 public class  HorusEvidence {
 

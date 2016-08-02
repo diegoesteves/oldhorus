@@ -10,7 +10,7 @@ import java.net.URL;
 
 
 /**
- * Created by Diego on 6/25/2016.
+ * Created by Diego Esteves on 6/25/2016.
  */
 public class FileGenerator {
 

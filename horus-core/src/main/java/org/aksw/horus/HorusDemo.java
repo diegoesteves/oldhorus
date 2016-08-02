@@ -3,7 +3,6 @@ package org.aksw.horus;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,6 +24,7 @@ public class HorusDemo {
         String text = "There you go diego! how's going leipzig? I'll go to Rio this weekend! Are you up for? Ahhh I've got a new dell laptop! Uhull! Cya!";
 
         try {
+
             Horus.process(text);
 
             Horus.printResults();
@@ -32,6 +32,7 @@ public class HorusDemo {
             Horus.exportToMEX("path/to/save/the/file", "yournamespace", "filename", "file-format");
 
             Horus.exportToNIF("path/to/save/the/file", "yournamespace", "filename", "file-format");
+
         } catch (Exception e){
             LOG.error(e.toString());
         }

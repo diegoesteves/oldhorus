@@ -1,26 +1,22 @@
 package org.aksw.horus.search.crawl;
 
 import org.aksw.horus.Horus;
-import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.HorusEvidence;
 import org.aksw.horus.search.cache.ICache;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.solr.HorusCache;
 import org.aksw.horus.search.web.ISearchEngine;
-import org.aksw.horus.search.web.WebResourceVO;
-import org.apache.lucene.util.packed.DirectMonotonicReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * Created by Diego on 7/12/2016.
+ * Created by Diego Esteves on 7/12/2016.
  */
 public class ResourceExtractor {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourceExtractor.class);
@@ -30,12 +26,13 @@ public class ResourceExtractor {
         this.queries = queries;
     }
 
-    public Map<MetaQuery, HorusEvidence> extractAndCache(ISearchEngine engine) {
+    public List<HorusEvidence> extractAndCache(ISearchEngine engine) {
 
-        Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
+        //Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
+        List<HorusEvidence> ret = new ArrayList<>();
 
         Map<String, MetaQuery> cache = new HashMap<>();
-        HorusCache solrcache = new HorusCache();
+        HorusCache solrCache = new HorusCache();
         Set<ISearchResult> searchResultsCached = new HashSet<>();
 
         LOGGER.debug(" -> starting extracting: [SearchEngineClass: " + engine.getClass().toString() + "]");
@@ -43,8 +40,8 @@ public class ResourceExtractor {
         LOGGER.debug(" -> filtering out the queries: " + String.valueOf(this.queries.size()));
         for (MetaQuery query: this.queries) {
             if (!cache.containsKey(query.toString())) {
-                if (solrcache.contains(query.toString())){
-                    searchResultsCached.add(solrcache.getEntry(query.toString()));
+                if (solrCache.contains(query.toString())){
+                    searchResultsCached.add(solrCache.getEntry(query.toString()));
                 }else{
                     cache.put(query.toString(), query);
                 }

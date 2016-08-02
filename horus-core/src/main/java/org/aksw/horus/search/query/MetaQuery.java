@@ -2,16 +2,17 @@ package org.aksw.horus.search.query;
 
 import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
-import org.apache.lucene.util.packed.DirectMonotonicReader;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * Created by Diego on 7/13/2016.
+ * Created by Diego Esteves on 7/13/2016.
  */
 public class MetaQuery {
 
     private Global.NERType type;
     //represents
     private String term;
+    private boolean isComposedTerm;
     private String additionalContent;
     private String searchEngineFeature;
 
@@ -29,6 +30,16 @@ public class MetaQuery {
         this.term = term;
         this.additionalContent = additionalContent;
         setSearchEngineFeature();
+    }
+
+    /**
+     * has the Term been composed by a sequential structure?
+     * @return true or false
+     */
+    public boolean isComposedTerm(){
+        if (StringUtils.isNotEmpty(this.term))
+            return (this.term.split(" ").length > 1);
+        return false;
     }
 
     private void setSearchEngineFeature(){

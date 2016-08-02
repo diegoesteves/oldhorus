@@ -14,6 +14,7 @@ import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.aksw.horus.search.web.WebImageVO;
 import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
+import org.apache.lucene.util.packed.DirectMonotonicReader;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
 import org.slf4j.Logger;
@@ -65,7 +66,9 @@ public abstract class Horus {
                 for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     String word = token.get(CoreAnnotations.TextAnnotation.class);
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                    c.addTerm(new HorusTerm(iTerm, word, pos, iPosition));
+                    //todo: check whether I've got a new linked term here to run a composed query (amod and compound) -> http://nlp.stanford.edu/software/dependencies_manual.pdf
+                    int ref = 0;
+                    c.addTerm(new HorusTerm(iTerm, word, pos, iPosition, ref));
                     iTerm++; iPosition++;
                 }
                 horusContainers.add(c);
@@ -100,7 +103,7 @@ public abstract class Horus {
         /* 2. Querying and Caching */
         List<MetaQuery> queries = new ArrayList<>();
 
-        //filtering out
+        //filtering out and creating linked list of terms
         for ( HorusContainer container : horusContainers ) {
             container.getTerms().forEach(t -> {
                 if (t.getPOS().equals("NN") || t.getPOS().equals("NNS") ||
@@ -108,22 +111,39 @@ public abstract class Horus {
                     queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), ""));
                     queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), ""));
                     queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), ""));
+                    if (t.getRefNextTerm() != -1){
+                        String finalTerm = t.getTerm();
+                        HorusTerm nextT = container.getTerms().get(t.getIndex()+1);
+                        finalTerm += " " + nextT.getTerm();
+                        while(nextT.getRefNextTerm() != -1 ){
+                            nextT = container.getTerms().get(t.getIndex()+1);
+                            finalTerm += " " + nextT.getTerm();
+                        }
+                        queries.add(new MetaQuery(Global.NERType.LOC, finalTerm, ""));
+                        queries.add(new MetaQuery(Global.NERType.PER, finalTerm, ""));
+                        queries.add(new MetaQuery(Global.NERType.ORG, finalTerm, ""));
+                    }
                 }
             });
         }
+
         if ( queries.size() <= 0 ) {
+
             LOGGER.warn("-> none query has been generated for this input! no HORUS processing will happen ...");
+
         } else {
+
             LOGGER.info("-> preparing queries took " + TimeUtil.formatTime(System.currentTimeMillis() - start));
             ISearchEngine engine = new AzureBingSearchEngine();
             long startCrawl = System.currentTimeMillis();
+
             ResourceExtractor ext = new ResourceExtractor(queries);
-            Map<MetaQuery, HorusEvidence> evidences = ext.extractAndCache(engine);
+            List<HorusEvidence> evidences = ext.extractAndCache(engine);
             LOGGER.info(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
 
             /* 3. Running models */
             recognizeEntities(evidences);
-
+§
             /* 4. based on indicators, make the decision */
             makeDecisionAmongAll();
 
@@ -208,14 +228,12 @@ public abstract class Horus {
     }
 
 
-    private static void recognizeEntities(Map<MetaQuery, HorusEvidence> evidences) throws Exception{
+    private static void recognizeEntities(List<HorusEvidence> evidences) throws Exception{
         LOGGER.info(":: Recognizing Entities - start");
 
-        \\7218241
-
-        for ( Map.Entry<Integer, List<HorusEvidence>> evidencesToPosition : evidences.entrySet()) {
-            Integer position = evidencesToPosition.getKey();
-            for ( HorusEvidence evidence : evidencesToPosition.getValue() ) {
+        for ( Map.Entry<MetaQuery, HorusEvidence> evidencesToPosition : evidences.entrySet()) {
+            MetaQuery q = evidencesToPosition.getKey();
+            HorusEvidence evidence : evidencesToPosition.getValue();
 
                 getTermByPosition(position).
 

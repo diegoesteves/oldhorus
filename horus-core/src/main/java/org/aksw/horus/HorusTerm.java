@@ -11,6 +11,7 @@ public class HorusTerm {
     private int       _index;
     private int       _position; //global index
     private String    _term;
+    private int       _ref_next_term; //it links to the next associated term
     private String    _postagger;
 
     private boolean   _person;
@@ -25,11 +26,12 @@ public class HorusTerm {
     private HorusEvidence _evidenceORG;
 
 
-    public HorusTerm(int index, String term, String POS, int position){
+    public HorusTerm(int index, String term, String POS, int position, int ref_next_term){
         this._term = term;
         this._postagger = POS;
         this._index = index;
         this._position = position;
+        this._ref_next_term = ref_next_term;
     }
 
     public HorusEvidence getEvidences(Global.NERType type){
@@ -97,6 +99,7 @@ public class HorusTerm {
     public int getPosition(){
         return this._position;
     }
+
     public String getNER(){
 
         if (this._locationProb ==0d && this._organisationProb ==0 && this._personProb ==0)
@@ -145,5 +148,8 @@ public class HorusTerm {
         this._organisationProb = _organisationProb;
     }
 
+    public int getRefNextTerm(){
+        return this._ref_next_term;
+    }
 
 }

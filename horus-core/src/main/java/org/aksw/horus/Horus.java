@@ -108,16 +108,16 @@ public abstract class Horus {
             container.getTerms().forEach(t -> {
                 if (t.getPOS().equals("NN") || t.getPOS().equals("NNS") ||
                         t.getPOS().equals("NNP") || t.getPOS().equals("NNPS")){
-                    queries.add(new MetaQuery(Global.NERType.LOC, t.getTerm(), ""));
-                    queries.add(new MetaQuery(Global.NERType.PER, t.getTerm(), ""));
-                    queries.add(new MetaQuery(Global.NERType.ORG, t.getTerm(), ""));
+                    queries.add(new MetaQuery(Global.NERType.LOC, t.getToken(), ""));
+                    queries.add(new MetaQuery(Global.NERType.PER, t.getToken(), ""));
+                    queries.add(new MetaQuery(Global.NERType.ORG, t.getToken(), ""));
                     if (t.getRefNextTerm() != -1){
-                        String finalTerm = t.getTerm();
+                        String finalTerm = t.getToken();
                         HorusTerm nextT = container.getTerms().get(t.getIndex()+1);
-                        finalTerm += " " + nextT.getTerm();
+                        finalTerm += " " + nextT.getToken();
                         while(nextT.getRefNextTerm() != -1 ){
                             nextT = container.getTerms().get(t.getIndex()+1);
-                            finalTerm += " " + nextT.getTerm();
+                            finalTerm += " " + nextT.getToken();
                         }
                         queries.add(new MetaQuery(Global.NERType.LOC, finalTerm, ""));
                         queries.add(new MetaQuery(Global.NERType.PER, finalTerm, ""));
@@ -190,7 +190,7 @@ public abstract class Horus {
             LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
             for (HorusTerm t : h.getTerms()) {
                 LOGGER.info("  -- index     : " + t.getIndex());
-                LOGGER.info("  -- term      : " + t.getTerm());
+                LOGGER.info("  -- term      : " + t.getToken());
                 LOGGER.info("  -- tagger    : " + t.getPOS());
                 LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getLocationProb()));
                 LOGGER.info("  -- Prob(PER)    : " + String.valueOf(t.getPersonProb()));
@@ -243,11 +243,11 @@ public abstract class Horus {
         for (HorusContainer h : horusContainers) {
             LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
             for (HorusTerm t : h.getTerms()) {
-                LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getTerm());
+                LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getToken());
                 setPersonDetected(t.getPosition());
-                LOGGER.debug(":: is organisation? " + t.getIndex() + ": " + t.getTerm());
+                LOGGER.debug(":: is organisation? " + t.getIndex() + ": " + t.getToken());
                 setOrganisationDetected(t.getPosition());
-                LOGGER.debug(":: is location? " + t.getIndex() + ": " + t.getTerm());
+                LOGGER.debug(":: is location? " + t.getIndex() + ": " + t.getToken());
                 setLocationDetected(t.getPosition());
             }
         }

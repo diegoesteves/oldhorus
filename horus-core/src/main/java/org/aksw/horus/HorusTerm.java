@@ -10,7 +10,7 @@ public class HorusTerm {
 
     private int       _index;
     private int       _position; //global index
-    private String    _term;
+    private String    _token;
     private int       _ref_next_term; //it links to the next associated term
     private String    _postagger;
 
@@ -26,8 +26,8 @@ public class HorusTerm {
     private HorusEvidence _evidenceORG;
 
 
-    public HorusTerm(int index, String term, String POS, int position, int ref_next_term){
-        this._term = term;
+    public HorusTerm(int index, String token, String POS, int position, int ref_next_term){
+        this._token = token;
         this._postagger = POS;
         this._index = index;
         this._position = position;
@@ -60,12 +60,12 @@ public class HorusTerm {
         this._postagger = _postagger;
     }
 
-    public String getTerm() {
-        return _term;
+    public String getToken() {
+        return _token;
     }
 
-    public void setTerm(String _term) {
-        this._term = _term;
+    public void setToken(String _token) {
+        this._token = _token;
     }
 
     public boolean isPerson() {

@@ -18,8 +18,18 @@ public class Global {
     }
 
     public enum NERType {
-        PER, LOC, ORG
+        PER(1), LOC(2), ORG(3);
+        private final int value;
+
+        private NERType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
+
 
     private static Logger LOGGER = Logger.getLogger(Global.class);
 

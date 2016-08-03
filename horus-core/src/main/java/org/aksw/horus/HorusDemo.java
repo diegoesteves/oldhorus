@@ -14,9 +14,9 @@ public class HorusDemo {
 
     public static void main(String[] args) throws Exception {
 
-        LOG.info("************************************************************************");
-        LOG.info("*                          Starting HORUS                              *");
-        LOG.info("************************************************************************");
+        LOG.info("------------------------------------------------------------------------");
+        LOG.info("-                          Starting HORUS                              -");
+        LOG.info("------------------------------------------------------------------------");
 
         long startTime = System.currentTimeMillis();
         LOG.info(startTime);
@@ -39,9 +39,9 @@ public class HorusDemo {
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        LOG.info("************************************************************************");
-        LOG.info("*                         Process Finished                             *");
-        LOG.info("************************************************************************");
+        LOG.info("------------------------------------------------------------------------");
+        LOG.info("-                         Process Finished                             -");
+        LOG.info("------------------------------------------------------------------------");
 
         String out = String.format("Processing Time: %02d hour, %02d min, %02d sec",
                 TimeUnit.MILLISECONDS.toHours(totalTime),

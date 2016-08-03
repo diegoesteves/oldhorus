@@ -14,7 +14,6 @@ import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.aksw.horus.search.web.WebImageVO;
 import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
-import org.apache.lucene.util.packed.DirectMonotonicReader;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
 import org.slf4j.Logger;
@@ -29,15 +28,15 @@ import java.util.*;
  */
 public abstract class Horus {
 
-    private static       List<HorusContainer> horusContainers    = new ArrayList<>();
-    public  static       HorusConfig          HORUS_CONFIG;
-    private static final Logger               LOGGER             = LoggerFactory.getLogger(Horus.class);
-    private static double                     PER_THRESHOLD;
-    private static double                     LOC_THRESHOLD;
-    private static double                     ORG_THRESHOLD;
-    private static int                        PER_OFFSET;
-    private static int                        LOC_OFFSET;
-    private static int                        ORG_OFFSET;
+    private static List<HorusContainer> horusContainers    = new ArrayList<>();
+    public  static HorusConfig          HORUS_CONFIG;
+    private static final Logger         LOGGER             = LoggerFactory.getLogger(Horus.class);
+    private static double               PER_THRESHOLD;
+    private static double               LOC_THRESHOLD;
+    private static double               ORG_THRESHOLD;
+    private static int                  PER_OFFSET;
+    private static int                  LOC_OFFSET;
+    private static int                  ORG_OFFSET;
 
     /***
      * annotate a given input text with Stanford POS tagger
@@ -68,7 +67,7 @@ public abstract class Horus {
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                     //todo: check whether I've got a new linked term here to run a composed query (amod and compound) -> http://nlp.stanford.edu/software/dependencies_manual.pdf
                     int ref = 0;
-                    c.addTerm(new HorusTerm(iTerm, word, pos, iPosition, ref));
+                    c.addTerm(new HorusToken(iTerm, word, pos, iPosition, ref));
                     iTerm++; iPosition++;
                 }
                 horusContainers.add(c);
@@ -111,11 +110,12 @@ public abstract class Horus {
                     queries.add(new MetaQuery(Global.NERType.LOC, t.getToken(), ""));
                     queries.add(new MetaQuery(Global.NERType.PER, t.getToken(), ""));
                     queries.add(new MetaQuery(Global.NERType.ORG, t.getToken(), ""));
-                    if (t.getRefNextTerm() != -1){
+                    //composed queries
+                    if (t.getRefNextToken() != -1){
                         String finalTerm = t.getToken();
-                        HorusTerm nextT = container.getTerms().get(t.getIndex()+1);
+                        HorusToken nextT = container.getTerms().get(t.getIndex()+1);
                         finalTerm += " " + nextT.getToken();
-                        while(nextT.getRefNextTerm() != -1 ){
+                        while(nextT.getRefNextToken() != -1 ){
                             nextT = container.getTerms().get(t.getIndex()+1);
                             finalTerm += " " + nextT.getToken();
                         }
@@ -129,11 +129,12 @@ public abstract class Horus {
 
         if ( queries.size() <= 0 ) {
 
-            LOGGER.warn("-> none query has been generated for this input! no HORUS processing will happen ...");
+            LOGGER.warn("-> none query has been generated for this input! there's nothing to do ...");
 
         } else {
 
             LOGGER.info("-> preparing queries took " + TimeUtil.formatTime(System.currentTimeMillis() - start));
+
             ISearchEngine engine = new AzureBingSearchEngine();
             long startCrawl = System.currentTimeMillis();
 
@@ -143,7 +144,7 @@ public abstract class Horus {
 
             /* 3. Running models */
             recognizeEntities(evidences);
-§
+
             /* 4. based on indicators, make the decision */
             makeDecisionAmongAll();
 
@@ -188,7 +189,7 @@ public abstract class Horus {
 
         for (HorusContainer h : horusContainers) {
             LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
-            for (HorusTerm t : h.getTerms()) {
+            for (HorusToken t : h.getTerms()) {
                 LOGGER.info("  -- index     : " + t.getIndex());
                 LOGGER.info("  -- term      : " + t.getToken());
                 LOGGER.info("  -- tagger    : " + t.getPOS());
@@ -242,7 +243,7 @@ public abstract class Horus {
 
         for (HorusContainer h : horusContainers) {
             LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
-            for (HorusTerm t : h.getTerms()) {
+            for (HorusToken t : h.getTerms()) {
                 LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getToken());
                 setPersonDetected(t.getPosition());
                 LOGGER.debug(":: is organisation? " + t.getIndex() + ": " + t.getToken());
@@ -274,12 +275,12 @@ public abstract class Horus {
     private static void setOrganisationDetected(int position) throws Exception{
     }
 
-    private static HorusTerm getTermByPosition(int position) throws Exception{
+    private static HorusToken getTermByPosition(int position) throws Exception{
         int aux = 0;
         for (HorusContainer h : horusContainers) {
             aux += h.getTerms().size();
             if (aux >= position){
-                for (HorusTerm t :  h.getTerms()) {
+                for (HorusToken t :  h.getTerms()) {
                     if (t.getPosition() == position){
                         return t;
                     }

@@ -1,5 +1,7 @@
 package org.aksw.horus.search.web;
 
+import org.aksw.horus.search.query.MetaQuery;
+
 /**
  * Created by dnes on 12/04/16.
  */
@@ -8,7 +10,7 @@ public class WebSiteVO extends WebResourceVO {
     private String  text                     = "";
     private int     pagerank                 = 0;
 
-    public WebSiteVO(String query, String url) {
+    public WebSiteVO(MetaQuery query, String url) {
         this.setQuery(query);
         this.setUrl(url);
     }

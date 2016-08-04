@@ -18,7 +18,7 @@ public class Constants {
     public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_META                   = "query_meta";
     public static final String LUCENE_SEARCH_RESULT_FIELD_CREATED	                   = "created";
 
-    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM		           = "query_term";
+    public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_TEXT		           = "query_term";
     public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT     = "query_additional_content";
     public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE		       = "query_ner_type";
     public static final String LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE  = "query_search_engine_feature";

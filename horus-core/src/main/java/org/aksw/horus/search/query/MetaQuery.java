@@ -55,6 +55,7 @@ public class MetaQuery {
         return this.type;
     }
 
+
     public String getText(){
         return this.text;
     }

@@ -26,10 +26,10 @@ public class ResourceExtractor {
         this.queries = queries;
     }
 
-    public List<HorusEvidence> extractAndCache(ISearchEngine engine) {
+    public Map<MetaQuery, HorusEvidence> extractAndCache(ISearchEngine engine) {
 
-        //Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
-        List<HorusEvidence> ret = new ArrayList<>();
+        Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
+        //List<HorusEvidence> ret = new ArrayList<>();
 
         Map<String, MetaQuery> cache = new HashMap<>();
         HorusCache solrCache = new HorusCache();

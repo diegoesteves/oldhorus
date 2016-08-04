@@ -1,18 +1,18 @@
 package org.aksw.horus.search.web.bing;
 
-import net.billylieurance.azuresearch.*;
 import net.billylieurance.azuresearch.AbstractAzureSearchQuery.AZURESEARCH_QUERYTYPE;
+import net.billylieurance.azuresearch.*;
 import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
-import org.aksw.horus.core.util.ImageManipulation;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.DefaultSearchResult;
 import org.aksw.horus.search.result.ISearchResult;
-import org.aksw.horus.search.solr.SolrHelper;
-import org.aksw.horus.search.web.*;
+import org.aksw.horus.search.web.DefaultSearchEngine;
+import org.aksw.horus.search.web.WebImageVO;
+import org.aksw.horus.search.web.WebResourceVO;
+import org.aksw.horus.search.web.WebSiteVO;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
-import org.apache.lucene.util.packed.DirectMonotonicReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,7 +183,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
     @Override
     public String generateQuery(MetaQuery query) {
         //return new BingQuery().generateQuery(query);
-        return query.getTerm().toString() + " " + query.getAdditionalContent().toString();
+        return query.getText() + " " + query.getAdditionalContent().toString();
     }
     @Override
     public Long getNumberOfResults(MetaQuery query) {

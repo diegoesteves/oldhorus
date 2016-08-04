@@ -2,7 +2,6 @@ package org.aksw.horus.search.solr;
 
 import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Constants;
-import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.cache.ICache;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.DefaultSearchResult;
@@ -83,7 +82,7 @@ public class HorusCache implements ICache<ISearchResult> {
             query.addField(LUCENE_SEARCH_RESULT_FIELD_ID);
             query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_META);
             query.addField(LUCENE_SEARCH_RESULT_FIELD_CREATED);
-            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM);
+            query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TEXT);
             query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT);
             query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE);
             query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE);
@@ -192,7 +191,7 @@ public class HorusCache implements ICache<ISearchResult> {
             SolrInputDocument solrDocument = new SolrInputDocument();
             solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_META, entry.getQuery().toString());
             solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_CREATED, new Date().getTime());
-            solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM, entry.getQuery().getTerm());
+            solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TEXT, entry.getQuery().getText());
             solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT, entry.getQuery().getAdditionalContent() );
             solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE, entry.getQuery().getType().toString());
             solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE,  entry.getQuery().getSearchEngineFeature());
@@ -215,7 +214,7 @@ public class HorusCache implements ICache<ISearchResult> {
                 SolrInputDocument solrDocument = new SolrInputDocument();
                 solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_META, entry.getQuery().toString());
                 solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_CREATED, new Date().getTime());
-                solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TERM, entry.getQuery().getTerm());
+                solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_TEXT, entry.getQuery().getText());
                 solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_ADDITIONAL_CONTENT, entry.getQuery().getAdditionalContent() );
                 solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_NER_TYPE, entry.getQuery().getType().toString());
                 solrDocument.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_SEARCH_ENGINE_FEATURE,  entry.getQuery().getSearchEngineFeature());

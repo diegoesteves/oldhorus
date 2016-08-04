@@ -40,9 +40,7 @@ public class HorusToken {
 
     }
 
-    public HorusEvidence getEvidences(Global.NERType type){
-        return this.evidences.get(type);
-    }
+
 
     public int getIndex() {
         return _index;

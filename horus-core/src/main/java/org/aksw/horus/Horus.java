@@ -13,6 +13,7 @@ import org.aksw.horus.search.crawl.ResourceExtractor;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.aksw.horus.search.web.WebImageVO;
+import org.aksw.horus.search.web.WebResourceVO;
 import org.aksw.horus.search.web.bing.AzureBingSearchEngine;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
@@ -196,7 +197,7 @@ public abstract class Horus {
                     LOGGER.info("  -- index     : " + t.getToken().getIndex());
                     LOGGER.info("  -- token      : " + t.getToken().getTokenValue());
                     LOGGER.info("  -- tagger    : " + t.getToken().getPOS());
-                    LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.PER));
+                    LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.PER)));
                     LOGGER.info("  -- Prob(PER)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.ORG)));
                     LOGGER.info("  -- Prob(ORG)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.LOC)));
                     LOGGER.info("  -- NER Class : " + t.getToken().getNER());
@@ -235,7 +236,7 @@ public abstract class Horus {
 
     private static void recognizeEntities(List<HorusEvidence> evidences) throws Exception{
         LOGGER.info(":: Recognizing Entities - start");
-
+/*
         for ( Map.Entry<MetaQuery, HorusEvidence> evidencesToPosition : evidences.entrySet()) {
             MetaQuery q = evidencesToPosition.getKey();
             HorusEvidence evidence : evidencesToPosition.getValue();
@@ -256,8 +257,12 @@ public abstract class Horus {
                 setLocationDetected(t.getPosition());
             }
         }
+
+
         LOGGER.info(":: Recognizing Entities - done");
+         */
     }
+
 
     //TODO: to train J48 here...
     private static void makeDecisionAmongAll() throws Exception{
@@ -268,7 +273,8 @@ public abstract class Horus {
     private static void setPersonDetected(int position) throws Exception{
         HorusEvidence e = getTermByPosition(position).getEvidences(Global.NERType.PER);
         FaceDetectOpenCV fd = new FaceDetectOpenCV();
-        for (WebImageVO img: e.getImages()){
+        for (WebResourceVO r: e.getResources()){
+            WebImageVO img = (WebImageVO) r;
             boolean ret =
                     fd.faceDetected(new File(img.getImageFilePath() + img.getImageFileName()));
             img.setPersonDetected(ret);
@@ -279,13 +285,13 @@ public abstract class Horus {
     private static void setOrganisationDetected(int position) throws Exception{
     }
 
-    private static HorusToken getTermByPosition(int position) throws Exception{
+    private static HorusTerm getTermByPosition(int position) throws Exception{
         int aux = 0;
         for (HorusContainer h : horusContainers) {
             aux += h.getTerms().size();
             if (aux >= position){
-                for (HorusToken t :  h.getTerms()) {
-                    if (t.getPosition() == position){
+                for (HorusTerm t :  h.getTerms()) {
+                    if (t.getId() == position){
                         return t;
                     }
                 }

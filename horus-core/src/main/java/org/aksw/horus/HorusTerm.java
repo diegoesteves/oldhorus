@@ -1,8 +1,10 @@
 package org.aksw.horus;
 
+import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.HorusEvidence;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -11,14 +13,14 @@ import java.util.List;
 public class HorusTerm {
 
     private List<HorusToken> _tokens;
-    private ArrayList<Double> prob;
-    private ArrayList<HorusEvidence> evidences;
+    private HashMap<Global.NERType, Double> prob;
+    private HashMap<Global.NERType, HorusEvidence> evidences;
     private Integer _idTerm;
 
     public HorusTerm(Integer id){
         this._tokens = new ArrayList<>();
-        this.prob = new ArrayList<>();
-        this.evidences = new ArrayList<>();
+        this.prob = new HashMap<>();
+        this.evidences = new HashMap<>();
         this._idTerm = id;
     }
 
@@ -49,6 +51,10 @@ public class HorusTerm {
 
     public boolean isComposedTerm(){
         return ((this._tokens.size() > 1) ? true : false);
+    }
+
+    public HorusEvidence getEvidences(Global.NERType type){
+        return this.evidences.get(type);
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public class HorusContainer {
 
     private int             _sentenceIndex;
-    private List<HorusToken> _terms;
+    private List<HorusTerm> _terms;
     private String          _sentence;
 
     public HorusContainer(int sentenceId, String sentence) {
@@ -19,11 +19,11 @@ public class HorusContainer {
         this._sentence = sentence;
     }
 
-    public List<HorusToken> getTerms() {
+    public List<HorusTerm> getTerms() {
         return this._terms;
     }
 
-    public void addTerm(HorusToken t) {
+    public void addTerm(HorusTerm t) {
         this._terms.add(t);
     }
 

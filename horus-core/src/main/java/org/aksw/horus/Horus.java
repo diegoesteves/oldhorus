@@ -65,10 +65,15 @@ public abstract class Horus {
                 for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     String word = token.get(CoreAnnotations.TextAnnotation.class);
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                    //todo: check whether I've got a new linked term here to run a composed query (amod and compound) -> http://nlp.stanford.edu/software/dependencies_manual.pdf
                     int ref = 0;
-                    c.addTerm(new HorusToken(iTerm, word, pos, iPosition, ref));
+                    //adding all isolated tokens as terms
+                    HorusToken tt = new HorusToken(iTerm, word, pos, iPosition, ref);
+                    HorusTerm tmt = new HorusTerm(iTerm);
+                    tmt.addToken(tt);
+                    c.addTerm(tmt);
                     iTerm++; iPosition++;
+                    //todo: check whether I've got a new linked term here to run a composed query (amod and compound) -> http://nlp.stanford.edu/software/dependencies_manual.pdf
+
                 }
                 horusContainers.add(c);
                 iSentence++; iTerm = 0;
@@ -104,26 +109,23 @@ public abstract class Horus {
 
         //filtering out and creating linked list of terms
         for ( HorusContainer container : horusContainers ) {
-            container.getTerms().forEach(t -> {
-                if (t.getPOS().equals("NN") || t.getPOS().equals("NNS") ||
-                        t.getPOS().equals("NNP") || t.getPOS().equals("NNPS")){
-                    queries.add(new MetaQuery(Global.NERType.LOC, t.getToken(), ""));
-                    queries.add(new MetaQuery(Global.NERType.PER, t.getToken(), ""));
-                    queries.add(new MetaQuery(Global.NERType.ORG, t.getToken(), ""));
-                    //composed queries
-                    if (t.getRefNextToken() != -1){
-                        String finalTerm = t.getToken();
-                        HorusToken nextT = container.getTerms().get(t.getIndex()+1);
-                        finalTerm += " " + nextT.getToken();
-                        while(nextT.getRefNextToken() != -1 ){
-                            nextT = container.getTerms().get(t.getIndex()+1);
-                            finalTerm += " " + nextT.getToken();
-                        }
-                        queries.add(new MetaQuery(Global.NERType.LOC, finalTerm, ""));
-                        queries.add(new MetaQuery(Global.NERType.PER, finalTerm, ""));
-                        queries.add(new MetaQuery(Global.NERType.ORG, finalTerm, ""));
+            container.getTerms().forEach(term -> {
+
+                //terms as tokens
+                if (!term.isComposedTerm()) {
+                    if (term.getToken().getPOS().equals("NN") || term.getToken().getPOS().equals("NNS") ||
+                            term.getToken().getPOS().equals("NNP") || term.getToken().getPOS().equals("NNPS")) {
+                        queries.add(new MetaQuery(Global.NERType.LOC, term.getToken().getTokenValue(), ""));
+                        queries.add(new MetaQuery(Global.NERType.PER, term.getToken().getTokenValue(), ""));
+                        queries.add(new MetaQuery(Global.NERType.ORG, term.getToken().getTokenValue(), ""));
                     }
                 }
+                else { //composed term
+                    queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValues(), ""));
+                    queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValues(), ""));
+                    queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValues(), ""));
+                }
+
             });
         }
 
@@ -189,14 +191,16 @@ public abstract class Horus {
 
         for (HorusContainer h : horusContainers) {
             LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
-            for (HorusToken t : h.getTerms()) {
-                LOGGER.info("  -- index     : " + t.getIndex());
-                LOGGER.info("  -- term      : " + t.getToken());
-                LOGGER.info("  -- tagger    : " + t.getPOS());
-                LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getLocationProb()));
-                LOGGER.info("  -- Prob(PER)    : " + String.valueOf(t.getPersonProb()));
-                LOGGER.info("  -- Prob(ORG)    : " + String.valueOf(t.getOrganisationProb()));
-                LOGGER.info("  -- NER Class : " + t.getNER());
+            for (HorusTerm t : h.getTerms()) {
+                if (!t.isComposedTerm()) {
+                    LOGGER.info("  -- index     : " + t.getToken().getIndex());
+                    LOGGER.info("  -- token      : " + t.getToken().getTokenValue());
+                    LOGGER.info("  -- tagger    : " + t.getToken().getPOS());
+                    LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.PER));
+                    LOGGER.info("  -- Prob(PER)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.ORG)));
+                    LOGGER.info("  -- Prob(ORG)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.LOC)));
+                    LOGGER.info("  -- NER Class : " + t.getToken().getNER());
+                }
             }
             LOGGER.info("");
         }

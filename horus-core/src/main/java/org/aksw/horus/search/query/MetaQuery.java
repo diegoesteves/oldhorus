@@ -11,23 +11,23 @@ public class MetaQuery {
 
     private Global.NERType type;
     //represents
-    private String token;
+    private String text;
     private boolean isComposedTerm;
     private String additionalContent;
     private String searchEngineFeature;
 
     public MetaQuery(String metaQueryStr){
         String[] qsplited = metaQueryStr.split("\\|-\\|");
-        this.token = qsplited[0];
+        this.text = qsplited[0];
         this.additionalContent = qsplited[1];
         this.type = Global.NERType.valueOf(qsplited[2]);
         this.searchEngineFeature = qsplited[3];
     }
 
 
-    public MetaQuery(Global.NERType type, String token, String additionalContent){
+    public MetaQuery(Global.NERType type, String text, String additionalContent){
         this.type = type;
-        this.token = token;
+        this.text = text;
         this.additionalContent = additionalContent;
         setSearchEngineFeature();
     }
@@ -37,8 +37,8 @@ public class MetaQuery {
      * @return true or false
      */
     public boolean isComposedTerm(){
-        if (StringUtils.isNotEmpty(this.token))
-            return (this.token.split(" ").length > 1);
+        if (StringUtils.isNotEmpty(this.text))
+            return (this.text.split(" ").length > 1);
         return false;
     }
 
@@ -55,8 +55,8 @@ public class MetaQuery {
         return this.type;
     }
 
-    public String getToken(){
-        return this.token;
+    public String getText(){
+        return this.text;
     }
 
     public String getAdditionalContent(){
@@ -72,7 +72,7 @@ public class MetaQuery {
      */
     @Override
     public String toString() {
-        return String.format("%s|-|%s|-|%s|-|%s", this.token, this.additionalContent, this.type.toString(), this.searchEngineFeature);
+        return String.format("%s|-|%s|-|%s|-|%s", this.text, this.additionalContent, this.type.toString(), this.searchEngineFeature);
     }
 
 

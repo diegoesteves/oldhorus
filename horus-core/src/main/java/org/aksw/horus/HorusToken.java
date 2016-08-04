@@ -14,7 +14,7 @@ public class HorusToken {
 
     private int       _index;
     private int       _position; //global index
-    private String    _token;
+    private String    _tokenValue;
     private int       _ref_next_token; //it links to the next associated term
     private String    _postagger;
 
@@ -28,8 +28,8 @@ public class HorusToken {
     private HashMap<Global.NERType, HorusEvidence> evidences;
 
 
-    public HorusToken(int index, String token, String POS, int position, int _ref_next_token){
-        this._token = token;
+    public HorusToken(int index, String tokenValue, String POS, int position, int _ref_next_token){
+        this._tokenValue = tokenValue;
         this._postagger = POS;
         this._index = index;
         this._position = position;
@@ -68,12 +68,12 @@ public class HorusToken {
         this._postagger = _postagger;
     }
 
-    public String getToken() {
-        return _token;
+    public String getTokenValue() {
+        return this._tokenValue;
     }
 
-    public void setToken(String _token) {
-        this._token = _token;
+    public void setToken(String _tokenValue) {
+        this._tokenValue = _tokenValue;
     }
 
     public boolean isPerson() {

@@ -39,6 +39,7 @@ public class Constants {
 
 
     public static final String SEPARATOR = "\t";
+    public static final String METAQUERY_SEPARATOR = "\\|-\\|";
 
     public static final String DBPEDIA_RESOURCE_NAMESPACE = "http://dbpedia.org/resource/";
     public static final String DE_DBPEDIA_RESOURCE_NAMESPACE = "http://de.dbpedia.org/resource/";

@@ -61,7 +61,7 @@ public class HorusCache implements ICache<ISearchResult> {
     }
 
     @Override
-    public ISearchResult getEntry(String identifier) {
+    public ISearchResult getEntry(String metaQueryStr) {
 
         List<WebResourceVO> resources = new ArrayList<WebResourceVO>();
         MetaQuery metaQuery = null;
@@ -77,7 +77,7 @@ public class HorusCache implements ICache<ISearchResult> {
                     Constants.LUCENE_SEARCH_RESULT_QUERY_FIELD + ":\"" + identifier + "\""
             ).setRows(50);
             */
-            SolrQuery query = new SolrQuery(LUCENE_SEARCH_RESULT_FIELD_QUERY_META + ":\"" + identifier + "\"").setRows(200);
+            SolrQuery query = new SolrQuery(LUCENE_SEARCH_RESULT_FIELD_QUERY_META + ":\"" + metaQueryStr + "\"").setRows(200);
 
             query.addField(LUCENE_SEARCH_RESULT_FIELD_ID);
             query.addField(LUCENE_SEARCH_RESULT_FIELD_QUERY_META);
@@ -100,7 +100,10 @@ public class HorusCache implements ICache<ISearchResult> {
 
             if (response.getResults().size() > 0){
 
-                metaQuery = new MetaQuery(identifier);
+                //String metaQueryStr = (String) response.getResults().get(0).get(LUCENE_SEARCH_RESULT_FIELD_QUERY_META);
+                //Integer idTerm = Integer.valueOf(metaQueryStr.split(METAQUERY_SEPARATOR)[4]);
+
+                metaQuery = new MetaQuery(metaQueryStr);
 
                 for (SolrDocument doc : response.getResults()) {
 

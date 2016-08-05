@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -120,9 +121,9 @@ public abstract class Horus {
                 if (!term.isComposedTerm()) {
                     if (term.getToken().getPOS().equals("NN") || term.getToken().getPOS().equals("NNS") ||
                             term.getToken().getPOS().equals("NNP") || term.getToken().getPOS().equals("NNPS")) {
-                        queries.put(term.getId(), new MetaQuery(Global.NERType.LOC, term.getToken().getTokenValue(), ""));
-                        queries.put(term.getId(), new MetaQuery(Global.NERType.PER, term.getToken().getTokenValue(), ""));
-                        queries.put(term.getId(), new MetaQuery(Global.NERType.ORG, term.getToken().getTokenValue(), ""));
+                        queries.put(term.getId(), new MetaQuery(Global.NERType.LOC, term.getToken().getTokenValue(), "", term.getId()));
+                        queries.put(term.getId(), new MetaQuery(Global.NERType.PER, term.getToken().getTokenValue(), "", term.getId()));
+                        queries.put(term.getId(), new MetaQuery(Global.NERType.ORG, term.getToken().getTokenValue(), "", term.getId()));
                     }
                 }
                 else { //composed term
@@ -146,11 +147,11 @@ public abstract class Horus {
             long startCrawl = System.currentTimeMillis();
 
             ResourceExtractor ext = new ResourceExtractor(queries);
-            List<HorusEvidence> evidences = ext.extractAndCache(engine);
+            Map<MetaQuery, HorusEvidence> evidencesPerQuery = ext.extractAndCache(engine);
             LOGGER.info(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
 
             /* 3. Running models */
-            recognizeEntities(evidences);
+            recognizeEntities(evidencesPerQuery);
 
             /* 4. based on indicators, make the decision */
             makeDecisionAmongAll();
@@ -238,7 +239,7 @@ public abstract class Horus {
     }
 
 
-    private static void recognizeEntities(List<HorusEvidence> evidences) throws Exception{
+    private static void recognizeEntities(Map<MetaQuery, HorusEvidence> evidences) throws Exception{
         LOGGER.info(":: Recognizing Entities - start");
 /*
         for ( Map.Entry<MetaQuery, HorusEvidence> evidencesToPosition : evidences.entrySet()) {

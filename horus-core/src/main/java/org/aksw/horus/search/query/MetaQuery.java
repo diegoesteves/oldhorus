@@ -1,8 +1,8 @@
 package org.aksw.horus.search.query;
 
 import org.aksw.horus.Horus;
+import org.aksw.horus.core.util.Constants;
 import org.aksw.horus.core.util.Global;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by Diego Esteves on 7/13/2016.
@@ -10,36 +10,33 @@ import org.apache.commons.lang3.StringUtils;
 public class MetaQuery {
 
     private Global.NERType type;
-    //represents
     private String text;
-    private boolean isComposedTerm;
     private String additionalContent;
     private String searchEngineFeature;
+    private Integer horusTermIdentifier;
 
     public MetaQuery(String metaQueryStr){
-        String[] qsplited = metaQueryStr.split("\\|-\\|");
+        String[] qsplited = metaQueryStr.split(Constants.METAQUERY_SEPARATOR);
         this.text = qsplited[0];
         this.additionalContent = qsplited[1];
         this.type = Global.NERType.valueOf(qsplited[2]);
         this.searchEngineFeature = qsplited[3];
+        this.horusTermIdentifier = Integer.valueOf(qsplited[4]);
     }
 
 
-    public MetaQuery(Global.NERType type, String text, String additionalContent){
+    public MetaQuery(Global.NERType type, String text, String additionalContent, Integer sequential){
         this.type = type;
         this.text = text;
         this.additionalContent = additionalContent;
         setSearchEngineFeature();
+        this.horusTermIdentifier = horusTermIdentifier;
+
     }
 
-    /**
-     * has the Term been composed by a sequential structure?
-     * @return true or false
-     */
-    public boolean isComposedTerm(){
-        if (StringUtils.isNotEmpty(this.text))
-            return (this.text.split(" ").length > 1);
-        return false;
+    public Integer getHorusTermIdentifier(){
+        return  this.horusTermIdentifier;
+
     }
 
     private void setSearchEngineFeature(){
@@ -73,7 +70,7 @@ public class MetaQuery {
      */
     @Override
     public String toString() {
-        return String.format("%s|-|%s|-|%s|-|%s", this.text, this.additionalContent, this.type.toString(), this.searchEngineFeature);
+        return String.format("%s|-|%s|-|%s|-|%s|-|%s", this.text, this.additionalContent, this.type.toString(), this.searchEngineFeature, this.horusTermIdentifier.toString());
     }
 
 

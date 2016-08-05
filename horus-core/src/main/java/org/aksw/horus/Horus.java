@@ -111,7 +111,7 @@ public abstract class Horus {
         annotateWithStanford(text);
 
         /* 2. Querying and Caching */
-        Multimap<Integer, MetaQuery> queries = ArrayListMultimap.create();
+        List<MetaQuery> queries = ArrayListMultimap.create();
 
         //filtering out and creating linked list of terms
         for ( HorusContainer container : horusContainers ) {
@@ -121,15 +121,15 @@ public abstract class Horus {
                 if (!term.isComposedTerm()) {
                     if (term.getToken().getPOS().equals("NN") || term.getToken().getPOS().equals("NNS") ||
                             term.getToken().getPOS().equals("NNP") || term.getToken().getPOS().equals("NNPS")) {
-                        queries.put(term.getId(), new MetaQuery(Global.NERType.LOC, term.getToken().getTokenValue(), "", term.getId()));
-                        queries.put(term.getId(), new MetaQuery(Global.NERType.PER, term.getToken().getTokenValue(), "", term.getId()));
-                        queries.put(term.getId(), new MetaQuery(Global.NERType.ORG, term.getToken().getTokenValue(), "", term.getId()));
+                        queries.add(new MetaQuery(Global.NERType.LOC, term.getToken().getTokenValue(), "", term.getId()));
+                        queries.add(new MetaQuery(Global.NERType.PER, term.getToken().getTokenValue(), "", term.getId()));
+                        queries.add(new MetaQuery(Global.NERType.ORG, term.getToken().getTokenValue(), "", term.getId()));
                     }
                 }
                 else { //composed term
-                    queries.put(term.getId(), new MetaQuery(Global.NERType.LOC, term.getTokensValues(), ""));
-                    queries.put(term.getId(), new MetaQuery(Global.NERType.PER, term.getTokensValues(), ""));
-                    queries.put(term.getId(), new MetaQuery(Global.NERType.ORG, term.getTokensValues(), ""));
+                    queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValues(), "", term.getId()));
+                    queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValues(), "", term.getId()));
+                    queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValues(), "", term.getId()));
                 }
 
             });

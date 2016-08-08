@@ -30,6 +30,19 @@ public class Global {
         }
     }
 
+    public enum NLPToolkit {
+        STANFORD(1);
+        private final int value;
+
+        private NLPToolkit(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
 
     private static Logger LOGGER = Logger.getLogger(Global.class);
 

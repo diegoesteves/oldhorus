@@ -1,11 +1,14 @@
 package org.aksw.horus;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
+import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.util.CoreMap;
 import org.aksw.horus.algorithm.FaceDetectOpenCV;
 import org.aksw.horus.core.util.Global;
@@ -24,17 +27,14 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by dnes on 12/04/16.
  */
 public abstract class Horus {
 
-    private static List<HorusContainer> horusContainers    = new ArrayList<>();
+    private static List<HorusSentence> horusSentences = new ArrayList<>();
     public  static HorusConfig          HORUS_CONFIG;
     private static final Logger         LOGGER             = LoggerFactory.getLogger(Horus.class);
     private static double               PER_THRESHOLD;
@@ -49,39 +49,96 @@ public abstract class Horus {
      * @param text
      * @throws Exception
      */
-    private static void annotateWithStanford(String text) throws Exception{
+    public static void annotateWithStanford(String text) throws Exception{
 
         LOGGER.debug("starting annotation with Stanford POS");
 
         try{
+
+            //DependencyParser parser = DependencyParser.loadFromModelFile(DependencyParser.DEFAULT_MODEL);
+
 
             int iSentence = 0;
             int iTerm = 0;
             int iPosition = 0;
 
             Properties props = new Properties();
-            props.setProperty("annotators","tokenize, ssplit, pos");
+            props.setProperty("annotators","tokenize, ssplit, pos, depparse");
 
             StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
             Annotation annotation = new Annotation(text);
             pipeline.annotate(annotation);
             List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
             for (CoreMap sentence : sentences) {
-                HorusContainer c = new HorusContainer(iSentence, sentence.toString());
+                HorusSentence sent = new HorusSentence(iSentence, sentence.toString());
                 for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     String word = token.get(CoreAnnotations.TextAnnotation.class);
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                    int ref = 0;
+                    String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
+
+                    Object dep = token.get(CoreAnnotations.DependentsAnnotation.class);
                     //adding all isolated tokens as terms
-                    HorusToken tt = new HorusToken(iTerm, word, pos, iPosition, ref);
-                    HorusTerm tmt = new HorusTerm(iTerm);
-                    tmt.addToken(tt);
-                    c.addTerm(tmt);
+                    HorusToken tt = new HorusToken(iTerm, word, pos, Global.NLPToolkit.STANFORD, iPosition);
+                    sent.addToken(tt);
                     iTerm++; iPosition++;
                     //todo: check whether I've got a new linked term here to run a composed query (amod and compound) -> http://nlp.stanford.edu/software/dependencies_manual.pdf
 
                 }
-                horusContainers.add(c);
+
+                //is there compound at this sentence?
+                SemanticGraph dependencies1 =
+                        sentence.get(SemanticGraphCoreAnnotations.
+                                CollapsedCCProcessedDependenciesAnnotation.class);
+
+                if (dependencies1.toList().contains("compound")){
+                    String[] depArray = dependencies1.toList().split("\n");
+                    for (int i=0;i<depArray.length;i++){
+                        if (depArray[i].contains("compound")){
+                            String[] coumpoundStr =
+                                    depArray[i].substring(depArray[i].indexOf("compound"), depArray[i].length()-1)
+                                            .split(",").toString().split("-");
+
+                            HorusToken token = sent.getToken(Integer.valueOf(coumpoundStr[0]));
+                            token.setRefNextToken(Integer.valueOf(coumpoundStr[2]));
+
+                        }
+                    }
+
+                }
+
+
+
+                //http://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/semgraph/SemanticGraphCoreAnnotations.html
+
+
+
+
+
+                System.out.println("SENTENCE: "+sentence.toString());
+                System.out.println("DEPENDENCIES: "+dependencies1.toList());
+                System.out.println("DEPENDENCIES SIZE: "+dependencies1.size());
+                System.out.println("****************************************************");
+                Iterable<SemanticGraphEdge> edge_set1 = dependencies1.edgeIterable();
+                int j=0;
+
+                for(SemanticGraphEdge edge : edge_set1){
+                    j++;
+                    System.out.println("------EDGE DEPENDENCY: "+j);
+                    Iterator<SemanticGraphEdge> it = edge_set1.iterator();
+                    IndexedWord dep = edge.getDependent();
+                    String dependent = dep.word();
+                    int dependent_index = dep.index();
+                    IndexedWord gov = edge.getGovernor();
+                    String governor = gov.word();
+                    int governor_index = gov.index();
+                    GrammaticalRelation relation = edge.getRelation();
+                    System.out.println("No:"+j+" Relation: "+relation.toString()+" Dependent ID: "+dependent_index+" Dependent: "+dependent.toString()+" Governor ID: "+governor_index+" Governor: "+governor.toString());
+                }
+                System.out.println("");
+                System.out.println("");
+
+
+                horusSentences.add(c);
                 iSentence++; iTerm = 0;
             }
 
@@ -100,9 +157,39 @@ public abstract class Horus {
 
     }
 
+
+    private static List<MetaQuery>  setSearchEngineQueries(){
+
+        List<MetaQuery> queries = new ArrayList<>();
+
+        //filtering out and creating linked list of terms
+        for ( HorusSentence container : horusSentences) {
+            container.getTokens().forEach(token -> {
+
+                //terms as tokens
+                    if (token.getPOS(Global.NLPToolkit.STANFORD).equals("NN") || token.getPOS(Global.NLPToolkit.STANFORD).equals("NNS") ||
+                            token.getPOS(Global.NLPToolkit.STANFORD).equals("NNP") || token.getPOS(Global.NLPToolkit.STANFORD).equals("NNPS")) {
+
+                        if (!token.isComposed()) {
+                            queries.add(new MetaQuery(Global.NERType.LOC, token.getTokenValue(), "", token.getId()));
+                            queries.add(new MetaQuery(Global.NERType.PER, token.getTokenValue(), "", token.getId()));
+                            queries.add(new MetaQuery(Global.NERType.ORG, token.getTokenValue(), "", token.getId()));
+                        }
+                        else { //composed term
+                            queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValues(), "", term.getId()));
+                            queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValues(), "", term.getId()));
+                            queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValues(), "", term.getId()));
+                        }
+                    }
+            });
+        }
+
+    }
     // *************************************** public methods ***************************************
 
-    public static List<HorusContainer> process(String text) throws Exception{
+
+
+    public static List<HorusSentence> process(String text) throws Exception{
         LOGGER.info(":: Processing...");
 
         long start = System.currentTimeMillis();
@@ -110,31 +197,10 @@ public abstract class Horus {
         /* 1. Annotate text */
         annotateWithStanford(text);
 
-        /* 2. Querying and Caching */
-        List<MetaQuery> queries = ArrayListMultimap.create();
+        /* 2. Creating Search Queries */
+        List<MetaQuery> queries = setSearchEngineQueries();
 
-        //filtering out and creating linked list of terms
-        for ( HorusContainer container : horusContainers ) {
-            container.getTerms().forEach(term -> {
-
-                //terms as tokens
-                if (!term.isComposedTerm()) {
-                    if (term.getToken().getPOS().equals("NN") || term.getToken().getPOS().equals("NNS") ||
-                            term.getToken().getPOS().equals("NNP") || term.getToken().getPOS().equals("NNPS")) {
-                        queries.add(new MetaQuery(Global.NERType.LOC, term.getToken().getTokenValue(), "", term.getId()));
-                        queries.add(new MetaQuery(Global.NERType.PER, term.getToken().getTokenValue(), "", term.getId()));
-                        queries.add(new MetaQuery(Global.NERType.ORG, term.getToken().getTokenValue(), "", term.getId()));
-                    }
-                }
-                else { //composed term
-                    queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValues(), "", term.getId()));
-                    queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValues(), "", term.getId()));
-                    queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValues(), "", term.getId()));
-                }
-
-            });
-        }
-
+        /* 3. Querying and Caching */
         if ( queries.size() <= 0 ) {
 
             LOGGER.warn("-> none query has been generated for this input! there's nothing to do ...");
@@ -159,7 +225,7 @@ public abstract class Horus {
         }
 
         /* 5. return the containers */
-        return horusContainers;
+        return horusSentences;
     }
     /***
      * init method
@@ -195,16 +261,16 @@ public abstract class Horus {
     public static void printResults(){
         LOGGER.info(":: Printing results...");
 
-        for (HorusContainer h : horusContainers) {
-            LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
+        for (HorusSentence h : horusSentences) {
+            LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentenceText());
             for (HorusTerm t : h.getTerms()) {
                 if (!t.isComposedTerm()) {
                     LOGGER.info("  -- index     : " + t.getToken().getIndex());
-                    LOGGER.info("  -- token      : " + t.getToken().getTokenValue());
-                    LOGGER.info("  -- tagger    : " + t.getToken().getPOS());
-                    LOGGER.info("  -- Prob(LOC)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.PER)));
-                    LOGGER.info("  -- Prob(PER)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.ORG)));
-                    LOGGER.info("  -- Prob(ORG)    : " + String.valueOf(t.getToken().getProbability(Global.NERType.LOC)));
+                    LOGGER.info("  -- token     : " + t.getToken().getTokenValue());
+                    LOGGER.info("  -- tagger    : " + t.getToken().getPOS(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("  -- P(LOC) : " + String.valueOf(t.getToken().getProbability(Global.NERType.PER)));
+                    LOGGER.info("  -- P(PER) : " + String.valueOf(t.getToken().getProbability(Global.NERType.ORG)));
+                    LOGGER.info("  -- P(ORG) : " + String.valueOf(t.getToken().getProbability(Global.NERType.LOC)));
                     LOGGER.info("  -- NER Class : " + t.getToken().getNER());
                 }
             }
@@ -251,7 +317,7 @@ public abstract class Horus {
             }
         }
 
-        for (HorusContainer h : horusContainers) {
+        for (HorusSentence h : horusSentences) {
             LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
             for (HorusToken t : h.getTerms()) {
                 LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getToken());
@@ -292,7 +358,7 @@ public abstract class Horus {
 
     private static HorusTerm getTermByPosition(int position) throws Exception{
         int aux = 0;
-        for (HorusContainer h : horusContainers) {
+        for (HorusSentence h : horusSentences) {
             aux += h.getTerms().size();
             if (aux >= position){
                 for (HorusTerm t :  h.getTerms()) {

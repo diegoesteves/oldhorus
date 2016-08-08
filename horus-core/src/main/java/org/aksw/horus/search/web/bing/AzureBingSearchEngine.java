@@ -150,7 +150,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
             Horus.init();
 
             AzureBingSearchEngine engine = new AzureBingSearchEngine();
-            engine.query(new MetaQuery(Global.NERType.PER, "Jens", ""));
+            engine.query(new MetaQuery(Global.NERType.PER, "Jens", "", 1));
 
 
             /*try {

@@ -1,16 +1,15 @@
 package org.aksw.horus.search.web.googleapi;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.aksw.horus.Horus;
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.web.ISearchEngine;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  *
@@ -35,7 +34,7 @@ public class GoogleSearch implements ISearchEngine {
    */
   public static void main(final String[] args) {
     final GoogleSearch googleSearch = new GoogleSearch();
-    googleSearch.query(new MetaQuery(Global.NERType.PER, "diego", ""));
+    googleSearch.query(new MetaQuery(Global.NERType.PER, "diego", "", 1));
   }
 
   /**

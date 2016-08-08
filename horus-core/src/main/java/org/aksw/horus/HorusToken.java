@@ -2,6 +2,7 @@ package org.aksw.horus;
 
 import org.aksw.horus.core.util.Global;
 import org.aksw.horus.search.HorusEvidence;
+import org.apache.commons.lang.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +16,9 @@ public class HorusToken {
     private int       _index;
     private int       _position; //global index
     private String    _tokenValue;
-    private int       _ref_next_token; //it links to the next associated term
-    private String    _postagger;
+    private int       _ref_next_token; //it links to the next associated term (compound)
+    private int       _ref_prev_token; //it links to the previous associated term (compound)
+    private String    _postagger_stanford;
 
     private boolean   _person;
     private boolean   _location;
@@ -28,19 +30,22 @@ public class HorusToken {
     private HashMap<Global.NERType, HorusEvidence> evidences;
 
 
-    public HorusToken(int index, String tokenValue, String POS, int position, int _ref_next_token){
+    public HorusToken(int index, String tokenValue, String POS, Global.NLPToolkit tool, int position){
         this._tokenValue = tokenValue;
-        this._postagger = POS;
         this._index = index;
         this._position = position;
-        this._ref_next_token = _ref_next_token;
         //this.prob = new MultiValueMap();
         this.prob = new HashMap<>();
         this.evidences = new HashMap<>();
 
+        if (tool.equals(Global.NLPToolkit.STANFORD))
+            this._postagger_stanford = POS;
+
     }
 
-
+    public boolean isComposed(){
+        return ((_ref_next_token == 0 && _ref_prev_token == 0) ? false: true);
+    }
 
     public int getIndex() {
         return _index;
@@ -58,12 +63,17 @@ public class HorusToken {
         this._index = _index;
     }
 
-    public String getPOS() {
-        return _postagger;
+    public String getPOS(Global.NLPToolkit tool) {
+        if (tool.equals(Global.NLPToolkit.STANFORD))
+            return _postagger_stanford;
+        else
+            throw new NotImplementedException();
     }
 
-    public void setPOS(String _postagger) {
-        this._postagger = _postagger;
+    public void setPOS(String _postagger, Global.NLPToolkit tool) {
+        if (tool.equals(Global.NLPToolkit.STANFORD))
+            this._postagger_stanford = _postagger;
+        else throw new NotImplementedException();
     }
 
     public String getTokenValue() {
@@ -134,6 +144,16 @@ public class HorusToken {
 
     public int getRefNextToken(){
         return this._ref_next_token;
+    }
+    public int getRefPrevToken(){
+        return this._ref_prev_token;
+    }
+
+    public void setRefNextToken(int ref){
+        this._ref_next_token = ref;
+    }
+    public void setRefPrevToken(int ref){
+        this._ref_prev_token = ref;
     }
 
 }

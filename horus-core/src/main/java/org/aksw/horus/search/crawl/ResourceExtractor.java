@@ -1,6 +1,5 @@
 package org.aksw.horus.search.crawl;
 
-import com.google.common.collect.Multimap;
 import org.aksw.horus.Horus;
 import org.aksw.horus.search.HorusEvidence;
 import org.aksw.horus.search.cache.ICache;
@@ -21,9 +20,9 @@ import java.util.concurrent.Future;
  */
 public class ResourceExtractor {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourceExtractor.class);
-    private Multimap<Integer, MetaQuery>  queries;
+    private List<MetaQuery>  queries;
 
-    public ResourceExtractor(Multimap<Integer, MetaQuery> queries) {
+    public ResourceExtractor(List<MetaQuery> queries) {
         this.queries = queries;
     }
 
@@ -39,7 +38,7 @@ public class ResourceExtractor {
         LOGGER.debug(" -> starting extracting: [SearchEngineClass: " + engine.getClass().toString() + "]");
         long start = System.currentTimeMillis();
         LOGGER.debug(" -> filtering out the queries: " + String.valueOf(this.queries.size()));
-        for (MetaQuery query: this.queries.values()) {
+        for (MetaQuery query: this.queries) {
             if (!cache.containsKey(query.toString())) {
                 if (solrCache.contains(query.toString())){
                     searchResultsCached.add(solrCache.getEntry(query.toString()));

@@ -73,7 +73,7 @@ public abstract class Horus {
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                     String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
-                    Object dep = token.get(CoreAnnotations.DependentsAnnotation.class);
+                    //Object dep = token.get(CoreAnnotations.DependentsAnnotation.class);
                     //adding all isolated tokens as terms
                     HorusToken tt = new HorusToken(iTerm, word, pos, Global.NLPToolkit.STANFORD, iPosition, ne);
                     sent.addToken(tt);
@@ -86,17 +86,23 @@ public abstract class Horus {
                                 CollapsedCCProcessedDependenciesAnnotation.class);
 
                 //todo: check performance constraints
-                if (dependencies1.toList().contains("compound")){
+                if (dependencies1.toList().contains("compound(")){
 
                     String[] depArray = dependencies1.toList().split("\n");
                     for (int i=0;i<depArray.length;i++){
-                        if (depArray[i].contains("compound")){
+                        if (depArray[i].contains("compound(")){
                             String[] coumpoundStr =
-                                    depArray[i].substring(depArray[i].indexOf("compound"), depArray[i].length()-1)
-                                            .split(",").toString().split("-");
+                                    depArray[i].substring(depArray[i].indexOf("(") + 1, depArray[i].length()-1).split(",");
 
-                            HorusToken token = sent.getToken(Integer.valueOf(coumpoundStr[0]));
-                            token.setRefNextToken(Integer.valueOf(coumpoundStr[2]));
+                            Integer first = Math.min(Integer.valueOf(coumpoundStr[0].split("-")[1]),
+                                    Integer.valueOf(coumpoundStr[1].split("-")[1]));
+
+                            Integer second = Math.max(Integer.valueOf(coumpoundStr[0].split("-")[1]),
+                                    Integer.valueOf(coumpoundStr[1].split("-")[1]));
+
+
+                            HorusToken token = sent.getToken(first - 1);
+                            token.setRefNextToken(second - 1);
 
                         }
                     }

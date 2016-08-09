@@ -25,6 +25,8 @@ public class HorusDemo {
 
         try {
 
+            Horus.init();
+
             Horus.process(text);
 
             Horus.printResults();

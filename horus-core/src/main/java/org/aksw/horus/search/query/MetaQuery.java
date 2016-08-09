@@ -29,8 +29,8 @@ public class MetaQuery {
         this.type = type;
         this.text = text;
         this.additionalContent = additionalContent;
-        setSearchEngineFeature();
         this.horusTermIdentifier = horusTermIdentifier;
+        setSearchEngineFeature();
 
     }
 
@@ -41,11 +41,11 @@ public class MetaQuery {
 
     private void setSearchEngineFeature(){
         if (type.equals(Global.NERType.PER)) {
-            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_PER");}
+            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("search_engine", "SEARCH_ENGINE_FEATURES_PER");}
         else if (type.equals(Global.NERType.LOC)) {
-            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_LOC");}
+            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("search_engine", "SEARCH_ENGINE_FEATURES_LOC");}
         else {
-            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("[search_engine]", "SEARCH_ENGINE_FEATURES_ORG");}
+            this.searchEngineFeature = Horus.HORUS_CONFIG.getStringSetting("search_engine", "SEARCH_ENGINE_FEATURES_ORG");}
     }
 
     public Global.NERType getType(){

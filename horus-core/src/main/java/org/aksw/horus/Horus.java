@@ -134,10 +134,10 @@ public abstract class Horus {
         List<MetaQuery> queries = new ArrayList<>();
 
         //filtering out and creating linked list of terms
-        for ( HorusSentence container : horusSentences) {
-            container.getTokens().forEach(token -> {
+        int termID = 0;
+        for ( HorusSentence sentence : horusSentences) {
+            for (HorusToken token: sentence.getTokens()){
 
-                int termID = 0;
                 HorusTerm term = null;
                 //terms as tokens
                     if (token.getPOS(Global.NLPToolkit.STANFORD).equals("NN") || token.getPOS(Global.NLPToolkit.STANFORD).equals("NNS") ||
@@ -157,22 +157,22 @@ public abstract class Horus {
                         else { //composed term
 
                             if (token.getRefPrevToken()!= 0)
-                                term.addToken(container.getToken(token.getRefPrevToken()));
+                                term.addToken(sentence.getToken(token.getRefPrevToken()));
 
-                            term.addToken(container.getToken(token.getIndex()));
+                            term.addToken(sentence.getToken(token.getIndex()));
 
                             if (token.getRefNextToken()!= 0)
-                                term.addToken(container.getToken(token.getRefNextToken()));
+                                term.addToken(sentence.getToken(token.getRefNextToken()));
 
                             queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValue(), "", term.getId()));
                             queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValue(), "", term.getId()));
                             queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValue(), "", term.getId()));
                         }
 
-                        container.addTerm(term);
+                        sentence.addTerm(term);
                         termID++;
                     }
-            });
+            }
         }
 
         return queries;

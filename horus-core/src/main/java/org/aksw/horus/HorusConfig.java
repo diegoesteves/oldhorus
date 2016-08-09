@@ -14,7 +14,7 @@ public class HorusConfig {
     public HorusConfig(Ini config) {
 
         this.horusConfig =  config;
-        HORUS_DATA_DIR = this.horusConfig.get("eval", "data-directory");
+        HORUS_DATA_DIR = this.horusConfig.get("eval", "DATA-DIR");
     }
 
     public boolean getBooleanSetting(String section, String key) {

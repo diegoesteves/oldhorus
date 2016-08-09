@@ -3343,3 +3343,71 @@
 18:10:13,192  INFO HorusDemo:18 - -                          Starting HORUS                              -
 18:10:13,196  INFO HorusDemo:19 - ------------------------------------------------------------------------
 18:10:13,196  INFO HorusDemo:22 - 1470759013196
+23:15:53,141 ERROR HorusDemo:39 - java.lang.NumberFormatException: null
+23:15:53,147  INFO HorusDemo:44 - ------------------------------------------------------------------------
+23:15:53,147  INFO HorusDemo:45 - -                         Process Finished                             -
+23:15:53,148  INFO HorusDemo:46 - ------------------------------------------------------------------------
+23:15:53,151  INFO HorusDemo:53 - Processing Time: 05 hour, 305 min, 39 sec
+23:17:05,613  INFO HorusDemo:17 - ------------------------------------------------------------------------
+23:17:05,624  INFO HorusDemo:18 - -                          Starting HORUS                              -
+23:17:05,624  INFO HorusDemo:19 - ------------------------------------------------------------------------
+23:17:05,625  INFO HorusDemo:22 - 1470777425625
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Uhull 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Rio 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: weekend 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: Cya 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: laptop 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: leipzig 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Ahhh 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Rio 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: diego 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: dell laptop 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: Rio 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: weekend 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: dell laptop 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: Ahhh 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: Uhull 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Cya 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: Ahhh 
+23:18:43,036  INFO AzureBingSearchEngine:73 - :: starting query: laptop 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Uhull 
+23:18:43,035  INFO AzureBingSearchEngine:73 - :: starting query: Cya 
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,044 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,045 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,045 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,052  INFO AzureBingSearchEngine:73 - :: starting query: dell laptop 
+23:18:43,052  INFO AzureBingSearchEngine:73 - :: starting query: weekend 
+23:18:43,052 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,052 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,053  INFO AzureBingSearchEngine:73 - :: starting query: leipzig 
+23:18:43,053 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,053  INFO AzureBingSearchEngine:73 - :: starting query: diego 
+23:18:43,053  INFO AzureBingSearchEngine:73 - :: starting query: leipzig 
+23:18:43,054  INFO AzureBingSearchEngine:73 - :: starting query: diego 
+23:18:43,054  INFO AzureBingSearchEngine:73 - :: starting query: laptop 
+23:18:43,053 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,056 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,056 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:18:43,056 ERROR AzureBingSearchEngine:139 - java.lang.NullPointerException
+23:21:45,420 ERROR HorusDemo:39 - java.lang.IndexOutOfBoundsException: Index: 3, Size: 1
+23:21:45,422  INFO HorusDemo:44 - ------------------------------------------------------------------------
+23:21:45,423  INFO HorusDemo:45 - -                         Process Finished                             -
+23:21:45,423  INFO HorusDemo:46 - ------------------------------------------------------------------------
+23:21:45,423  INFO HorusDemo:53 - Processing Time: 00 hour, 04 min, 39 sec

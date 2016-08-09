@@ -45,6 +45,10 @@ public class HorusTerm {
         return this.evidences.get(type);
     }
 
+    public void setEvidence(Global.NERType type, HorusEvidence e){
+        this.evidences.put(type, e);
+    }
+
     public void addToken(HorusToken token){
         this._tokens.add(token);
     }

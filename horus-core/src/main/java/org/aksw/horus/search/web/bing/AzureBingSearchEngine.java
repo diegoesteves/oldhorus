@@ -93,7 +93,7 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                 WebSiteVO root = new WebSiteVO();
                 //shared
                 root.setTitle(result.getTitle());
-                root.setUrl(((AzureSearchWebResult) result).getUrl());
+                root.setUrl(((AzureSearchImageResult) result).getSourceUrl());
                 root.setSearchRank(i++);
                 root.setCached(false);
                 root.setQuery(query);

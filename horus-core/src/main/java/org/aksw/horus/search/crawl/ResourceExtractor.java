@@ -26,10 +26,10 @@ public class ResourceExtractor {
         this.queries = queries;
     }
 
-    public Map<MetaQuery, HorusEvidence> extractAndCache(ISearchEngine engine) {
+    public List<HorusEvidence> extractAndCache(ISearchEngine engine) {
 
-        Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
-        //List<HorusEvidence> ret = new ArrayList<>();
+        //Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
+        List<HorusEvidence> ret = new ArrayList<>();
 
         Map<String, MetaQuery> cache = new HashMap<>();
         HorusCache solrCache = new HorusCache();
@@ -54,7 +54,8 @@ public class ResourceExtractor {
         searchResults.addAll(searchResultsCached);
         LOGGER.debug(" -> adding evidences x query");
         for (ISearchResult result: searchResults){
-            ret.put(result.getQuery(), new HorusEvidence(result.getQuery(), result.getWebResources()));
+            //ret.put(result.getQuery(), new HorusEvidence(result.getQuery(), result.getWebResources()));
+            ret.add(new HorusEvidence(result.getQuery(), result.getWebResources()));
         }
 
        return ret;

@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -205,7 +204,7 @@ public abstract class Horus {
             long startCrawl = System.currentTimeMillis();
 
             ResourceExtractor ext = new ResourceExtractor(queries);
-            Map<MetaQuery, HorusEvidence> evidencesPerQuery = ext.extractAndCache(engine);
+            List<HorusEvidence> evidencesPerQuery = ext.extractAndCache(engine);
             LOGGER.info(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
 
             /* 3. Running models */
@@ -317,33 +316,33 @@ public abstract class Horus {
     }
 
 
-    private static void recognizeEntities(Map<MetaQuery, HorusEvidence> evidences) throws Exception{
+    private static void recognizeEntities(List<HorusEvidence> evidences) throws Exception{
         LOGGER.info(":: Recognizing Entities - start");
-/*
-        for ( Map.Entry<MetaQuery, HorusEvidence> evidencesToPosition : evidences.entrySet()) {
-            MetaQuery q = evidencesToPosition.getKey();
-            HorusEvidence evidence : evidencesToPosition.getValue();
 
-                getTermByPosition(position).
+        //for ( Map.Entry<MetaQuery, HorusEvidence> evidencesToPosition : evidences.entrySet()) {
 
-            }
+        //updating the evidences per terms
+        for (HorusEvidence e: evidences) {
+             HorusTerm t = getTermByPosition(e.getQuery().getHorusTermIdentifier());
+             t.setEvidence(e.getQuery().getType(), e);
         }
 
+
+        //reading the updated sentence and detecting objects
         for (HorusSentence h : horusSentences) {
-            LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentence());
-            for (HorusToken t : h.getTerms()) {
-                LOGGER.debug(":: is person? " + t.getIndex() + ": " + t.getToken());
-                setPersonDetected(t.getPosition());
-                LOGGER.debug(":: is organisation? " + t.getIndex() + ": " + t.getToken());
-                setOrganisationDetected(t.getPosition());
-                LOGGER.debug(":: is location? " + t.getIndex() + ": " + t.getToken());
-                setLocationDetected(t.getPosition());
+            LOGGER.debug(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentenceText());
+            for (HorusTerm t : h.getTerms()) {
+                LOGGER.debug(":: is person? " + t.getTokensValue());
+                setPersonDetected(t);
+                LOGGER.debug(":: is organisation? " + t.getTokensValue());
+                setOrganisationDetected(t);
+                LOGGER.debug(":: is location? " + t.getTokensValue());
+                setLocationDetected(t);
             }
         }
-
 
         LOGGER.info(":: Recognizing Entities - done");
-         */
+
     }
 
 
@@ -353,19 +352,27 @@ public abstract class Horus {
     }
 
     //TODO: create a singleton later...
-    private static void setPersonDetected(int position) throws Exception{
-        HorusEvidence e = getTermByPosition(position).getEvidences(Global.NERType.PER);
+    private static void setPersonDetected(HorusTerm t) throws Exception{
+        HorusEvidence e = t.getEvidences(Global.NERType.PER);
+        int count = 0;
+        int match = 0;
+        double prob = 0d;
         FaceDetectOpenCV fd = new FaceDetectOpenCV();
         for (WebResourceVO r: e.getResources()){
             WebImageVO img = (WebImageVO) r;
-            boolean ret =
-                    fd.faceDetected(new File(img.getImageFilePath() + img.getImageFileName()));
+            boolean ret = fd.faceDetected(new File(img.getImageFilePath() + img.getImageFileName()));
             img.setPersonDetected(ret);
+            count++;
+            if (ret) match++;
         }
+        if (count!=0)
+            prob = Double.valueOf(match/count);
+
+        t.setProbability(Global.NERType.PER, prob);
     }
-    private static void setLocationDetected(int position) throws Exception{
+    private static void setLocationDetected(HorusTerm t) throws Exception{
     }
-    private static void setOrganisationDetected(int position) throws Exception{
+    private static void setOrganisationDetected(HorusTerm t) throws Exception{
     }
 
     private static HorusTerm getTermByPosition(int position) throws Exception{

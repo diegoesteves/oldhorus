@@ -25,9 +25,7 @@ public class HorusDemo {
 
         try {
 
- //           Horus.process(text);
-
-            Horus.annotateWithStanford(text);
+            Horus.process(text);
 
             Horus.printResults();
 

@@ -2,13 +2,10 @@ package org.aksw.horus;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-import edu.stanford.nlp.semgraph.SemanticGraphEdge;
-import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.util.CoreMap;
 import org.aksw.horus.algorithm.FaceDetectOpenCV;
 import org.aksw.horus.core.util.Global;
@@ -27,14 +24,17 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by dnes on 12/04/16.
  */
 public abstract class Horus {
 
-    private static List<HorusSentence> horusSentences = new ArrayList<>();
+    private static List<HorusSentence>  horusSentences = new ArrayList<>();
     public  static HorusConfig          HORUS_CONFIG;
     private static final Logger         LOGGER             = LoggerFactory.getLogger(Horus.class);
     private static double               PER_THRESHOLD;
@@ -49,14 +49,11 @@ public abstract class Horus {
      * @param text
      * @throws Exception
      */
-    public static void annotateWithStanford(String text) throws Exception{
+    private static void annotateWithStanford(String text) throws Exception{
 
         LOGGER.debug("starting annotation with Stanford POS");
 
-        try{
-
-            //DependencyParser parser = DependencyParser.loadFromModelFile(DependencyParser.DEFAULT_MODEL);
-
+        try {
 
             int iSentence = 0;
             int iTerm = 0;
@@ -78,11 +75,9 @@ public abstract class Horus {
 
                     Object dep = token.get(CoreAnnotations.DependentsAnnotation.class);
                     //adding all isolated tokens as terms
-                    HorusToken tt = new HorusToken(iTerm, word, pos, Global.NLPToolkit.STANFORD, iPosition);
+                    HorusToken tt = new HorusToken(iTerm, word, pos, Global.NLPToolkit.STANFORD, iPosition, ne);
                     sent.addToken(tt);
                     iTerm++; iPosition++;
-                    //todo: check whether I've got a new linked term here to run a composed query (amod and compound) -> http://nlp.stanford.edu/software/dependencies_manual.pdf
-
                 }
 
                 //is there compound at this sentence?
@@ -90,7 +85,9 @@ public abstract class Horus {
                         sentence.get(SemanticGraphCoreAnnotations.
                                 CollapsedCCProcessedDependenciesAnnotation.class);
 
+                //todo: check performance constraints
                 if (dependencies1.toList().contains("compound")){
+
                     String[] depArray = dependencies1.toList().split("\n");
                     for (int i=0;i<depArray.length;i++){
                         if (depArray[i].contains("compound")){
@@ -106,39 +103,7 @@ public abstract class Horus {
 
                 }
 
-
-
-                //http://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/semgraph/SemanticGraphCoreAnnotations.html
-
-
-
-
-
-                System.out.println("SENTENCE: "+sentence.toString());
-                System.out.println("DEPENDENCIES: "+dependencies1.toList());
-                System.out.println("DEPENDENCIES SIZE: "+dependencies1.size());
-                System.out.println("****************************************************");
-                Iterable<SemanticGraphEdge> edge_set1 = dependencies1.edgeIterable();
-                int j=0;
-
-                for(SemanticGraphEdge edge : edge_set1){
-                    j++;
-                    System.out.println("------EDGE DEPENDENCY: "+j);
-                    Iterator<SemanticGraphEdge> it = edge_set1.iterator();
-                    IndexedWord dep = edge.getDependent();
-                    String dependent = dep.word();
-                    int dependent_index = dep.index();
-                    IndexedWord gov = edge.getGovernor();
-                    String governor = gov.word();
-                    int governor_index = gov.index();
-                    GrammaticalRelation relation = edge.getRelation();
-                    System.out.println("No:"+j+" Relation: "+relation.toString()+" Dependent ID: "+dependent_index+" Dependent: "+dependent.toString()+" Governor ID: "+governor_index+" Governor: "+governor.toString());
-                }
-                System.out.println("");
-                System.out.println("");
-
-
-                horusSentences.add(c);
+                horusSentences.add(sent);
                 iSentence++; iTerm = 0;
             }
 
@@ -166,24 +131,45 @@ public abstract class Horus {
         for ( HorusSentence container : horusSentences) {
             container.getTokens().forEach(token -> {
 
+                int termID = 0;
+                HorusTerm term = null;
                 //terms as tokens
                     if (token.getPOS(Global.NLPToolkit.STANFORD).equals("NN") || token.getPOS(Global.NLPToolkit.STANFORD).equals("NNS") ||
                             token.getPOS(Global.NLPToolkit.STANFORD).equals("NNP") || token.getPOS(Global.NLPToolkit.STANFORD).equals("NNPS")) {
 
+                        //converts tokens to terms
+                        term = new HorusTerm(termID);
+
                         if (!token.isComposed()) {
-                            queries.add(new MetaQuery(Global.NERType.LOC, token.getTokenValue(), "", token.getId()));
-                            queries.add(new MetaQuery(Global.NERType.PER, token.getTokenValue(), "", token.getId()));
-                            queries.add(new MetaQuery(Global.NERType.ORG, token.getTokenValue(), "", token.getId()));
+
+                            term.addToken(token);
+
+                            queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValue(), "", term.getId()));
+                            queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValue(), "", term.getId()));
+                            queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValue(), "", term.getId()));
                         }
                         else { //composed term
-                            queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValues(), "", term.getId()));
-                            queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValues(), "", term.getId()));
-                            queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValues(), "", term.getId()));
+
+                            if (token.getRefPrevToken()!= 0)
+                                term.addToken(container.getToken(token.getRefPrevToken()));
+
+                            term.addToken(container.getToken(token.getIndex()));
+
+                            if (token.getRefNextToken()!= 0)
+                                term.addToken(container.getToken(token.getRefNextToken()));
+
+                            queries.add(new MetaQuery(Global.NERType.LOC, term.getTokensValue(), "", term.getId()));
+                            queries.add(new MetaQuery(Global.NERType.PER, term.getTokensValue(), "", term.getId()));
+                            queries.add(new MetaQuery(Global.NERType.ORG, term.getTokensValue(), "", term.getId()));
                         }
+
+                        container.addTerm(term);
+                        termID++;
                     }
             });
         }
 
+        return queries;
     }
     // *************************************** public methods ***************************************
 
@@ -261,17 +247,37 @@ public abstract class Horus {
     public static void printResults(){
         LOGGER.info(":: Printing results...");
 
-        for (HorusSentence h : horusSentences) {
-            LOGGER.info(":: Sentence Index " + h.getSentenceIndex() + ": " + h.getSentenceText());
-            for (HorusTerm t : h.getTerms()) {
-                if (!t.isComposedTerm()) {
-                    LOGGER.info("  -- index     : " + t.getToken().getIndex());
-                    LOGGER.info("  -- token     : " + t.getToken().getTokenValue());
-                    LOGGER.info("  -- tagger    : " + t.getToken().getPOS(Global.NLPToolkit.STANFORD));
-                    LOGGER.info("  -- P(LOC) : " + String.valueOf(t.getToken().getProbability(Global.NERType.PER)));
-                    LOGGER.info("  -- P(PER) : " + String.valueOf(t.getToken().getProbability(Global.NERType.ORG)));
-                    LOGGER.info("  -- P(ORG) : " + String.valueOf(t.getToken().getProbability(Global.NERType.LOC)));
-                    LOGGER.info("  -- NER Class : " + t.getToken().getNER());
+        for (HorusSentence s : horusSentences) {
+            LOGGER.info(":: Sentence Index " + s.getSentenceIndex() + ": " + s.getSentenceText());
+            for (HorusToken tk : s.getTokens()) {
+
+                LOGGER.info("  -- token index       : " + tk.getIndex());
+                LOGGER.info("  -- token value       : " + tk.getTokenValue());
+
+                if (s.existsTermForToken(tk.getIndex()) && !tk.isComposed()){
+                    LOGGER.info("  -- term index   : " + s.getTerm(tk.getIndex()).getId());
+                    LOGGER.info("  -- tagger       : " + tk.getPOS(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("  -- P(LOC)       : " + String.valueOf(s.getTerm(tk.getIndex()).getProbability(Global.NERType.LOC)));
+                    LOGGER.info("  -- P(PER)       : " + String.valueOf(s.getTerm(tk.getIndex()).getProbability(Global.NERType.PER)));
+                    LOGGER.info("  -- P(ORG)       : " + String.valueOf(s.getTerm(tk.getIndex()).getProbability(Global.NERType.ORG)));
+                    LOGGER.info("  -- HORUS NER    : " + s.getTerm(tk.getIndex()).getHorusNER());
+                    LOGGER.info("  -- Stanford NER : " + tk.getNER(Global.NLPToolkit.STANFORD));
+                }
+            }
+
+            LOGGER.info(" -- extra analysis: compounds");
+            LOGGER.info("");
+
+            for (HorusTerm t : s.getTerms()) {
+                if (t.isComposedTerm()) {
+                    LOGGER.info("  -- term index  : " + t.getId());
+                    LOGGER.info("  -- tokens      : " + t.getTokensValue());
+                    LOGGER.info("  -- tagger      : " + t.getTokensPOS(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("  -- P(LOC)      : " + String.valueOf(t.getProbability(Global.NERType.LOC)));
+                    LOGGER.info("  -- P(PER)      : " + String.valueOf(t.getProbability(Global.NERType.PER)));
+                    LOGGER.info("  -- P(ORG)      : " + String.valueOf(t.getProbability(Global.NERType.ORG)));
+                    LOGGER.info("  -- HORUS NER   : " + t.getHorusNER());
+                    LOGGER.info("  -- NER Class   : " + t.getTokensPOS(Global.NLPToolkit.STANFORD));
                 }
             }
             LOGGER.info("");

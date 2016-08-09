@@ -1,12 +1,7 @@
 package org.aksw.horus;
 
 import org.aksw.horus.core.util.Global;
-import org.aksw.horus.search.HorusEvidence;
 import org.apache.commons.lang.NotImplementedException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by dnes on 25/05/16.
@@ -19,27 +14,25 @@ public class HorusToken {
     private int       _ref_next_token; //it links to the next associated term (compound)
     private int       _ref_prev_token; //it links to the previous associated term (compound)
     private String    _postagger_stanford;
+    private String    _ner_stanford;
+
 
     private boolean   _person;
     private boolean   _location;
     private boolean   _organisation;
 
-    /* PER=0, LOC=1, ORG=2 */
-    //private MultiValueMap prob;
-    private HashMap<Global.NERType, Double> prob;
-    private HashMap<Global.NERType, HorusEvidence> evidences;
 
-
-    public HorusToken(int index, String tokenValue, String POS, Global.NLPToolkit tool, int position){
+    public HorusToken(int index, String tokenValue, String POS, Global.NLPToolkit tool, int position, String NER){
         this._tokenValue = tokenValue;
         this._index = index;
         this._position = position;
         //this.prob = new MultiValueMap();
-        this.prob = new HashMap<>();
-        this.evidences = new HashMap<>();
 
         if (tool.equals(Global.NLPToolkit.STANFORD))
             this._postagger_stanford = POS;
+
+        if (tool.equals(Global.NLPToolkit.STANFORD))
+            this._ner_stanford = NER;
 
     }
 
@@ -47,16 +40,8 @@ public class HorusToken {
         return ((_ref_next_token == 0 && _ref_prev_token == 0) ? false: true);
     }
 
-    public int getIndex() {
+    public Integer getIndex() {
         return _index;
-    }
-
-    public Double getProbability(Global.NERType type) {
-        return prob.get(type);
-    }
-
-    public void setProbability(Global.NERType type, double prob) {
-        this.prob.putIfAbsent(type, prob);
     }
 
     public void setIndex(int _index) {
@@ -66,6 +51,13 @@ public class HorusToken {
     public String getPOS(Global.NLPToolkit tool) {
         if (tool.equals(Global.NLPToolkit.STANFORD))
             return _postagger_stanford;
+        else
+            throw new NotImplementedException();
+    }
+
+    public String getNER(Global.NLPToolkit tool) {
+        if (tool.equals(Global.NLPToolkit.STANFORD))
+            return _ner_stanford;
         else
             throw new NotImplementedException();
     }
@@ -104,35 +96,6 @@ public class HorusToken {
         return this._position;
     }
 
-    public String getNER(){
-
-        String ner = "-";
-        for(Map.Entry<Global.NERType, Double> entry : this.prob.entrySet())
-            if (!entry.getValue().equals(0d)){ner = "?"; break;}
-
-        if (ner.equals("-")) return ner;
-
-        ArrayList<Global.NERType> argmax = getIndexOfMaxValues();
-
-        return argmax.toString();
-
-    }
-
-    private ArrayList<Global.NERType> getIndexOfMaxValues() {
-        double max = Double.NEGATIVE_INFINITY;
-
-        ArrayList<Global.NERType> indexes = new ArrayList<>();
-
-        for(Map.Entry<Global.NERType, Double> entry : this.prob.entrySet()){
-
-            if (entry.getValue() >= max) {
-                max = entry.getValue();
-                indexes.add(entry.getKey());
-            }
-        }
-
-        return indexes;
-    }
 
     public boolean isOrganisation() {
         return _organisation;

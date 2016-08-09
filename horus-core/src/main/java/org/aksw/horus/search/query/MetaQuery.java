@@ -25,7 +25,7 @@ public class MetaQuery {
     }
 
 
-    public MetaQuery(Global.NERType type, String text, String additionalContent, Integer sequential){
+    public MetaQuery(Global.NERType type, String text, String additionalContent, Integer horusTermIdentifier){
         this.type = type;
         this.text = text;
         this.additionalContent = additionalContent;

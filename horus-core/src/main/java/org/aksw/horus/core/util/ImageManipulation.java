@@ -40,7 +40,7 @@ public class ImageManipulation {
     }
 
 
-    public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+    public static void saveImage(String imageUrl, String path, String destinationFile) throws Exception {
         URL url = new URL(imageUrl);
 
         URLConnection uc;
@@ -53,7 +53,12 @@ public class ImageManipulation {
         //InputStream is = url.openStream();
         InputStream is = uc.getInputStream();
 
-        OutputStream os = new FileOutputStream(destinationFile);
+        File theDir = new File(path);
+        if (!theDir.exists()) {
+            theDir.mkdir();
+        }
+
+        OutputStream os = new FileOutputStream(path + destinationFile);
 
         byte[] b = new byte[2048];
         int length;

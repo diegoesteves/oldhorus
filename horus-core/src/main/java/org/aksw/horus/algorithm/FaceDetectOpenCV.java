@@ -1,5 +1,6 @@
 package org.aksw.horus.algorithm;
 
+import org.aksw.horus.Horus;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -29,12 +30,12 @@ public class FaceDetectOpenCV {
 
         //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_alt_tree.xml");
         //this.classifier = new CascadeClassifier("/usr/local/Cellar/opencv3/3.1.0_3/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"); //better
-        this.classifier = new CascadeClassifier("C:\\DNE5\\libraries\\opencv\\3.1.0\\opencv\\sources\\data\\haarcascades_cuda\\haarcascade_frontalface_default.xml"); //better
-
-
-
-
-
+        //this.classifier = new CascadeClassifier("C:\\DNE5\\libraries\\opencv\\3.1.0\\opencv\\sources\\data\\haarcascades_cuda\\haarcascade_frontalface_default.xml"); //better
+      try{
+          this.classifier = new CascadeClassifier(Horus.HORUS_CONFIG.getStringSetting("models", "HORUS_PER"));
+      }catch (Exception e){
+       LOGGER.error(e.toString());
+      }
 
     }
 

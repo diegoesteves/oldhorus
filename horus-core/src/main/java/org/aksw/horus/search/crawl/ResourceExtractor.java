@@ -1,12 +1,15 @@
 package org.aksw.horus.search.crawl;
 
 import org.aksw.horus.Horus;
+import org.aksw.horus.core.util.ImageManipulation;
 import org.aksw.horus.search.HorusEvidence;
 import org.aksw.horus.search.cache.ICache;
 import org.aksw.horus.search.query.MetaQuery;
 import org.aksw.horus.search.result.ISearchResult;
 import org.aksw.horus.search.solr.HorusCache;
 import org.aksw.horus.search.web.ISearchEngine;
+import org.aksw.horus.search.web.WebImageVO;
+import org.aksw.horus.search.web.WebResourceVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +29,7 @@ public class ResourceExtractor {
         this.queries = queries;
     }
 
-    public List<HorusEvidence> extractAndCache(ISearchEngine engine) {
+    public List<HorusEvidence> extractAndCache(ISearchEngine engine) throws Exception{
 
         //Map<MetaQuery, HorusEvidence> ret = new HashMap<>();
         List<HorusEvidence> ret = new ArrayList<>();
@@ -90,12 +93,32 @@ public class ResourceExtractor {
         return results;
     }
 
-    private void cacheSearchResults(Set<ISearchResult> searchResults) {
+    private void cacheSearchResults(Set<ISearchResult> searchResults) throws Exception{
 
         long start = System.currentTimeMillis();
+        List<ISearchResult> results = new ArrayList<>();
         ICache<ISearchResult> cache = new HorusCache();
-        for ( ISearchResult result : searchResults )
-            cache.add(result);
+        ImageManipulation imgHelp = new ImageManipulation();
+
+        try{
+            for ( ISearchResult result : searchResults ) {
+                if (!cache.contains(result.getQuery().toString())){
+                    results.add(result);
+                    for (WebResourceVO r: result.getWebResources()){
+                        WebImageVO img = (WebImageVO) r;
+                        try {
+                            imgHelp.saveImage(r.getUrl(), img.getImageFilePath(), img.getImageFileName());
+                        }catch (Exception e){
+                            ((WebImageVO) r).setImageFileName("err.err");
+                        }
+                    }
+                }
+            }
+            cache.addAll(results);
+        }
+        catch (Exception e){
+            throw (e);
+        }
         LOGGER.debug(String.format("  -> Caching took %sms", System.currentTimeMillis()-start));
     }
 }

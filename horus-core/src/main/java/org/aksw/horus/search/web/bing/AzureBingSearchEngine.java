@@ -99,11 +99,13 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                 root.setQuery(query);
                 root.setLanguage("");
 
+
+
                 WebImageVO resource;
                 if (query.getType().equals(Global.NERType.PER) || query.getType().equals(Global.NERType.LOC) || query.getType().equals(Global.NERType.ORG)){
                     resource = new WebImageVO();
 
-                    String image_id = ((AzureSearchImageResult) result).getId();
+                    String image_id = result.getId();
                     String image_type = ((AzureSearchImageResult) result).getContentType();
                     String image_url = ((AzureSearchImageResult) result).getMediaUrl();
 
@@ -111,6 +113,8 @@ public class AzureBingSearchEngine extends DefaultSearchEngine {
                     resource.setImageFileName(image_id + "." + image_type.substring(image_type.lastIndexOf("/") + 1));
                     resource.setImageFilePath(IMG_ROOT_DIR + (query + "_" + query.getType().toString()).hashCode() + "/");
                     resource.setWebSite(root);
+                    resource.setUrl(image_url);
+
                 }else {
                    throw new NotImplementedException();
                 }

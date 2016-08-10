@@ -207,10 +207,10 @@ public abstract class Horus {
             List<HorusEvidence> evidencesPerQuery = ext.extractAndCache(engine);
             LOGGER.info(" -> extracting evidences took " + TimeUtil.formatTime(System.currentTimeMillis() - startCrawl));
 
-            /* 3. Running models */
+            /* 4. Running models */
             recognizeEntities(evidencesPerQuery);
 
-            /* 4. based on indicators, make the decision */
+            /* 5. based on indicators, make the decision */
             makeDecisionAmongAll();
 
         }
@@ -360,10 +360,12 @@ public abstract class Horus {
         FaceDetectOpenCV fd = new FaceDetectOpenCV();
         for (WebResourceVO r: e.getResources()){
             WebImageVO img = (WebImageVO) r;
-            boolean ret = fd.faceDetected(new File(img.getImageFilePath() + img.getImageFileName()));
-            img.setPersonDetected(ret);
-            count++;
-            if (ret) match++;
+            if (!img.getImageFileName().equals("err.err")) {
+                boolean ret = fd.faceDetected(new File(img.getImageFilePath() + img.getImageFileName()));
+                img.setPersonDetected(ret);
+                count++;
+                if (ret) match++;
+            }
         }
         if (count!=0)
             prob = Double.valueOf(match/count);

@@ -49,18 +49,14 @@ public class HorusSentence {
         return this._tokens.get(index);
     }
 
-    public HorusTerm getTerm(Integer index){
-        return this._terms.get(index);
-    }
-
-    public boolean existsTermForToken(Integer tokenIndex){
+    public HorusTerm getTermByTokenId(Integer id){
         for (HorusTerm t: _terms){
-            for (HorusToken tk: t.getTokens()){
-                if (tk.getIndex().equals(tokenIndex))
-                    return true;
+            for(HorusToken tk: t.getTokens()){
+                if (tk.getIndex().equals(id))
+                    return t;
             }
         }
-        return false;
+        return null;
     }
 
 }

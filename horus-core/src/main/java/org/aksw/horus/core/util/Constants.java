@@ -36,8 +36,6 @@ public class Constants {
     public static final String LUCENE_SEARCH_RESULT_FIELD_SITE_PAGE_RANK	           = "website_page_rank";
 
 
-
-
     public static final String SEPARATOR = "\t";
     public static final String METAQUERY_SEPARATOR = "\\|-\\|";
 

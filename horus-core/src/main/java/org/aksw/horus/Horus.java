@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -36,6 +37,7 @@ public abstract class Horus {
     private static List<HorusSentence>  horusSentences = new ArrayList<>();
     public  static HorusConfig          HORUS_CONFIG;
     private static final Logger         LOGGER             = LoggerFactory.getLogger(Horus.class);
+
     private static double               PER_THRESHOLD;
     private static double               LOC_THRESHOLD;
     private static double               ORG_THRESHOLD;
@@ -119,6 +121,7 @@ public abstract class Horus {
         }
     }
 
+    /*
     private static void cacheTerm(String term) throws Exception {
 
         LOGGER.debug(":: caching [" + term);
@@ -126,7 +129,7 @@ public abstract class Horus {
         //engine.downloadAndCacheImages();
 
     }
-
+    */
 
     private static List<MetaQuery>  setSearchEngineQueries(){
 
@@ -177,8 +180,6 @@ public abstract class Horus {
         return queries;
     }
     // *************************************** public methods ***************************************
-
-
 
     public static List<HorusSentence> process(String text) throws Exception{
         LOGGER.info(":: Processing...");
@@ -251,38 +252,40 @@ public abstract class Horus {
      */
     public static void printResults(){
         LOGGER.info(":: Printing results...");
+        DecimalFormat f = new DecimalFormat("0.0000");
 
         for (HorusSentence s : horusSentences) {
             LOGGER.info(":: Sentence Index " + s.getSentenceIndex() + ": " + s.getSentenceText());
             for (HorusToken tk : s.getTokens()) {
 
-                LOGGER.info("  -- token index       : " + tk.getIndex());
-                LOGGER.info("  -- token value       : " + tk.getTokenValue());
+                LOGGER.info("  -- token : " + tk.getIndex() + "-" + tk.getTokenValue());
+                HorusTerm t = s.getTermByTokenId(tk.getIndex());
 
-                if (s.existsTermForToken(tk.getIndex()) && !tk.isComposed()){
-                    LOGGER.info("  -- term index   : " + s.getTerm(tk.getIndex()).getId());
-                    LOGGER.info("  -- tagger       : " + tk.getPOS(Global.NLPToolkit.STANFORD));
-                    LOGGER.info("  -- P(LOC)       : " + String.valueOf(s.getTerm(tk.getIndex()).getProbability(Global.NERType.LOC)));
-                    LOGGER.info("  -- P(PER)       : " + String.valueOf(s.getTerm(tk.getIndex()).getProbability(Global.NERType.PER)));
-                    LOGGER.info("  -- P(ORG)       : " + String.valueOf(s.getTerm(tk.getIndex()).getProbability(Global.NERType.ORG)));
-                    LOGGER.info("  -- HORUS NER    : " + s.getTerm(tk.getIndex()).getHorusNER());
-                    LOGGER.info("  -- Stanford NER : " + tk.getNER(Global.NLPToolkit.STANFORD));
+                if (t != null && !tk.isComposed()){
+                    LOGGER.info("    -- term index   : " + t.getId());
+                    LOGGER.info("    -- POS       : " + tk.getPOS(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("    -- P(PER)       : " + f.format(t.getProbability(Global.NERType.PER).doubleValue()));
+                    LOGGER.info("    -- P(LOC)       : " + f.format(t.getProbability(Global.NERType.LOC).doubleValue()));
+                    LOGGER.info("    -- P(ORG)       : " + f.format(t.getProbability(Global.NERType.ORG).doubleValue()));
+                    LOGGER.info("    -- Stanford NER : " + tk.getNER(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("       -- HORUS NER    : " + t.getHorusNER());
+                    LOGGER.info("");
                 }
             }
 
-            LOGGER.info(" -- extra analysis: compounds");
+            LOGGER.info("  ** extra analysis: compounds ** ");
             LOGGER.info("");
 
             for (HorusTerm t : s.getTerms()) {
                 if (t.isComposedTerm()) {
                     LOGGER.info("  -- term index  : " + t.getId());
                     LOGGER.info("  -- tokens      : " + t.getTokensValue());
-                    LOGGER.info("  -- tagger      : " + t.getTokensPOS(Global.NLPToolkit.STANFORD));
-                    LOGGER.info("  -- P(LOC)      : " + String.valueOf(t.getProbability(Global.NERType.LOC)));
-                    LOGGER.info("  -- P(PER)      : " + String.valueOf(t.getProbability(Global.NERType.PER)));
-                    LOGGER.info("  -- P(ORG)      : " + String.valueOf(t.getProbability(Global.NERType.ORG)));
-                    LOGGER.info("  -- HORUS NER   : " + t.getHorusNER());
-                    LOGGER.info("  -- NER Class   : " + t.getTokensPOS(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("  -- POS      : " + t.getTokensPOS(Global.NLPToolkit.STANFORD));
+                    LOGGER.info("  -- P(PER)      : " + f.format(t.getProbability(Global.NERType.PER)));
+                    LOGGER.info("  -- P(LOC)      : " + f.format(t.getProbability(Global.NERType.LOC)));
+                    LOGGER.info("  -- P(ORG)      : " + f.format(t.getProbability(Global.NERType.ORG)));
+                    LOGGER.info("     -- HORUS NER   : " + t.getHorusNER());
+                    LOGGER.info("");
                 }
             }
             LOGGER.info("");
@@ -368,13 +371,17 @@ public abstract class Horus {
             }
         }
         if (count!=0)
-            prob = Double.valueOf(match/count);
+            prob = Double.valueOf(match) / Double.valueOf(count);
 
         t.setProbability(Global.NERType.PER, prob);
     }
+    //todo: to implement!
     private static void setLocationDetected(HorusTerm t) throws Exception{
+        t.setProbability(Global.NERType.LOC, 0.0d);
     }
+    //todo: to implement!
     private static void setOrganisationDetected(HorusTerm t) throws Exception{
+        t.setProbability(Global.NERType.ORG, 0.0d);
     }
 
     private static HorusTerm getTermByPosition(int position) throws Exception{

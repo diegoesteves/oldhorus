@@ -102,7 +102,7 @@ public class HorusTerm {
 
         for(Map.Entry<Global.NERType, Double> entry : this.prob.entrySet()){
 
-            if (entry.getValue() >= max) {
+            if (entry.getValue() >= max && entry.getValue() != 0d) {
                 max = entry.getValue();
                 indexes.add(entry.getKey());
             }

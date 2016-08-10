@@ -101,16 +101,20 @@ public class ResourceExtractor {
         ImageManipulation imgHelp = new ImageManipulation();
 
         try{
+            int i;
             for ( ISearchResult result : searchResults ) {
                 if (!cache.contains(result.getQuery().toString())){
                     results.add(result);
+                    i = 1;
                     for (WebResourceVO r: result.getWebResources()){
+                        r.setSearchRank(i);
                         WebImageVO img = (WebImageVO) r;
                         try {
                             imgHelp.saveImage(r.getUrl(), img.getImageFilePath(), img.getImageFileName());
                         }catch (Exception e){
                             ((WebImageVO) r).setImageFileName("err.err");
                         }
+                        i++;
                     }
                 }
             }

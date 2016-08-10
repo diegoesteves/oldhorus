@@ -9,6 +9,9 @@ import org.aksw.horus.core.util.Global;
  */
 public class MetaQuery {
 
+    /*
+    todo: check if metaquery string has been taken into account when generating the hash, it will avoid bugs. Also, the hash isn't safe for large database, so change it at some point
+     */
     private Global.NERType type;
     private String text;
     private String additionalContent;

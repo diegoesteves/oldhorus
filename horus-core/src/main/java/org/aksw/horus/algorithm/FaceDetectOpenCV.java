@@ -5,11 +5,12 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.objdetect.CascadeClassifier;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+
+import static org.opencv.highgui.Highgui.imread;
 
 /**
  * Created by dnes on 20/05/16.
@@ -40,7 +41,7 @@ public class FaceDetectOpenCV {
     }
 
     public boolean faceDetected(File img){
-        Mat image = Imgcodecs.imread(img.getAbsolutePath());
+        Mat image = imread(img.getAbsolutePath());
         MatOfRect faceDetections = new MatOfRect();
         this.classifier.detectMultiScale(image, faceDetections);
         return ((faceDetections.toArray().length >= 1) ? true : false);

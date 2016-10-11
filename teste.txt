@@ -1,2 +1,2 @@
-askjdhasjkhda
-
+java doc
+http://www.atetric.com/atetric/javadoc/org.bytedeco.javacpp-presets/opencv/2.4.9-0.8/index.html?org/bytedeco/javacpp/opencv_core.TermCriteria.html

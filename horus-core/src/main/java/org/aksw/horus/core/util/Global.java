@@ -54,6 +54,49 @@ public class Global {
     }
 
 
+    public static boolean serializeSIFTFeatures(ArrayList<Feature> features, String filePath, String fileName) throws Exception{
+
+        String fullName = new StringBuilder()
+                .append(filePath)
+                .append("/")
+                .append(fileName)
+                .append(".sift.csv").toString();
+
+        File f = new File(fullName);
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+
+
+        PrintWriter out = new PrintWriter(fullName);
+
+        String header = "scale,orientation,location_0,location_1,";
+        for (int i=0; i<features.get(0).descriptor.length; i++) {
+            header+= "des_" + i + ",";
+        }
+        out.println(header.substring(0, header.length()-1));
+
+        for (Feature feat: features) {
+            String line = feat.scale + "," +
+                    feat.orientation + "," +
+                    feat.location[0] + "," +
+                    feat.location[1] + ",";
+
+
+            for (int i=0; i<feat.descriptor.length; i++) {
+                line+= feat.descriptor[i] + ",";
+            }
+            System.out.println(line);
+
+            out.println(line.substring(0,line.length()-1));
+        }
+        out.close();
+        LOGGER.debug("Serialized sift features is saved in " + filePath + fileName);
+        return true;
+
+    }
+
+
     /**
      * serializes an object into a specific path
      *
